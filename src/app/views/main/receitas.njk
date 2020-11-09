@@ -1,0 +1,28 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Recipes</title>
+{% endblock %}
+
+{% block content %}
+    <Section class="cards">
+
+        {% for foundRecipe in foundRecipes %}
+
+            <div class="card" id="{{foundRecipe.id}}">
+                <div class="card-img">
+                    <img src="{{foundRecipe.recipe_image}}" alt="burger">
+                </div>
+
+                <div class="card-info">
+                    <h6 class="food-name">{{foundRecipe.recipe_title}}</h6>
+                    <p class="food-author">{{foundRecipe.recipe_author}}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </section>
+</div>
+
+{% endblock%}

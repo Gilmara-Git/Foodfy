@@ -1,0 +1,74 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Admin</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes" class="edit-recipes">
+        <h2>Chef:{{chef.name}}</h2>
+        <a href="/admin/chefs/{{chef.id}}/edit">Edit Chef</a>
+    </div>
+
+    <div class="card-chef-details">
+            <img src="{{chef.image}}" alt="Chef image">
+        
+        <div class="name-qty-recipes">
+
+            <div class="chef_name">
+            <p>{{chef.name}}</p>
+            </div> 
+
+        <div class="qty_recipes">          
+            <p>Recipes:&nbsp{{chef.qty_recipes}}</p>
+        </div>
+
+
+        </div>
+         
+
+    </div>
+
+
+        <div class="chefs-recipes">
+            <p id="title">Recipes</p>
+        </div>
+         
+    <section class="cards-foodfy-admin">
+
+         {% for recipe in recipes %}
+                         
+            <div class="card-admin">
+                
+                <div class="card-img-admin">
+                    <img src="{{chefRecipesImages[0].image}}" alt="Recipe Image">
+                </div>
+              
+                <div class="card-info-admin">
+                    <h6 class="food-name">{{recipe.title}}</h6>
+                    <p class="food-author">{{chef.name}}</p>
+                    <a href="/admin/receitas/{{recipe.id}}">Details</a>
+                </div>
+
+        </div>
+        
+          {% endfor %}
+
+    </section>
+
+   
+
+   
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

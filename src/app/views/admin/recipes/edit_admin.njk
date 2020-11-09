@@ -1,0 +1,47 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Edit recipes</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes-edit">
+        <h2>Editing a recipe</h2>
+        <div id="links">
+            <button id="delete" type="submit" form="delete-recipe">Delete</button>
+            <button id="save" type="submit" form="edit-recipe">Save</button>
+        </div>
+    </div>
+
+    <form id="edit-recipe"
+    class="create-recipe" 
+    method="POST" 
+    action="/admin/receitas?_method=PUT"
+    enctype='multipart/form-data'>
+
+        {% include "admin/recipes/fields_edit.njk" %}
+
+        <input type="hidden" name="id" value="{{recipe.id}}">
+
+    </form>
+
+    <form id="delete-recipe" method="POST" action="/admin/receitas?_method=DELETE">
+        <input type="hidden" name="id" value="{{recipe.id}}">
+    </form>
+
+         {% include "resource_deletion/confirm.njk" %}
+
+</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

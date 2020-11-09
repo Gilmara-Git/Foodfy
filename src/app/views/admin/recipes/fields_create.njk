@@ -1,0 +1,84 @@
+<fieldset>
+<div class="image-container">
+    <div class="photos-upload">
+            <input  id="photos-input" 
+            type="file" 
+            name="photos" 
+            multiple 
+            accept='image/*'
+            onchange = 'PhotosUpload.handleFileInput(event)'>
+        <i class="material-icons">add</i>
+        
+    </div>
+    <div id="photos-preview"></div>
+
+</div>
+
+<div class="inputs">
+
+        <div class="field-name">Recipe title</div>
+
+        <input type="text" name="recipe_title" placeholder="Recipes' title" value="{{recipes.title}}">
+
+    </div>
+
+    <div class="inputs">
+
+        <div class="field-name">Chef</div>
+       
+        <select name="recipe_author_id">
+             
+            {% for listOfChef in listOfChefs %}
+            <option value="{{listOfChef.id}}"{% if listOfChef.id == recipes.chef_id %}selected 
+            {% endif %}>{{listOfChef.name}}</option>
+            {% endfor %}
+           
+
+        </select>
+
+    </div>
+
+    <div class="inputs">
+
+        <div>Ingredients</div>
+
+        <div id="ingredients-fields">
+            
+            <div class="ingredient-field">
+                
+                <input type="text" name="ingredients[]" placeholder="Ingredient" value="{{ingredient}}">
+
+            </div>
+
+        </div>
+
+        <button type="button" id="new-ingredients">Add ingredients</button>
+
+    </div>
+
+    <div class="inputs">
+
+        <div>Preparation</div>
+
+        <div id="steps-fields">
+
+            <div class="step-field">
+                <input type="text" name="steps[]" placeholder="Steps" value="{{step}}">
+            </div>
+
+        </div>
+        <button type="button" id="new-steps">Add steps</button>
+    </div>
+
+    <div class="inputs">
+
+        <div>More information</div>
+
+        <textarea name="add_information" placeholder="Type more info or type N/A" cols="40" rows="5">{{recipe.information}}</textarea>
+
+    </div>
+
+    
+    </div>
+
+</fieldset>

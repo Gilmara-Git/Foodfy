@@ -1,0 +1,52 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Main</title>
+{% endblock %}
+
+{% block filter %}
+    <form id="search-resources" method="GET" action="/">
+        <input type="text" name="filter" placeholder="Search recipe's name" value="{{filter}}">
+
+        <button id="search" type="submit">Search</button>
+    </form>
+{%endblock %}
+
+{% block content %}
+    <div class="background-img">
+        <img src="/assets/chef.png" alt="Chef">
+
+        <h1 class="title">The best recipes</h1>
+        <p class="phrase">Learn how to make the best dishes with recipes from chefs located all over the world.</p>
+
+    </div>
+
+    <div>
+        <h2 class="hot-topics">
+            <a href="/receitas">More recipes</a>
+        </h2>
+    </div>
+
+    <section class="cards">
+
+        {% for foundRecipe in foundRecipes %}
+            {% if loop.index <= 6 %}
+                <div class="card" id="{{foundRecipe.id}}">
+
+                    <div class="card-img">
+                        <img src="{{foundRecipe.image}}" alt="Recipe Image">
+                    </div>
+
+                    <div class="card-info">
+                        <h6 class="food-name">{{foundRecipe.title}}</h6>
+                        <p class="food-author">{{foundRecipe.recipe_author}}</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </section>
+
+</div>
+
+{% endblock %}

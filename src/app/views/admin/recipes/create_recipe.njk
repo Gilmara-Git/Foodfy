@@ -1,0 +1,36 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Create recipes</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+ 
+    <div id="manage-recipes-create">
+        <h2>Creating a recipe</h2>
+        <button type="submit" form="new-recipe">Save recipe</button>
+    </div>
+
+    <form id="new-recipe" 
+    class="create-recipe" 
+    method="POST" 
+    action="/admin/receitas"
+    enctype="multipart/form-data">
+
+        {% include "admin/recipes/fields_create.njk" %}
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

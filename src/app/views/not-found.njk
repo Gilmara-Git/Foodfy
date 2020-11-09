@@ -1,0 +1,20 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Page not found</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="not-found">
+        <div id="recipe-not-found">Content not found.</div>
+        <div id="redirect">We are redirecting you to create recipe.</div>
+    </div>
+
+</div>
+
+<script>
+    setTimeout(()=> { location.href = "/admin/receitas/create" }, 2000)
+</script>
+
+{% endblock %}

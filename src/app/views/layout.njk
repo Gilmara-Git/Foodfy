@@ -1,0 +1,51 @@
+<html>
+
+    <head>
+        {%block title %}
+            <title>Foodfy</title>
+        {% endblock %}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/admin_pages.css"/>
+        <script src="/script_receitas.js" defer="defer"></script>
+        <script src="/script_receitas_admin.js" defer="defer"></script>
+        <script src="/script_pagination.js" defer="defer"></script>
+        <script src="/script_images.js" defer="defer"></script>
+
+    </head>
+
+    <body>
+        <div class="main">
+
+            <header>
+
+                {% block header %}
+                <div class="menu-links">
+                    <div class="links-top">
+                        <img id="logo" src="/assets/logo.png" alt="Logo Foodfy">
+                        <a id="sobre" href="/sobre">About</a>
+                        <a id="recipes"  href="/admin/receitas">Recipes</a>
+                        <a id="chefs" href="/admin/chefs">Chefs</a>
+
+                        {%block filter%}{% endblock %}
+
+
+                    </div>
+                </div>
+                    {% endblock%}
+
+                </header>
+
+                {% block content %}{% endblock %}
+
+                {% block footer%}
+                    <footer>
+                        <p class="text">All rights reserved, Foodfy recipes.</p>
+                    </footer>
+                {% endblock %}
+
+                 
+
+            </body>
+
+        </html>

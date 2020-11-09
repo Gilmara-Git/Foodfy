@@ -1,0 +1,64 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Admin</title>
+{% endblock %}
+
+{% block header %}
+ <div class="menu-links">
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+   </div> 
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes-index-admin">
+        <h2>Manage Chefs</h2>
+        <form method="GET" action="/admin/chefs">
+            <input type="text" 
+            name="filter" 
+            placeholder="Search chefs by name" 
+            value="{{filter}}">
+
+            <button id="search" type="submit">Search</button>
+        </form>
+        <div id="new-chef-link"><a id="new-chef" href="/admin/chefs/create">New</a>
+       
+    </div>
+    </div>
+
+    <section class="cards-foodfy-admin-chefs">
+
+        {% for chef in chefs %}
+            <div class="card-admin-chefs" id="{{chef.id}}">
+
+                <div class="card-img-admin-chef">
+                    
+                    <img src="{{chef.path}}" alt="Chef's avatar">
+                   
+                </div>
+
+                <div class="card-info-admin">
+                        <h6 class="chef-name">{{chef.name}}</h6> 
+
+                    <div id="view-chef-link">                    
+                    <a id="new-chef" href="/admin/chefs/{{chef.id}}">View</a>                
+                    </div>                                      
+                </div>
+     
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+    
+    </div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

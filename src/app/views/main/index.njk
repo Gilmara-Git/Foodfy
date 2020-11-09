@@ -1,0 +1,44 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Main</title>
+{% endblock %}
+
+{% block content %}
+    <div class="background-img">
+        <img src="/assets/chef.png" alt="Chef">
+
+        <h1 class="title">The best recipes</h1>
+        <p class="phrase">Learn how to make the best dishes with recipes from chefs located all over the world.</p>
+
+    </div>
+
+    <div>
+        <h2 class="hot-topics">
+            <a href="/receitas">More recipes</a>
+        </h2>
+    </div>
+
+    <section class="cards">
+
+        {% for recipe in recipes %}
+            {% if loop.index <= 6 %}
+                <div class="card" id="{{recipe.id}}">
+
+                    <div class="card-img">
+                        <img src="{{recipe.image}}" alt="burger">
+                    </div>
+
+                    <div class="card-info">
+                        <h6 class="food-name">{{recipe.title}}</h6>
+                        <p class="food-author">{{recipe.author}}</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </section>
+
+</div>
+
+{% endblock %}

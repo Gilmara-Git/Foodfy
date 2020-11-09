@@ -1,0 +1,34 @@
+<fieldset>
+
+     <div class="inputs">
+
+        <div class="field-name">Chef's name</div>
+
+        <input type="text" name="chef_name" placeholder="Chef's name" value="{{chef.name}}">
+
+    </div>
+
+
+    <div class="input chef">
+
+        <div class="field-name">
+            Chef's avatar
+        </div>
+        
+        
+            <div class="show-avatar"></div>
+
+                <div id="photos-upload">
+                <button type='button'>Add Avatar</button>
+                <input type="file" 
+                id="photos-input"
+                name="photos"
+                multiple
+                accept='image/*' 
+                onchange='ChefAvatar.handleAvatar(event)'/>        
+            </div>
+
+               
+    </div>
+
+</fieldset>

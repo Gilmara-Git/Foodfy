@@ -1,0 +1,11 @@
+
+<script>
+// Delete button in the FORM
+const deleteButton = document.querySelector("#links button#delete")
+deleteButton.onclick = function (event) { //this event is the event submit of the delete form
+  const userConfirmation = confirm("'OK' to delete. 'CANCEL' do go back.")
+  if (!userConfirmation) {
+    event.preventDefault()
+  }
+}
+</script>

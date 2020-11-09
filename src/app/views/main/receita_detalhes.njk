@@ -1,0 +1,63 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Main</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="card-recipe-img">
+        <img src="{{details.image}}" alt="Recipe image">
+    </div>
+
+    <div class="receita-nome-autor">
+        <h6 class="food-name">{{details.title}}</h6>
+        <p class="food-author">{{details.author}}</p>
+    </div>
+
+    <div id="ingredients">Ingredients
+
+        <button class="button-show">Show</button>
+        <button class="button-hide">Hide</button>
+
+    </div>
+
+    <div class="more-details-ing">
+        {% for ingredient in details.ingredients%}
+            <ul>
+                <li>{{ingredient}}</li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <div id="preparation">Preparation
+        <div >
+            <button class="button-show">Show</button>
+        </div>
+        <div >
+            <button class="button-hide">Hide</button>
+        </div>
+    </div>
+
+    <div class="more-details-prep">
+        {% for step in details.steps %}
+            <ul>
+                <li>{{step}}</li>
+            </ul>
+        {% endfor %}
+    </div>
+
+    <div id="add-info">Additional Information
+        <div >
+            <button class="button-show">Show</button>
+        </div>
+        <div >
+            <button class="button-hide">Hide</button>
+        </div>
+    </div>
+
+    <div class="more-details-info">{{details.information}}</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Creating a Chef</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-chefs-create">
+        <h2>Creating a chef</h2>
+        <button type="submit" form="new-chef">Save chef</button>
+    </div>
+
+    <form id="new-chef" 
+    class="create-chef" 
+    method="POST" 
+    action="/admin/chefs"
+    enctype='multipart/form-data'>
+
+        {% include "admin/chefs/fields.njk" %}
+        
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

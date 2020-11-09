@@ -1,0 +1,69 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Admin</title>
+{% endblock %}
+
+{% block header %}
+     <div class="menu-links">
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes"  href="/receitas">Recipes</a>
+        <a id="chefs"  href="/admin/chefs">Chefs</a>
+    </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes-index-admin">
+        <h2>Manage Recipes</h2>
+        <form method="GET" action="/admin/receitas">
+            
+            <input type="text" 
+            name= "filter" 
+            placeholder="Search recipe's name"
+            value="{{filter}}">
+
+            <button id="search" type="submit">Search</button>
+        </form >
+        <div id="new-recipe-link"><a id="new-recipe" href="/admin/receitas/create">New</a></div>
+       
+    </div>
+
+    <section class="cards-foodfy-admin">
+
+        {% for sixrecipe in sixrecipes %}
+            <div class="card-admin" id="{{sixrecipe.id}}">
+
+                <div class="card-img-admin">
+                    <img src="{{sixrecipe.image}}" alt="burger">
+                </div>
+
+                <div class="card-info-admin">
+                    <h6 class="food-name">{{sixrecipe.title}}</h6>
+                    <p class="food-author">{{sixrecipe.recipe_author}}</p>
+                    <a href="/admin/receitas/{{sixrecipe.id}}">Details</a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+    <div class="pagination" 
+    data-page="{{pagination.page}}"
+    data-total="{{pagination.total}}"
+    data-filter="{{filter}}"
+     >
+
+    </div>
+
+     
+
+</div>
+
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

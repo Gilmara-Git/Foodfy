@@ -1,0 +1,83 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Admin</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes" class="edit-recipes">
+        <h2>Recipe:{{recipe.title}} </h2>
+
+        <a href="/admin/receitas/{{recipe.id}}/edit">Edit Recipe</a>
+    </div>
+        
+     <div class="gallery-highlight">
+         <img src="{{images[0].src}}" alt="{{images[0].name}}"/>
+     </div>
+     
+    <div class="gallery-preview">
+        {% for image in images %}
+            <div class="small-gallery">
+                <img 
+                src="{{image.src}}" 
+                alt="{{image.name}}"
+                {% if loop.index0 == 0 %} 
+                class='active'
+                {% endif %}
+                onclick="GalleryPhotos.sendMetoHighlight(event)"/>
+            </div>
+    {% endfor %}
+
+    </div>
+    
+    <div class="receita-nome-autor">
+        <h6 class="food-name">{{recipe.title}}</h6>
+        <p class="food-author">{{recipe.recipe_author}}</p>
+    </div>
+
+    <div id="ingredients">Ingredients
+
+    </div>
+
+    <div class="more-details-ing">
+        {%for ingredient in recipe.ingredients %}
+            <ul>
+                <li>{{ingredient}}</li>
+
+            </ul>
+        {% endfor %}
+    </div>
+
+    <div id="preparation">Preparation
+
+    </div>
+
+    <div class="more-details-prep">
+        {% for step in recipe.steps%}
+            <ul>
+                <li>{{step}}</li>
+
+            </ul>
+            {% endfor%}
+        </div>
+
+        <div id="add-info">Additional Information
+
+        </div>
+
+        <div class="more-details-info">{{recipe.information}}</div>
+
+    </div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}
