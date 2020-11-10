@@ -1,4 +1,3 @@
-const { findChefsRecipes } = require("../models/Chef")
 const Chef = require("../models/Chef")
 const File = require('../models/File')
 
@@ -62,53 +61,30 @@ async post(req, res) {
 async show(req, res) {
 
 const{ id } = req.params
-
 let results = await Chef.findChefsData(id) // chefs, qty_recipes, files.path
 let chef =  results.rows[0]
 
 if(!chef) return res.send('Recipe not found.')
-
 chef = {
     ...chef,
     image: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
 }
+//chefsRecipes
+results = await Chef.findChefsRecipes(id)
+const recipes =  results.rows
 
-results =  await Chef.findAllChefRecipes(id)
-const recipes = results.rows
-//console.log(recipes)
 
 results = await Chef.findChefRecipesData(id)
-
-
 let chefRecipesImages = results.rows.map(chefRecipesImage=>({
-
     ...chefRecipesImage,
     image: `${req.protocol}://${req.headers.host}${chefRecipesImage.path.replace(/\public/g, "")}`
 
 }))
 
-console.log(chefRecipesImages)
 console.log(chefRecipesImages[0].image)
-console.log(chefRecipesImages.image)
+//console.log(chefRecipesImages[0].image)
+//console.log(chefRecipesImages.image)
 
-
-// for (x=0; x < chefRecipesImages.length; x++){
-
-//     if(x == 0 ) {
-//     const images   = chefRecipesImages[0].image 
-//     const recipeId = chefRecipesImages[0].recipe_id
-//     const index  =  chefRecipesImages.indexOf(images)
-//     console.log(recipeId)
-//     console.log(images)
-//     console.log(index)
-//     }
-
-    
-
-    
-// }
-
-   
 
 return res.render("admin/chefs/show_admin", { chef, recipes, chefRecipesImages })
     

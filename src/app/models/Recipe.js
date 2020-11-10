@@ -68,7 +68,7 @@ module.exports = {
     },
 
     find(id) {
-      console.log(id)
+      //console.log(id)
       try {
         return db.query(
           `SELECT recipes.*, chefs.name AS recipe_author

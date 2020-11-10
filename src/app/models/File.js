@@ -4,7 +4,7 @@ module.exports = {
 
 
     all(id) {
-
+ //console.log(id)
         try {
 
             

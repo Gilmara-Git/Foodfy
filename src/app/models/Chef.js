@@ -95,28 +95,8 @@ findChefsData(id){
         console.error(error)
     }
 
-    
 
 },
-
-findAllChefRecipes(id){
-
-    try {
-
-        return db.query(`
-
-        SELECT * FROM recipes
-        WHERE recipes.chef_id = $1`, [id]
-)
-
-        
-    } catch (error) {
-         console.error(error)
-    }
-
-  
-},
-
 
 
 findChefRecipesData(id){
@@ -145,21 +125,6 @@ findChefRecipesData(id){
      
 },
 
-findChefImagePath(chefImageId){
-
-    try {
-        
-        return db.query(`
-
-                    SELECT files.path FROM files WHERE id=$1`, [chefImageId])
-
-    } catch (error) {
-        console.error(error);
-    }
-
-
-
-},
 
 findChefsRecipes(id){
 
@@ -179,22 +144,6 @@ findChefsRecipes(id){
         
         console.error(error)
     }
-
-},
-
-findRecipeFilesId(recipe_id){
-    console.log(recipe_id)
-    try {
-        return db.query (`
-        
-        SELECT file_id FROM recipe_files WHERE recipe_id = $1`, [recipe_id]
-)
-        
-    } catch (error) {
-        connsole.error(error)
-    }
-
-        
 
 },
 

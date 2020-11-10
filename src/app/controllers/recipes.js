@@ -40,7 +40,8 @@ module.exports = {
     };
 
     let results = await Recipe.paginate(params);
-    if (results.rows == "") return res.render("not-found");
+    if (results.rows == "") return res.render("Recipe not-found");
+    console.log(results.rows)
     
     pagination = {
       page,
@@ -48,7 +49,7 @@ module.exports = {
     };
 
     res.render("admin/recipes/index_admin", {
-      sixrecipes: results.rows,
+      recipes: results.rows,
       filter,
       pagination,
     });
@@ -65,12 +66,12 @@ module.exports = {
 
   async show(req, res) {
     const { index } = req.params;
-    
+    console.log(index)
 
     let results = await Recipe.find(index);
     if (!results.rows) return res.send("Recipe not found.");
     const recipe = results.rows[0];
-    
+    //console.log(recipe)
 
     results =  await File.all(index);
     let  images = results.rows.map(image =>({
@@ -79,7 +80,7 @@ module.exports = {
       src:`${req.protocol}://${req.headers.host}${image.path.replace(/\public/g, "")}`
 
     }))
-
+    console.log(images)
 
     return res.render("admin/recipes/show_admin", { recipe, images })
   },
@@ -116,7 +117,7 @@ module.exports = {
 
     if (req.files.length == "")
       return res.send("Please send at least one image.");
-    console.log(req.files)
+    //console.log(req.files)
 
     let results = await Recipe.create(req.body);
     const recipe_id = results.rows[0].id

@@ -33,17 +33,17 @@
 
     <section class="cards-foodfy-admin">
 
-        {% for sixrecipe in sixrecipes %}
-            <div class="card-admin" id="{{sixrecipe.id}}">
+        {% for recipe in recipes %}
+            <div class="card-admin" id="{{recipe.id}}">
 
                 <div class="card-img-admin">
-                    <img src="{{sixrecipe.image}}" alt="burger">
+                    <img src="{{recipe.image}}" alt="burger">
                 </div>
 
                 <div class="card-info-admin">
-                    <h6 class="food-name">{{sixrecipe.title}}</h6>
-                    <p class="food-author">{{sixrecipe.recipe_author}}</p>
-                    <a href="/admin/receitas/{{sixrecipe.id}}">Details</a>
+                    <h6 class="food-name">{{recipe.title}}</h6>
+                    <p class="food-author">{{recipe.recipe_author}}</p>
+                    <a href="/admin/receitas/{{recipe.id}}">Details</a>
                 </div>
             </div>
 
