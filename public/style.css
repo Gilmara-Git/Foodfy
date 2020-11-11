@@ -362,6 +362,9 @@ footer#receitas-footer {
 .card-recipe-img img {
 
     border-radius: 25px;
+    width: 940px;
+    height: 300px;
+    object-fit: cover;
 }
 
 

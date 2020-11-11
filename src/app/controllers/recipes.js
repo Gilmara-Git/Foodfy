@@ -8,17 +8,32 @@ module.exports = {
     const { filter } = req.query;
    
     let results = await Recipe.all(filter);
+    if (results.rows == "") return res.render("Recipe not-found");
 
-    if (results.rows == "") return res.render("not-found");
-
-    return res.render("main/home", { foundRecipes: results.rows });
+    let allRecipes = results.rows.map(recipe=>({ 
+      ...recipe, 
+      image: `${req.protocol}://${req.headers.host}${recipe.path.replace(/\public/g, "")}`
+    })
+    )
+   
+    return res.render("main/home", { recipes: allRecipes });
   },
 
   async showRecipeDetails(req, res) {
-    const recipeIndex = req.params.index;
+    const {id} = req.params;
+    let results = await Recipe.find(id);
+    if (!results.rows) return res.send("Recipe not found.");
+    const recipe = results.rows[0];
     
-    await Recipe.find(recipeIndex);
-    return res.render("main/receita_detalhes", { details: recipeIndex });
+    results =  await File.all(id);
+    let  image = results.rows.map(image =>({
+      ...image,
+      path:`${req.protocol}://${req.headers.host}${image.path.replace(/\public/g, "")}`
+
+    }))
+
+    //console.log(image[0].path)
+    return res.render("main/receita_detalhes", {recipe, image});
   },
 
   sobre(req, res) {
@@ -33,23 +48,24 @@ module.exports = {
     limit = limit || 2;
     let offset = limit * (page - 1);
 
-    const params = {
-      filter,
-      limit,
-      offset,
-    };
+    const params = {  filter,limit,offset };
 
     let results = await Recipe.paginate(params);
     if (results.rows == "") return res.render("Recipe not-found");
-    console.log(results.rows)
-    
+        
     pagination = {
       page,
       total: Math.ceil(results.rows[0].total / limit),
     };
 
+    const recipes = results.rows.map(recipe=>({
+      ...recipe,
+      path: `${req.protocol}://${req.headers.host}${recipe.path.replace(/\public/g,"")}`
+    }))
+    //console.log(recipes)
+
     res.render("admin/recipes/index_admin", {
-      recipes: results.rows,
+      recipes,
       filter,
       pagination,
     });
@@ -65,15 +81,14 @@ module.exports = {
   },
 
   async show(req, res) {
-    const { index } = req.params;
-    console.log(index)
-
-    let results = await Recipe.find(index);
+    const { id } = req.params;
+    
+    let results = await Recipe.find(id);
     if (!results.rows) return res.send("Recipe not found.");
     const recipe = results.rows[0];
     //console.log(recipe)
 
-    results =  await File.all(index);
+    results =  await File.all(id);
     let  images = results.rows.map(image =>({
 
       ...image,

@@ -10,12 +10,12 @@ const multer = require('./app/middlewares/multer')
 routes.get("/receitas", recipes.home)
 routes.get("/", recipes.home )
 routes.get("/sobre", recipes.sobre)
-routes.get("/receitas/:index", recipes.showRecipeDetails)
+routes.get("/receitas/:id", recipes.showRecipeDetails)
  
 //Admin routes - recipes
 routes.get("/admin/receitas", recipes.index )
 routes.get("/admin/receitas/create", recipes.create )
-routes.get("/admin/receitas/:index", recipes.show)
+routes.get("/admin/receitas/:id", recipes.show)
 routes.get("/admin/receitas/:id/edit", recipes.edit )
 
 routes.post("/admin/receitas", multer.array('photos', 5),  recipes.post )

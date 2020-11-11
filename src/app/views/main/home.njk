@@ -29,17 +29,17 @@
 
     <section class="cards">
 
-        {% for foundRecipe in foundRecipes %}
+        {% for recipe in recipes %}
             {% if loop.index <= 6 %}
-                <div class="card" id="{{foundRecipe.id}}">
+                <div class="card" id="{{recipe.id}}">
 
                     <div class="card-img">
-                        <img src="{{foundRecipe.image}}" alt="Recipe Image">
+                        <img src="{{recipe.image}}" alt="Recipe Image">
                     </div>
 
                     <div class="card-info">
-                        <h6 class="food-name">{{foundRecipe.title}}</h6>
-                        <p class="food-author">{{foundRecipe.recipe_author}}</p>
+                        <h6 class="food-name">{{recipe.title}}</h6>
+                        <p class="food-author">{{recipe.recipe_author}}</p>
                     </div>
                 </div>
             {% endif %}

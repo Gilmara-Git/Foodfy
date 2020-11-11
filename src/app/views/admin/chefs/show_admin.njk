@@ -48,10 +48,8 @@
          
              {% for recipe in recipes %}             
             <div class="card-admin">
-                <div class="card-img-admin">
-                    
-                    <img src="{{chefRecipesImages[0].image}}" alt="Recipe Image">
-                   
+                <div class="card-img-admin">                           
+                    <img src="{{recipe.path}}" alt="Recipe Image">
                 </div>
                
                 <div class="card-info-admin">

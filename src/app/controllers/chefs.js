@@ -69,36 +69,62 @@ chef = {
     ...chef,
     image: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
 }
-//chefsRecipes
-results = await Chef.findChefsRecipes(id)
-const recipes =  results.rows
 
-
-results = await Chef.findChefRecipesData(id)
-let chefRecipesImages = results.rows.map(chefRecipesImage=>({
-    ...chefRecipesImage,
-    image: `${req.protocol}://${req.headers.host}${chefRecipesImage.path.replace(/\public/g, "")}`
-
+results = await Chef.test(id)
+const recipes = results.rows.map(recipe=>({
+    ...recipe,
+    path: `${req.protocol}://${req.headers.host}${recipe.path.replace(/\public/g, "")}`
 }))
 
-console.log(chefRecipesImages[0].image)
+//console.log(recipes)
+
+results = recipes.forEach(recipe=>{
+    let id = recipe.id
+    let pathArray = [];
+    console.log(id)
+    if(id == recipe.id){
+        let sameId = id
+        console.log(`same ${sameId}`)
+        recipe.path
+        //pathArray.push(recipe.path)
+       // console.log(pathArray)
+    } else console.log(recipe.path)
+
+})
+console.log(results)
+
+//console.log(recipes[1].path)
+//console.log(chef)
+// results = await Chef.findChefsRecipes(id)
+// const recipes =  results.rows
+// console.log(recipes)
+
+// results = await Chef.findChefRecipesData(id)
+// let chefRecipesImages = results.rows.map(chefRecipesImage=>({
+//     ...chefRecipesImage,
+//     image: `${req.protocol}://${req.headers.host}${chefRecipesImage.path.replace(/\public/g, "")}`
+
+// }))
+
+//.log(chefRecipesImages[1].image)
 //console.log(chefRecipesImages[0].image)
 //console.log(chefRecipesImages.image)
 
 
-return res.render("admin/chefs/show_admin", { chef, recipes, chefRecipesImages })
+return res.render("admin/chefs/show_admin", { chef, recipes})
     
 },
 
-edit(req, res) {
+async edit(req, res) {
     
     const { id } = req.params
   
-    Chef.find(id, function(chef){
+   const results = await Chef.findChefsData(id)
+   const chef = results.rows[0]
 
         res.render("admin/chefs/edit_admin", { chef })
 
-    })
+    
 }, 
 
 put(req, res) {

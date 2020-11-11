@@ -7,9 +7,12 @@ module.exports = {
       try {
         let filterQuery = "";
         let query = `
-  SELECT recipes.*, chefs.name AS recipe_author
-  FROM recipes
-  LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+  SELECT recipes.*, files.path, chefs.name AS recipe_author
+  FROM recipes  
+  LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
+  LEFT JOIN files ON (files.id = recipe_files.file_id)
+  LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)
+  
   `;
 
         if (filter) {
@@ -18,14 +21,16 @@ module.exports = {
         }
 
         query = ` 
-  SELECT recipes.*, chefs.name AS recipe_author
-  FROM recipes
-  LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+  SELECT recipes.*, files.path, chefs.name AS recipe_author
+  FROM recipes  
+  LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
+  LEFT JOIN files ON (files.id = recipe_files.file_id)
+  LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)  
   ${filterQuery}`;
 
         return db.query(`
   ${query}
-  GROUP BY recipes.id, recipe_author
+  GROUP BY recipes.id, files.id, recipe_files.id, chefs.name
   ORDER BY chefs.name`);
       } catch (error) {
         console.error(error);
@@ -146,11 +151,13 @@ module.exports = {
       }
 
       query = ` 
-  SELECT recipes.*, ${totalQuery}, chefs.name AS recipe_author
+  SELECT recipes.*, ${totalQuery}, files.path, chefs.name AS recipe_author
   FROM recipes
+  LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
+  LEFT JOIN files ON (files.id = recipe_files.file_id)
   LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
   ${filterQuery}
-  GROUP BY recipes.id, recipe_author
+  GROUP BY recipes.id, files.id, recipe_files.id, chefs.name
   ORDER BY chefs.name
   LIMIT $1
   OFFSET $2`;

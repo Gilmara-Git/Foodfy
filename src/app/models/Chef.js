@@ -98,6 +98,28 @@ findChefsData(id){
 
 },
 
+test(id){
+
+    try {
+        return db.query(`
+
+        SELECT recipes.id, recipes.title, files.path
+        FROM recipes
+        LEFT JOIN recipe_files ON (recipes.id = recipe_files.recipe_id)
+        LEFT JOIN files ON (files.id = recipe_files.file_id)
+        LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+        where chefs.id = $1
+        group by files.id, recipes.id, chefs.id
+        
+        `, [id])
+    } catch (error) {
+        console.error(error)
+    }
+
+
+
+},
+
 
 findChefRecipesData(id){
 

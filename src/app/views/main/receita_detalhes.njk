@@ -7,12 +7,12 @@
 {% block content %}
 
     <div class="card-recipe-img">
-        <img src="{{details.image}}" alt="Recipe image">
+        <img src="{{image[0].path}}" alt="Recipe image">
     </div>
 
     <div class="receita-nome-autor">
-        <h6 class="food-name">{{details.title}}</h6>
-        <p class="food-author">{{details.author}}</p>
+        <h6 class="food-name">{{recipe.title}}</h6>
+        <p class="food-author">{{recipe.recipe_author}}</p>
     </div>
 
     <div id="ingredients">Ingredients
@@ -23,7 +23,7 @@
     </div>
 
     <div class="more-details-ing">
-        {% for ingredient in details.ingredients%}
+        {% for ingredient in recipe.ingredients%}
             <ul>
                 <li>{{ingredient}}</li>
             </ul>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="more-details-prep">
-        {% for step in details.steps %}
+        {% for step in recipe.steps %}
             <ul>
                 <li>{{step}}</li>
             </ul>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="more-details-info">{{details.information}}</div>
+    <div class="more-details-info">{{recipe.information}}</div>
 
 </div>
 
