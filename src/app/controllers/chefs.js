@@ -6,16 +6,14 @@ module.exports = {
 async index(req, res){
     
     const  {  filter } = req.query
-    //console.log(filter)
-
+    
    let results = await Chef.all(filter)
    let chefs = results.rows.map((chef) => ({
 
         ...chef,
         path: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
    }))
-        //console.log(chefs)
-    
+            
     return res.render('admin/chefs/index_admin', {chefs, filter})
 
  },
@@ -41,17 +39,20 @@ async post(req, res) {
 
      }))
 
-      await Promise.all(filesPromise).then((files)=>{
 
-        for(n=0; n< files.length; n++){
-            const fileIdsArray = files[n].rows
-            for (file of fileIdsArray){
-                console.log(file.id)
-             Chef.create(req.body, file.id)
-            }
-        }
-     })
-     
+    const creatingChefImage = await Promise.all(filesPromise)  
+    //console.log('Linha 49', JSON.stringify(creatingChefImage, null, 2))
+    const fileId = creatingChefImage.map((item)=>{
+               return  {
+                   
+               id: item.rows[0].id 
+
+               }
+    });   
+    
+results = await Chef.create(req.body, fileId[0].id)
+//console.log('linha 65' , results.rows)
+
          
     return res.redirect("/admin/chefs")
 
@@ -64,66 +65,40 @@ const{ id } = req.params
 let results = await Chef.findChefsData(id) // chefs, qty_recipes, files.path
 let chef =  results.rows[0]
 
-if(!chef) return res.send('Recipe not found.')
+if(!chef) return res.send('Chef not found.')
 chef = {
     ...chef,
-    image: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
+    path: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
 }
 
-results = await Chef.test(id)
-const recipes = results.rows.map(recipe=>({
-    ...recipe,
-    path: `${req.protocol}://${req.headers.host}${recipe.path.replace(/\public/g, "")}`
-}))
+results = await Chef.recipesIds(id)
+const chefIdRecipeIds =  results.rows.map(chefIdRecipeId => Chef.recipeJustOneImage(chefIdRecipeId))
 
-//console.log(recipes)
+const recipesInfo = await Promise.all(chefIdRecipeIds)
+const recipeNameIdImage = recipesInfo.map(item=>{
+    return {
+        ...item.rows[0], 
+        path:  `${req.protocol}://${req.headers.host}${item.rows[0].path.replace('public', '')}`,
+        
+}
+});
 
-results = recipes.forEach(recipe=>{
-    let id = recipe.id
-    let pathArray = [];
-    console.log(id)
-    if(id == recipe.id){
-        let sameId = id
-        console.log(`same ${sameId}`)
-        recipe.path
-        //pathArray.push(recipe.path)
-       // console.log(pathArray)
-    } else console.log(recipe.path)
-
-})
-console.log(results)
-
-//console.log(recipes[1].path)
-//console.log(chef)
-// results = await Chef.findChefsRecipes(id)
-// const recipes =  results.rows
-// console.log(recipes)
-
-// results = await Chef.findChefRecipesData(id)
-// let chefRecipesImages = results.rows.map(chefRecipesImage=>({
-//     ...chefRecipesImage,
-//     image: `${req.protocol}://${req.headers.host}${chefRecipesImage.path.replace(/\public/g, "")}`
-
-// }))
-
-//.log(chefRecipesImages[1].image)
-//console.log(chefRecipesImages[0].image)
-//console.log(chefRecipesImages.image)
-
-
-return res.render("admin/chefs/show_admin", { chef, recipes})
+return res.render("admin/chefs/show_admin", { chef, recipes:recipeNameIdImage})
     
 },
 
 async edit(req, res) {
     
-    const { id } = req.params
-  
-   const results = await Chef.findChefsData(id)
-   const chef = results.rows[0]
+const { id } = req.params;  
+const results = await Chef.findChefsData(id);
 
-        res.render("admin/chefs/edit_admin", { chef })
+let chefToBeEdited = results.rows[0];
+chefToBeEdited = {
+    ...chefToBeEdited,
+    path: `${req.protocol}://${req.headers.host}${chefToBeEdited.path.replace(/\public/g, "")}`
+}
 
+res.render("admin/chefs/edit_admin", { chefToBeEdited })
     
 }, 
 

@@ -20,7 +20,7 @@
     </div>
 
     <div class="card-chef-details">
-            <img src="{{chef.image}}" alt="Chef image">
+            <img src="{{chef.path}}" alt="Chef image">
         
         <div class="name-qty-recipes">
 
@@ -46,7 +46,7 @@
     <section class="cards-foodfy-admin">
 
          
-             {% for recipe in recipes %}             
+             {% for recipe in recipes %}           
             <div class="card-admin">
                 <div class="card-img-admin">                           
                     <img src="{{recipe.path}}" alt="Recipe Image">
@@ -57,10 +57,8 @@
                     <p class="food-author">{{chef.name}}</p>
                     <a href="/admin/receitas/{{recipe.id}}">Details</a>
                 </div>
-
         </div>
-        
-          {% endfor %}
+            {% endfor %}
 
     </section>
 

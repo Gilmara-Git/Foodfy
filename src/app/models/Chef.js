@@ -42,7 +42,6 @@ all(filter) {
 
 create(data, id){
 
-
     try {
 
         const query = `
@@ -98,7 +97,20 @@ findChefsData(id){
 
 },
 
-test(id){
+recipesIds(id){
+//console.log(id)
+        try {
+            
+            return db.query(` SELECT recipes.id, recipes.chef_id 
+                                FROM recipes WHERE chef_id = $1`, [id])
+
+        } catch (error) {
+            console.error(error)
+        }
+
+},
+
+recipeJustOneImage({chef_id, id}){
 
     try {
         return db.query(`
@@ -108,65 +120,15 @@ test(id){
         LEFT JOIN recipe_files ON (recipes.id = recipe_files.recipe_id)
         LEFT JOIN files ON (files.id = recipe_files.file_id)
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-        where chefs.id = $1
-        group by files.id, recipes.id, chefs.id
+        WHERE chefs.id = $1 and recipes.id =$2
+        GROUP by files.id, recipes.id, chefs.id
+        LIMIT 1
         
-        `, [id])
+        `, [chef_id, id])
     } catch (error) {
         console.error(error)
+        
     }
-
-
-
-},
-
-
-findChefRecipesData(id){
-
-    try {
-
-        return db.query(        
-        
-            `          
-            SELECT files.*, recipe_files.*
-            FROM files
-            LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-            LEFT JOIN recipes ON (recipes.id = recipe_files.recipe_id)
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            WHERE chefs.id = $1
-            GROUP BY files.id, recipes.id, chefs.id, recipe_files.id
-            ORDER BY recipes.id
-
-                   
-        `, [id] )
-    
-        
-    } catch (error) {
-        console.error(error);
-    }
-     
-},
-
-
-findChefsRecipes(id){
-
-    try {
-        
-        return  db.query(        
-        
-            `
-                    SELECT chefs.name, recipes.title, recipes.id AS recipe_id
-                    FROM chefs
-                    LEFT JOIN recipes ON (recipes.chef_id = chefs.id) 
-                    WHERE chefs.id = $1
-                    GROUP BY chefs.id, recipes.id`, [id] ) 
- 
-        
-    } catch (error) {
-        
-        console.error(error)
-    }
-
 },
 
 update(data, callback){
