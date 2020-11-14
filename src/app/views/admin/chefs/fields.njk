@@ -16,7 +16,18 @@
         </div>
         
         
-            <div class="show-avatar"></div>
+            <div class="show-avatar">
+                {%if image%}
+                <div class="photo" id={{chef.file_id}}>
+                    <img src="{{chef.path}}" alt="{{chef.image_name}}">
+                    <i class="material-icons"
+                    onclick="ChefAvatar.removePhotosOnDbBySendingImagesId(event)">delete_forever</i>
+
+                </div>
+                  {% endif %}  
+                <input type='hidden' name='removed_image_id'/>
+
+            </div>
 
                 <div id="photos-upload">
                 <button type='button'>Add Avatar</button>
@@ -27,7 +38,6 @@
                 accept='image/*' 
                 onchange='ChefAvatar.handleAvatar(event)'/>        
             </div>
-
                
     </div>
 

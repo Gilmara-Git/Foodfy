@@ -95,7 +95,7 @@ module.exports = {
       src:`${req.protocol}://${req.headers.host}${image.path.replace(/\public/g, "")}`
 
     }))
-    console.log(images)
+    //console.log(images)
 
     return res.render("admin/recipes/show_admin", { recipe, images })
   },

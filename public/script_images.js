@@ -7,7 +7,7 @@ const PhotosUpload = {
     handleFileInput(event){
         const { files : fileList} = event.target;
         
-        console.log(fileList)
+        //console.log(fileList)
 
         if(PhotosUpload.hasLimit(event)) { return true;}
         
@@ -20,7 +20,7 @@ const PhotosUpload = {
             reader.onload = ()=>{
                 const image = new Image();
                 image.src = String(reader.result);
-                console.log(image.src)
+                //console.log(image.src)
 
                 const div = PhotosUpload.getContainer(image);
                 PhotosUpload.photosPreview.appendChild(div);
@@ -50,7 +50,7 @@ const PhotosUpload = {
         const dataTransfer =  new ClipboardEvent("").clipboardData || new DataTransfer();
 
         PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
-        console.log(dataTransfer.files)
+        //console.log(dataTransfer.files)
         return dataTransfer.files
 
     },
@@ -71,7 +71,7 @@ const PhotosUpload = {
         const photosArray = Array.from(photosPreview.children);
 
         const index = photosArray.indexOf(photoDiv);
-        PhotosUpload.files.splice(index, 1);
+        PhotosUpload.files.splice(index, 1); // removing from array that is replacing the input.files (event.target)
         PhotosUpload.input.files = PhotosUpload.getAllFiles(); 
 
         photoDiv.remove(); 
@@ -79,7 +79,7 @@ const PhotosUpload = {
 
     },
 
-    deletePhotosOnDb(event){
+    deletePhotosOnDbBySendingImagesId(event){
        
         const photoDiv = event.target.parentNode;
         let removedImagesIds = document.querySelector('input[name="removed_images_ids"]')
@@ -153,7 +153,7 @@ const GalleryPhotos = {
    
 }
 
-// Chef Avatar
+// Chef Avatar photo input and photo Show Avatar on the edit page
 
 const ChefAvatar = {
 
@@ -166,8 +166,7 @@ const ChefAvatar = {
 
     handleAvatar(event){
         const {files : fileList} = event.target;
-        const { input}  =  ChefAvatar; 
-            
+                    
        if(ChefAvatar.hasLimit(event)) return true; 
         
         Array.from(fileList).forEach(file => { 
@@ -185,9 +184,9 @@ const ChefAvatar = {
             //getting files from input to pass to datatransfer
             ChefAvatar.filesFromInput.push(file)
          
-            //ChefAvatar.input.files was returning undefined    
+            //ChefAvatar.input.files was returning undefined  - This is to replace input.files from browser with of Array
             ChefAvatar.inputField.files = ChefAvatar.transferedFiles();
-            console.log(ChefAvatar.inputField.files)    
+            //console.log(ChefAvatar.inputField.files)    
             }
          
         })
@@ -231,6 +230,7 @@ const ChefAvatar = {
         const clickedPhoto = event.target.parentNode; //div class='photo'
         const showAvatarChildren =  Array.from(showAvatar.children)
         const indexOfClickedPhoto = showAvatarChildren.indexOf(clickedPhoto);
+        // what is on showAvatarChildren is on filesFromInput
         ChefAvatar.filesFromInput.splice(indexOfClickedPhoto, 1);
         inputField.files = ChefAvatar.transferedFiles();
         console.log(inputField.files)
@@ -239,13 +239,27 @@ const ChefAvatar = {
 
     },
 
+    removePhotosOnDbBySendingImagesId(event){
+
+        const clickedPhotoContainer = event.target.parentNode;
+        const divPhoto = document.querySelector('.photo')
+        const removeImagesIds  = document.querySelector('input[name="removed_image_id"]')
+
+        if(divPhoto.id){
+
+            removeImagesIds.value += `${divPhoto.id}`
+        }
+        console.log('photo id',removeImagesIds)
+        clickedPhotoContainer.remove();
+    },  
+
     hasLimit(event){
         const {files : fileList} = event.target
         const {uploadLimit, showAvatar } = ChefAvatar;
         
 
         if(fileList.length > uploadLimit){            
-            alert(`Please send max of ${uploadLimit} images`)
+            alert(`Please send max of ${uploadLimit} image.`)
             event.PreventDefault();
             return true; 
         }
@@ -262,7 +276,7 @@ const ChefAvatar = {
 
         const totalPhotos = photosOnShowAvatar.length + fileList.length;
         if(totalPhotos > uploadLimit){
-            alert(`You have reached more than ${uploadLimit},  number of allowed photos.`)
+            alert(`You have reached more than ${uploadLimit}, which is the number of allowed photos.`)
             event.preventDefault();
             return true;
         }
@@ -272,3 +286,4 @@ const ChefAvatar = {
 
 
 }
+

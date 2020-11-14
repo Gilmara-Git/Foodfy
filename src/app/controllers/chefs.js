@@ -24,14 +24,14 @@ create(req,res) {
 }, 
 
 async post(req, res) {
-    
+    console.log('req body ',req.body)
     const keys = Object.keys(req.body)
     for(let key of keys) {
-        if (req.body[key] == "") return res.send("Fill out all fields")
+        if (req.body[key] == "" && key != 'removed_image_id' ) return res.send("Fill out all fields")
       
     }
  
-    if(req.files.length == "") return res.send('Please send at least 1 photo.') 
+    if(req.files.length == "") return res.send('Please send 1 photo.') 
 
      const filesPromise = req.files.map((file) => File.create({
          ...file,
@@ -50,6 +50,7 @@ async post(req, res) {
                }
     });   
     
+    console.log('53', fileId[0].id)
 results = await Chef.create(req.body, fileId[0].id)
 //console.log('linha 65' , results.rows)
 
@@ -75,6 +76,8 @@ results = await Chef.recipesIds(id)
 const chefIdRecipeIds =  results.rows.map(chefIdRecipeId => Chef.recipeJustOneImage(chefIdRecipeId))
 
 const recipesInfo = await Promise.all(chefIdRecipeIds)
+// Este trecho de codigo abaixo, Moura Braz me ajudou 
+// O resultado vem dois array e precisava pegar os valores na posicao[0] de cada array
 const recipeNameIdImage = recipesInfo.map(item=>{
     return {
         ...item.rows[0], 
@@ -97,48 +100,55 @@ chefToBeEdited = {
     ...chefToBeEdited,
     path: `${req.protocol}://${req.headers.host}${chefToBeEdited.path.replace(/\public/g, "")}`
 }
-
-res.render("admin/chefs/edit_admin", { chefToBeEdited })
+res.render("admin/chefs/edit_admin", { chef: chefToBeEdited })
     
 }, 
 
-put(req, res) {
-    const key = Object.keys(req.body)
-        if(req.body[key]=="") res.send("Please fill out the fields.")  
+async put(req, res) {
+        const keys = Object.keys(req.body)
+        for(let key of keys){
 
-        //console.log(req.body)
-        Chef.update(req.body, function(){
+            if (req.body[key] == "" && key !== 'removed_image_id' ) return res.send("Fill out all fields")   
+        }
+        
+      
+        if(req.files.length !== "" ) {
+
+        const newChefImagePromise = req.files.map((file)=> File.update({
+            ...file, 
+            path: file.path.replace(/\\/g,"/")
+        }, req.body.removed_image_id))
+
+        await Promise.all(newChefImagePromise)
+        //console.log('Linha 126', JSON.stringify(updateChefImage, null, 2))      
+        }
+        await Chef.update(req.body)
 
            return res.redirect("/admin/chefs")
 
-        })
+        
     }, 
 
-   delete(req, res) {
+  async  delete(req, res) {
 
-    console.log(req.body.id)
-
-    Chef.verifyIfChefHasRecipes(req.body.id, function(chefIdRecipes){
-         console.log(chefIdRecipes)
-                 
-
-         if(!chefIdRecipes)   
+    let results = await Chef.verifyIfChefHasRecipes(req.body.id)
+    const chefIdRecipes =  results.rows
         
-         Chef.delete(req.body.id, function(){
+        if(chefIdRecipes != "" ) { 
 
-             return  res.redirect("/admin/chefs")
-         
-    
-          })
+            return res.send('This chef cannot be deleted as he/she has recipes on the system.')
+        } else {
 
-        if(chefIdRecipes) { 
+            results = await File.getChefImageId(req.body.id)
+            const chefImageId = results.rows[0].file_id;
+                     
+            await Chef.delete(req.body.id)
+            await File.delete(chefImageId)
             
-            return res.send("Chef cannot be deleted as there is recipes tied to his record.")      
         }
-        })
-    
-        }
-    
-    
+            
+        return res.redirect('/admin/chefs')
+
+  }
+
 }
-  

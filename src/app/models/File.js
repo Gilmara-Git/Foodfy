@@ -54,7 +54,56 @@ module.exports = {
         
     },
 
-    
+    getChefImageId(chef_id) {
+        console.log('banco de dADOS', chef_id)
+        try {
+            
+            return db.query(`
+            
+                SELECT file_id FROM chefs 
+                WHERE id = $1`, [chef_id])
+
+        } catch (error) {
+            console.error(error)
+        }
+    }, 
+
+    update({path, filename}, id){
+
+        try {
+            
+            const query = `UPDATE files SET 
+                path = ($1),
+                name = ($2)
+                WHERE id = ($3)`
+
+
+             const values =[
+
+                path,
+                filename,
+                id
+
+             ]   
+
+              return db.query(query, values)  
+
+        } catch (error) {
+            console.error(error)
+        }
+
+    },
+
+
+    delete(id){
+        console.log('file a ser deletado no banco de dados', id)
+        try {
+            return db.query(`DELETE FROM files 
+                            WHERE id= $1`, [id])
+        } catch (error) {
+            console.error(error)
+        }
+    }
     
 
 }

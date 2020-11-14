@@ -81,12 +81,12 @@ findChefsData(id){
         return db.query (`
     
 
-        SELECT chefs.*, count(recipes) AS qty_recipes, files.path
+        SELECT chefs.*, count(recipes) AS qty_recipes, files.path, files.name AS image_name
         FROM chefs
         LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
         LEFT JOIN files ON (files.id = chefs.file_id)
         where chefs.id = $1
-        group by chefs.id, files.path`, [id]
+        group by chefs.id, files.path, files.name`, [id]
 
 )
 
@@ -131,58 +131,65 @@ recipeJustOneImage({chef_id, id}){
     }
 },
 
-update(data, callback){
+update(data){
 
-   const query =  `
-                    UPDATE chefs SET
-                    name=($1),
-                    avatar_url=($2)
-                    WHERE id = $3 ` 
-                    
-    const values = [
+    try {
+        
+        const query =  `
+        UPDATE chefs SET
+        name=($1)
+        WHERE id = ($2) ` 
+        
+        const values = [
 
-            data.chef_name,
-            data.chef_avatar,
-            data.id
-    ]                
-                    
-                    
-    db.query(query, values , function(err, results){
+        data.chef_name,
+        data.id
+        ]                
+                
+        
+return db.query(query, values)
 
-            if (err) throw `Databse err${err}`
-               //console.log(results)
-                return callback()
-                    })
+    } catch (error) {
+        console.error(error);
+    }
+
 },
 
-verifyIfChefHasRecipes(id, callback) {
+verifyIfChefHasRecipes(id) {
 
-    let query  = `   
-                     SELECT * FROM recipes
-                     WHERE recipes.chef_id = $1`
+    try {
+
+        const query  = `   
+        SELECT * FROM recipes
+        WHERE recipes.chef_id = $1`
 
 
-                db.query(query, [id], function(err, results){
+   return db.query(query, [id])
 
-                    if(err) throw `Database error ${err}`
-                       // console.log(results)
-                    callback(results.rows[0])
-                })
-    
+        
+    } catch (error) {
+        console.error(error)
+    }
+
+   
 },
 
+delete(id){  
+    
+    try {
 
-delete(id, callback){  
-    
-    
-    db.query(`
+        return db.query(`
     
                 DELETE FROM chefs
-                WHERE id=$1`, [id], function(err, results){
+                WHERE id=$1`, [id])
 
-                    if(err) throw `Database error ${err}`
-                    return callback()
-                })
+        
+    } catch (error) {
+        console.error(error)
+    }
+    
 
-}
+},
+
+
 }

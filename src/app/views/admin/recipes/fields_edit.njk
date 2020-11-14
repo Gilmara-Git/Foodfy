@@ -16,7 +16,7 @@
            {% for image in images %} 
         <div class="photo" id="{{image.id}}">             
             <img src="{{image.src}}" alt="{{image.name}}"/>
-            <i class='material-icons' onclick="PhotosUpload.deletePhotosOnDb(event)">delete_forever</i>
+            <i class='material-icons' onclick="PhotosUpload.deletePhotosOnDbBySendingImagesId(event)">delete_forever</i>
         </div>
           {% endfor %}
             <input type='hidden' name='removed_images_ids'/>
