@@ -27,7 +27,8 @@ module.exports = {
 
 
     create({filename, path}) {
-        
+        console.log('filename',filename)
+        console.log('path name',path)
         try {
             const query = `
         
@@ -55,7 +56,7 @@ module.exports = {
     },
 
     getChefImageId(chef_id) {
-        console.log('banco de dADOS', chef_id)
+        
         try {
             
             return db.query(`

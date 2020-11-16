@@ -17,7 +17,7 @@ nunjucks.configure("src/app/views", {
 
 server.set("view engine", "njk")
 
-server.listen(5500, function(){  console.log("Server  is UP") })
+server.listen(5500, function(){  console.log("Foodfy server is UP") })
 
 
 

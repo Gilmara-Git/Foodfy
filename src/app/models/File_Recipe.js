@@ -15,6 +15,7 @@ find(id){
 },
 create(file_id, recipe_id){
 
+    try {
       const query = `
                 INSERT INTO recipe_files (
                     
@@ -30,6 +31,10 @@ create(file_id, recipe_id){
 
 
     return db.query(query, values)
+    
+    } catch (error) {
+        console.error(error);
+    }
 
 }, 
 async delete(id){

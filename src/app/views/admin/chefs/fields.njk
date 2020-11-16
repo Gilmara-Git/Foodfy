@@ -17,14 +17,14 @@
         
         
             <div class="show-avatar">
-                {%if image%}
+                {%if chef %}
                 <div class="photo" id={{chef.file_id}}>
                     <img src="{{chef.path}}" alt="{{chef.image_name}}">
                     <i class="material-icons"
                     onclick="ChefAvatar.removePhotosOnDbBySendingImagesId(event)">delete_forever</i>
 
                 </div>
-                  {% endif %}  
+                    {% endif %}
                 <input type='hidden' name='removed_image_id'/>
 
             </div>

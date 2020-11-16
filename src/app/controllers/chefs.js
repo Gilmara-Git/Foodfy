@@ -100,6 +100,8 @@ chefToBeEdited = {
     ...chefToBeEdited,
     path: `${req.protocol}://${req.headers.host}${chefToBeEdited.path.replace(/\public/g, "")}`
 }
+
+console.log(chefToBeEdited)
 res.render("admin/chefs/edit_admin", { chef: chefToBeEdited })
     
 }, 
