@@ -97,7 +97,7 @@ module.exports = {
 
 
     delete(id){
-        console.log('file a ser deletado no banco de dados', id)
+        
         try {
             return db.query(`DELETE FROM files 
                             WHERE id= $1`, [id])

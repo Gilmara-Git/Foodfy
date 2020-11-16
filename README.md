@@ -10,14 +10,26 @@
 
 
 ## About
-Foodfy was a project about building a Web Application for recipes.
+Foodfy is a Web Application project to manage Recipes and Chefs.
 
 ## Learning Objectives
-- This was the final part of the project in which **chefs** pages were created in the **Admin** area. 
-So, now in addition to recipes, chefs can be created, edited and deleted **when** there is no **recipe** tied to it. 
-- **Filters** to search for recipes and chefs were added.
-Also, pagination was added to the recipes's page. 
-- Postgres database is being used to store persistently.
+- Recipes can be created edited and deleted as long as there is not image on the recipe profile. Images need to be deleted before a recipe is deleted.
+- Chefs can be created, edited and deleted **when** there is no **recipe** tied to it. 
+- Postgres database is being used to store data persistently.
+
+Extra features implemented on this application:
+- **For recipes**:
+Applied a filter to the main page and on the Admin Index page. So, user can search by recipe's name. 
+Applied pagination on the Admin Index page.
+Implemented a validation for when user wants to delete a recipe. 
+If a recipe contains images, there will be a message advising to removed recipe's images first. 
+Then recipe can be removed from the system. 
+Applied a redirection to Home page when user clicks on the Foodfy Logo.
+
+
+- **For chefs**:
+Applied a filter on chef's Admin Index page. So, user can search by chefs' name. 
+
 
 
 ## Languages used
