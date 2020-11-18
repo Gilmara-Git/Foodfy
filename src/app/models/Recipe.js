@@ -4,36 +4,55 @@ const db = require("../../config/db");
 module.exports = {
 
 
-    lastCreated(filter){
+mostUpdated(filter){
+
+    try {
+
+      let filterQuery = "";
+      let query = `
+      SELECT recipes.*, chefs.name AS recipe_author
+      FROM recipes                 
+      LEFT JOIN chefs ON(recipes.chef_id = chefs.id)
+        
+`;
+
+if (filter) {
+
+  filterQuery = `
+      WHERE recipes.title ILIKE '%${filter}%'
+      OR chefs.name ILIKE '%${filter}%'`;
+}
+
+query = `
+SELECT recipes.*, chefs.name AS recipe_author
+FROM recipes                 
+LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
+${filterQuery}
+
+`
+return db.query(`
+
+  ${query}
+  GROUP BY recipes.id, chefs.id
+  ORDER BY recipes.updated_at DESC
+
+`)
+      
+    } catch (error) {
+        console.error(error)
+    }
+},
+    lastCreated(){
 
         try {
 
-          let filterQuery = "";
-          let query = `
-          SELECT recipes.*, chefs.name AS recipe_author
-          FROM recipes                 
-          LEFT JOIN chefs ON(recipes.chef_id = chefs.id)
-            
-    `;
-
-    if (filter) {
-
-      filterQuery = `
-          WHERE recipes.title ILIKE '%${filter}%'`;
-}
-
-    query = `
-    SELECT recipes.*, chefs.name AS recipe_author
-    FROM recipes                 
-    LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
-    ${filterQuery}
-    
-    `
     return db.query(`
 
-      ${query}
-      GROUP BY recipes.id, chefs.id
-      ORDER BY recipes.created_at DESC
+    SELECT recipes.*, chefs.name AS recipe_author
+    FROM recipes                 
+    LEFT JOIN chefs ON(recipes.chef_id = chefs.id)
+    GROUP BY recipes.id, chefs.id
+    ORDER BY recipes.created_at DESC
     
     `)
           

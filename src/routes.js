@@ -2,11 +2,13 @@
 const express = require("express")
 const routes = express.Router()
 const recipes = require("./app/controllers/recipes")
+const searchRecipes = require("./app/controllers/searchRecipes")
 const chefs =  require("./app/controllers/chefs")
 const multer = require('./app/middlewares/multer')
 
 
 //website routes
+routes.get("/receitas/search", searchRecipes.index)
 routes.get("/receitas", recipes.home)
 routes.get("/", recipes.home )
 routes.get("/sobre", recipes.sobre)

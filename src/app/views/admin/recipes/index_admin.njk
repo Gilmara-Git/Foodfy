@@ -18,14 +18,16 @@
 
     <div id="manage-recipes-index-admin">
         <h2>Manage Recipes</h2>
-        <form method="GET" action="/admin/receitas">
+        <form method="GET" action="/receitas/search">
             
             <input type="text" 
             name= "filter" 
             placeholder="Search recipe's name"
-            value="{{filter}}">
-
+            {% if search.term %}
+            value="{{search.term}}" {% endif %}
+            >
             <button id="search" type="submit">Search</button>
+
         </form >
         <div id="new-recipe-link"><a id="new-recipe" href="/admin/receitas/create">New</a></div>
        

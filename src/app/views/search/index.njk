@@ -5,20 +5,16 @@
 {% endblock %}
 
 {% block filter %}
-    <form id="search-resources" method="GET" action="/receitas/search">
-        <input type="text" name="filter" placeholder="Search recipe's name" {% if search.term %}
-        value="{{search.term}}"  {% endif %}
-        >
-    <button id="search" type="submit">Search</button>
-    </form>
+   
 {%endblock %}
 
 {% block content %}
     <div class="background-img">
         <img src="/assets/chef.png" alt="Chef">
 
-        <h1 class="title">The best recipes</h1>
-        <p class="phrase">Learn how to make the best dishes with recipes from chefs located all over the world.</p>
+        <h1 class="title">Your search results:</h1>
+        <p class="phrase search">Searched by: "{{search.term}}". {{search.total}} item(s) found.</p>
+        
 
     </div>
 
