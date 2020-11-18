@@ -5,9 +5,9 @@ const File_Recipe = require("../models/File_Recipe");
 module.exports = {
   //Website Controllers
   async home(req, res) {
-    const { filter } = req.query;
+    //const { filter } = req.query;
    
-    let results = await Recipe.lastCreated(filter);
+    let results = await Recipe.lastCreated();
     if (results.rows == "") return res.render("Recipe not-found");
 
     //console.log('linha 13', results.rows)
@@ -62,18 +62,16 @@ module.exports = {
     let results = await Recipe.paginate(params);
     if (results.rows == "") return res.send("Recipe not found within your search.");
     
-    console.log('linha 56', results.rows) 
-
-    pagination = {
+      pagination = {
       page,
       total: Math.ceil(results.rows[0].total / limit),
     };
     
     async function getRecipeImage(recipeId){
-      console.log('linha 73', recipeId)
+      
       let results = await Recipe.file(recipeId)
       const files =  results.rows.map(file =>`${req.protocol}://${req.headers.host}${file.path.replace(/\public/g,"")}`)
-      console.log('linha 76',files[0])
+      
       return files[0]
     }
     const recipesPromise = results.rows.map(async(recipe)=>{
@@ -83,7 +81,7 @@ module.exports = {
     
     const recipes =  await Promise.all(recipesPromise)
     // const recipes = results.rows
-    console.log(recipes)
+    
 
     res.render("admin/recipes/index_admin", {
       recipes,
