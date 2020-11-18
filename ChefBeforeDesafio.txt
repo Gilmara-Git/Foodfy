@@ -102,8 +102,7 @@ recipesIds(id){
         try {
             
             return db.query(` SELECT recipes.id, recipes.chef_id 
-                                FROM recipes WHERE chef_id = $1
-                                ORDER by created_at DESC`, [id])
+                                FROM recipes WHERE chef_id = $1`, [id])
 
         } catch (error) {
             console.error(error)

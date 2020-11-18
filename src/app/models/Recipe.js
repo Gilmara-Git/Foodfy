@@ -3,41 +3,45 @@ const db = require("../../config/db");
 
 module.exports = {
 
-    all(filter) {
-      try {
-        let filterQuery = "";
-        let query = `
-          SELECT recipes.*, files.path, chefs.name AS recipe_author
-          FROM recipes  
-          LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
-          LEFT JOIN files ON (files.id = recipe_files.file_id)
-          LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)
-  
-  `;
 
-        if (filter) {
-                  filterQuery = `
+    lastCreated(filter){
+
+        try {
+
+          let filterQuery = "";
+          let query = `
+          SELECT recipes.*, chefs.name AS recipe_author
+          FROM recipes                 
+          LEFT JOIN chefs ON(recipes.chef_id = chefs.id)
+            
+    `;
+
+    if (filter) {
+
+      filterQuery = `
           WHERE recipes.title ILIKE '%${filter}%'`;
+}
+
+    query = `
+    SELECT recipes.*, chefs.name AS recipe_author
+    FROM recipes                 
+    LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
+    ${filterQuery}
+    
+    `
+    return db.query(`
+
+      ${query}
+      GROUP BY recipes.id, chefs.id
+      ORDER BY recipes.created_at DESC
+    
+    `)
+          
+        } catch (error) {
+            console.error(error)
         }
-
-        query = ` 
-          SELECT recipes.*, files.path, chefs.name AS recipe_author
-          FROM recipes  
-          LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
-          LEFT JOIN files ON (files.id = recipe_files.file_id)
-          LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)  
-          ${filterQuery}`;
-
-        return db.query(`
-
-          ${query}
-          GROUP BY recipes.id, files.id, recipe_files.id, chefs.name
-          ORDER BY chefs.name`);
-
-      } catch (error) {
-        console.error(error);
-      }
     },
+
 
     allChefsSelectOne() {
       try {
@@ -164,14 +168,12 @@ module.exports = {
       }
 
       query = ` 
-        SELECT recipes.*, ${totalQuery}, files.path, chefs.name AS recipe_author
-        FROM recipes
-        LEFT JOIN recipe_files ON(recipes.id = recipe_files.recipe_id)
-        LEFT JOIN files ON (files.id = recipe_files.file_id)
+        SELECT recipes.*, ${totalQuery}, chefs.name AS recipe_author
+        FROM recipes        
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
         ${filterQuery}
-        GROUP BY recipes.id, files.id, recipe_files.id, chefs.name
-        ORDER BY chefs.name
+        GROUP BY recipes.id,chefs.id
+        ORDER BY recipes.created_at DESC
         LIMIT $1
         OFFSET $2`;
 
@@ -182,5 +184,26 @@ module.exports = {
     }
 
     },
+
+    file(id){
+
+      try {
+        
+        return db.query(`
+            
+          SELECT files.path
+          FROM files
+          LEFT JOIN recipe_files ON(files.id = recipe_files.file_id)
+          LEFT JOIN recipes ON(recipes.id = recipe_files.recipe_id)
+          WHERE recipes.id = $1
+          LIMIT 1
+        `, [id])
+
+      } catch (error) {
+        console.error(error,)
+      }
+
+
+    }
     
 };
