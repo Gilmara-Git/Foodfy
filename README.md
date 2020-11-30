@@ -26,7 +26,6 @@ Foodfy is a Web Application project to manage Recipes and Chefs. It is being dev
 Command used : ALTER TABLE recipes ADD COLUMN updated_at timestamp DEFAULT (now()) 
 
 
-
     - New field **updated_at** created on **chefs** table. 
 Command used : ALTER TABLE chefs ADD COLUMN updated_at timestamp DEFAULT (now())
 
