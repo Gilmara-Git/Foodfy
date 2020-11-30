@@ -81,9 +81,8 @@ return db.query(`
           title,
           ingredients,
           steps,
-          information,
-          created_at                                                  
-          ) VALUES ( $1, $2, $3, $4, $5, $6)
+          information                                                       
+          ) VALUES ( $1, $2, $3, $4, $5)
           RETURNING id`;
 
         const values = [
@@ -92,7 +91,7 @@ return db.query(`
           data.ingredients,
           data.steps,
           data.add_information,
-          dateInTimeStamp(Date.now()).iso,
+          
         ];
 
         return db.query(query, values);
