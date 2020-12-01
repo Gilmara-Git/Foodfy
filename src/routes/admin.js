@@ -1,29 +1,31 @@
 const express = require("express")
 const routes = express.Router()
-const recipes = require("../app/controllers/recipes")
-const chefs =  require("../app/controllers/chefs")
+const RecipeController = require("../app/controllers/recipes")
+const ChefController =  require("../app/controllers/chefs")
+const UserController = require("../app/controllers/users")
 const multer = require('../app/middlewares/multer')
  
 //Admin routes - recipes
-routes.get("/receitas", recipes.index )
-routes.get("/receitas/create", recipes.create )
-routes.get("/receitas/:id", recipes.show)
-routes.get("/receitas/:id/edit", recipes.edit )
-routes.post("/receitas", multer.array('photos', 5),  recipes.post )
-routes.put("/receitas", multer.array('photos', 5), recipes.put )
-routes.delete("/receitas", recipes.delete )
+routes.get("/receitas", RecipeController.index )
+routes.get("/receitas/create", RecipeController.create )
+routes.get("/receitas/:id", RecipeController.show)
+routes.get("/receitas/:id/edit", RecipeController.edit )
+routes.post("/receitas", multer.array('photos', 5),  RecipeController.post )
+routes.put("/receitas", multer.array('photos', 5), RecipeController.put )
+routes.delete("/receitas", RecipeController.delete )
 
 // // Admin routes - Chefs
-routes.get("/chefs", chefs.index)
-routes.get("/chefs/create", chefs.create)
-routes.get("/chefs/:id", chefs.show)
-routes.get("/chefs/:id/edit", chefs.edit)
-routes.post("/chefs", multer.array('photos', 1), chefs.post)
-routes.put("/chefs", multer.array('photos', 1), chefs.put)
-routes.delete("/chefs", chefs.delete)
+routes.get("/chefs", ChefController.index)
+routes.get("/chefs/create", ChefController.create)
+routes.get("/chefs/:id", ChefController.show)
+routes.get("/chefs/:id/edit", ChefController.edit)
+routes.post("/chefs", multer.array('photos', 1), ChefController.post)
+routes.put("/chefs", multer.array('photos', 1), ChefController.put)
+routes.delete("/chefs", ChefController.delete)
 
-// User registration routes
-// routes.post("/users", UserController.post) // Cadastrar um usuario
+// Admin routes - User registration
+routes.get("/users/create", UserController.create)
+//routes.post("/users", UserController.post) // Cadastrar um usuario
 // routes.get("/users", UserController.list) // lista de usuarios cadastrados
 // routes.put("/users", UserController.put) // editar usuarios
 // routes.delete(/users", UserControlller.delete) // deletar usuarios

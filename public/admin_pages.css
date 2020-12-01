@@ -163,7 +163,7 @@ section .card-info-admin a {
 /* Page Create  -  Form  and Page Show */
 
 #manage-recipes-create, #manage-recipes-edit,
-#manage-chefs-create,
+#manage-chefs-create, #manage-users-create,
  #manage-chefs-edit {
 
     margin-top:55px;
@@ -486,10 +486,11 @@ margin-top: 20px;
     color:white;
     background: var(--color-buttons);
     width: 50px;
-    /*height: 25px;*/
+    height: 25px;
     text-align: center;
     padding-top: 4px;
     border-radius: 4px;
+    font-weight: bold;
 
 }
 
@@ -704,7 +705,8 @@ font-size: 14px;
 /*Grid with 3 columns*/
 
 
-#manage-recipes-index-admin {
+#manage-recipes-index-admin,
+#manage-chefs-index-admin {
 
     margin-top:55px;
     margin-bottom:30px;
@@ -715,7 +717,8 @@ font-size: 14px;
 
 }
 
-#manage-recipes-index-admin form input {
+#manage-recipes-index-admin form input,
+#manage-chefs-index-admin form input {
 
     border: 1px solid black;
     height: 28px;
@@ -738,7 +741,8 @@ font-size: 14px;
 
 }
 
-#manage-recipes-index-admin form button#search {
+#manage-recipes-index-admin form button#search,
+#manage-chefs-index-admin form button#search {
     color: white;
     width: 72px;
     height: 26px;
@@ -785,4 +789,74 @@ font-size: 14px;
     font-weight: bold;
     filter: brightness(0.9);
     font-size: 14px;
+}
+
+
+/* User creation */
+.users-buttons { 
+
+    display: flex;
+    align-items: center;
+    justify-content:flex-end; 
+}
+
+.users-buttons button#save{ 
+
+    padding: 1px;
+    width: 100px;
+    height: 37px;
+    font-size: 16px;
+    line-height: 26px;
+    color: #ffffff;
+    background-color:var(--color-buttons);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    
+}
+
+
+.users-buttons button#cancel{
+
+    padding: 1px;
+    width: 100px;
+    height: 37px;
+    font-size: 16px;
+    line-height: 26px;
+    color: #ffffff;
+    background-color: #777;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 16px;
+    margin-right: 12px;
+   
+}
+
+.users-buttons button#cancel:hover {
+
+background-color: #DC4747;
+
+}
+
+form#new-user .user-fields {
+
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+form#new-user .user-fields .inputs input {
+
+    height: 49px;
+    width: 450px;
+
+} 
+
+
+form .inputs .field-name-admin #is_admin {
+
+    width: 15px;
+    height: 15px;
+    margin: auto 10px;
 }
