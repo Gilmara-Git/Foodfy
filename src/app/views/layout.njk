@@ -4,9 +4,9 @@
         {%block title %}
             <title>Foodfy</title>
         {% endblock %}
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/admin_pages.css"/>
+        
+        {% include "parts/styles.njk" %}
+
         <script src="/script_receitas.js" defer="defer"></script>
         <script src="/script_receitas_admin.js" defer="defer"></script>
         <script src="/script_pagination.js" defer="defer"></script>
