@@ -1,0 +1,35 @@
+
+/* Page recipe*/
+
+.not-found {
+
+    margin-top: 20px;
+    width:700px;
+    height:800px;
+    background-image: url("assets/recipe_not_found.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+}
+
+
+#recipe-not-found {
+    width:400px;
+    font-size: 38px;
+    margin: 0 auto;
+    color: wheat;
+    padding: 250px 200px 40px;
+    font-weight: bold;
+}
+
+#redirect {
+    width:660px;
+    font-size: 36px;
+    margin: 0 auto;
+    color: wheat;
+    margin: 0 auto;
+    font-weight: bold;
+
+
+}

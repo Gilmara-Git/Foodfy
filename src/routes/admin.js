@@ -25,7 +25,7 @@ routes.delete("/chefs", ChefController.delete)
 
 // Admin routes - User registration
 routes.get("/users/create", UserController.create)
-//routes.post("/users", UserController.post) // Cadastrar um usuario
+routes.post("/users", UserController.post) // Cadastrar um usuario
 // routes.get("/users", UserController.list) // lista de usuarios cadastrados
 // routes.put("/users", UserController.put) // editar usuarios
 // routes.delete(/users", UserControlller.delete) // deletar usuarios
