@@ -9,8 +9,8 @@ CREATE TABLE "recipes" (
   "title" text NOT NULL,
   "information" text,
   "chef_id" int NOT NULL,
-  "steps" text[] NOT NULL,
-  "ingredients" text[] NOT NULL,
+ --"steps" text[] NOT NULL,
+  --"ingredients" text[] NOT NULL,
   "created_at" timestamp NOT NULL DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );

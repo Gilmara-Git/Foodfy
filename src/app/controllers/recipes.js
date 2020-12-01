@@ -8,7 +8,7 @@ module.exports = {
     //const { filter } = req.query;
    
     let results = await Recipe.lastCreated();
-    if (results.rows == "") return res.render("Recipe not-found");
+    if (results.rows == "") return res.render("not-found");
 
     //console.log('linha 13', results.rows)
     // this functions is to get only one image
