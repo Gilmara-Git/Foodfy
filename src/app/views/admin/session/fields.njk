@@ -1,0 +1,42 @@
+<fieldset>
+    <div class="user-fields">
+           
+            <div class="inputs">
+                <div class="field-name">Email</div>
+
+                <input type="email"
+                id="email" 
+                name="email" 
+                placeholder="Type your email" 
+                value="{{user.email}}"
+                onblur="Validate.apply(this, 'emailFormat')">      
+            </div>
+
+             <div class="inputs">
+                <div class="field-name">Senha</div>
+                <input type="text" 
+                id="password"
+                name="password" 
+                placeholder="Type a secure password" 
+                required
+                >
+            </div>
+
+              <div class="inputs">
+                <div class="field-name">Repetir a Senha</div>
+                <input type="text" 
+                id="password"
+                name="passwordRepeat" 
+                placeholder="Type a secure password" 
+                required
+                >
+            </div>
+
+
+
+
+    </div>
+     
+     
+
+</fieldset>

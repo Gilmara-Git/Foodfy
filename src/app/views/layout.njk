@@ -19,8 +19,12 @@
     </head>
 
     <body>
-        <div class="main">
 
+         {%include 'parts/messages.njk' %}
+
+
+        <div class="main">
+             
             <header>
 
                 {% block header %}
@@ -30,10 +34,8 @@
                         <a id="sobre" href="/sobre">About</a>
                         <a id="recipes"  href="/admin/receitas">Recipes</a>
                         <a id="chefs" href="/admin/chefs">Chefs</a>
-                        
-
+                    
                         {%block filter%}{% endblock %}
-
 
                     </div>
                 </div>
@@ -41,7 +43,7 @@
 
                 </header>
 
-                {%include "parts/messages.njk" %}
+              
 
                 {% block content %}{% endblock %}
 
