@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const { createRandomPassword } = require('../../lib/utils')
+const mailer = require('../../lib/mailer')
 
 module.exports = {
 
@@ -10,13 +11,11 @@ create(req, res ){
 
 async post(req, res){
 
-
   const keys = Object.keys(req.body)
     for(key of keys){
       if(req.body[key]== "") return res.send('Please fill out all fields!')
 
     }
-
 
     let { name, email, is_admin } =  req.body;
 
@@ -40,31 +39,34 @@ async post(req, res){
     req.body.password = password;
     console.log(req.body)
 
-    const userPromise = await User.create(req.body)
-    const userId = await Promise.all(userPromise)
+   const userId = await User.create(req.body)
+    console.log(userId)
 
-    const userData = await User.findOne({ 
-      where: {userId}
-    })
+   const userData = await User.findOne({ where: {id:userId} })
+   console.log(userData)
    
-    await mailer.sendMail({
+    
+   await mailer.sendMail({
       to: userData.email, 
       from: "no-reply@foodfy.com.br", 
       subject: "Password to your first login to Foodfy",
       html: `
       
-          <h2>This is your password ${userData.password}.</h2>
+          <h2>This is your password ${userData.password}</h2>
           <p>Please click on the login link below to access Foodfy.</p>
           
           <p>
             
-            <a href="http://localhost:3000/admin/users/login" target="_blank">login</a>
+            <a href="http://localhost:3000/admin/users/profile" target="_blank">login</a>
           
           </p>
       `
     })
 
-    return res.send("teste")
+    return res.render("admin/users/create-user", {
+
+      success: "An email has been sent to user."
+    })
 }
 
 

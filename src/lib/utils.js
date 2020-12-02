@@ -21,8 +21,7 @@ dateInTimeStamp(timestamp) {
 // Ref: https://www.youtube.com/watch?v=Hr5pAAIXjkA
 createRandomPassword(size){
 
-    console.log(size)
-
+    
     let password = '';
 
     do{
