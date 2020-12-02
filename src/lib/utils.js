@@ -17,7 +17,22 @@ dateInTimeStamp(timestamp) {
         format: `${day}/${month}/${year}`
     }
 
+},
+// Ref: https://www.youtube.com/watch?v=Hr5pAAIXjkA
+createRandomPassword(size){
 
+    console.log(size)
+
+    let password = '';
+
+    do{
+        password += Math.random().toString(36).substr(2)
+        password = password.substr(0, size) // cortando a string do 0 ate o tamanho (size)
+
+    }while(password.length < size)
+        return password;
+    }
+   
+    
 }
 
-}

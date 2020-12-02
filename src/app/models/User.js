@@ -1,4 +1,5 @@
 const db = require ("../../config/db")
+const { hash } = require('bcryptjs')
 
 module.exports = {
 
@@ -13,7 +14,7 @@ module.exports = {
     
                 Object.keys(filters[key]).map(field =>{
     
-                    query = `${query}${field} = ${filters[key][field]}`
+                    query = `${query} ${field} = '${filters[key][field]}'`
                 })
             })
          
@@ -27,8 +28,10 @@ module.exports = {
         
 },
 
-        create(data){
+       async create(data){
 
+        try {
+            
             const query = `
                 INSERT INTO users (
                 name,  
@@ -36,23 +39,28 @@ module.exports = {
                 password,
                 is_admin
                 )VALUES($1, $2, $3, $4)
-                 RETURNING id   
+                RETURNING id   
             `
 
-            const password = hash(password, 8)
-            const values = [
+        const passwordHash = await hash(data.password, 8)
+        
+        const values = [
 
-                data.name,
-                data.email,
-                password,
-                data.is_admin
-            ]
+            data.name,
+            data.email,
+            passwordHash,
+            data.is_admin || false
+        ]
 
+        const results = await db.query(query, values)   
+        return results.rows[0].id;
+        
+    
 
+        } catch(err){
 
-            return db.query(query, values)
-
-
-                    
+            console.error(err)
         }
+
+    }          
 }
