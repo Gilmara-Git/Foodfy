@@ -57,7 +57,7 @@ async post(req, res){
           
           <p>
             
-            <a href="http://localhost:3000/admin/users/profile" target="_blank">login</a>
+            <a href="http://localhost:3000/admin/users/login" target="_blank">login</a>
           
           </p>
       `
