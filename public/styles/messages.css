@@ -1,0 +1,26 @@
+/*Wrong email format on user creation*/
+
+.inputs .error {
+
+    background-color:#cecece;
+    color: red; 
+    font-weight: bold;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0px 1px 5px -1px red;
+}
+
+/*error messages */
+
+.messages.error {
+
+    background: lightcoral;
+}
+
+
+/*success messages*/ 
+
+.messages.success {
+
+    background: forestgreen;
+}

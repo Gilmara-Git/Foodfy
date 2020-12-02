@@ -1,29 +1,40 @@
 <fieldset>
     <div class="user-fields">
             <div class="inputs">
-
                 <div class="field-name">Name</div>
 
-                <input type="text" name="name" placeholder="Type your name" value="{{user.name}}">
+                <input type="text" 
+                id="name"
+                name="name" 
+                placeholder="Type your name" 
+                value="{{user.name}}"
+                required
+                >
 
             </div>
 
 
             <div class="inputs">
-
                 <div class="field-name">Email</div>
 
-                <input type="email" name="email" placeholder="Type your eamil" value="{{user.email}}">      
+                <input type="email"
+                id="email" 
+                name="email" 
+                placeholder="Type your email" 
+                value="{{user.email}}"
+                onblur="Validate.apply(this, 'emailFormat')">      
             </div>
 
 
     </div>
      
     <div class="inputs">
-
        <div class="field-name-admin">
-            <input id="is_admin" type="checkbox" name="is_admin" placeholder="Type a password."/>
-            Administrator
+            <input id="is_admin" 
+            type="checkbox" 
+            name="is_admin" 
+            value="true"/>
+            <label for="is_admin">Administrator</label>
         </div>
     </div>
 

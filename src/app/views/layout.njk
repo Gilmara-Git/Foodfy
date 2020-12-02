@@ -4,13 +4,17 @@
         {%block title %}
             <title>Foodfy</title>
         {% endblock %}
-        
-        {% include "parts/styles.njk" %}
 
+               
+        {%include "parts/styles.njk" %}
+
+        <link rel="stylesheet" href="/not-found.css">
+        <script src="/script_users.js" defer="defer"></script>
         <script src="/script_receitas.js" defer="defer"></script>
         <script src="/script_receitas_admin.js" defer="defer"></script>
         <script src="/script_pagination.js" defer="defer"></script>
         <script src="/script_images.js" defer="defer"></script>
+        
 
     </head>
 
@@ -36,6 +40,8 @@
                     {% endblock%}
 
                 </header>
+
+                {%include "parts/messages.njk" %}
 
                 {% block content %}{% endblock %}
 
