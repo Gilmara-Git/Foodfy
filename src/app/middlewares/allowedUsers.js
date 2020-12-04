@@ -3,13 +3,26 @@
 
 function permissionToUpdate(req, res, next){
 
+    try {
+
+        if(req.session.userId ){
+            
+            next()
     
-    if(req.session.userId ){
+        } else { 
+    
+            return res.render('admin/profile/show-logged-user',{   
+                
+                error: "You do not have permission to take this action." })
+        
+        }
 
-        next()
+    }catch(err){
 
-
+        console.error(err)
     }
+
+    
 
 
   

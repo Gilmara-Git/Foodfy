@@ -7,7 +7,8 @@ module.exports = {
     console.log("userId do req.session", userId);
 
     try {
-      const user = await User.findOne({ where: { id: userId } });
+      const user = await User.findOne({ 
+          where: { id: userId } });
 
       if (!user)
         return res.render("admin/users/create-user", {
@@ -21,10 +22,10 @@ module.exports = {
   },
 
  async put(req, res) {
-    console.log('req body no profile controller', req.body);
+    //console.log('req body no profile controller', req.body);
     const {user} = req // This is coming from the Profile Validator
 
-    console.log('user no profile controller', user)
+    //console.log('user no profile controller', user)
     
     try{
 
@@ -35,7 +36,7 @@ module.exports = {
         return res.render("admin/profile/show-logged-user", {
         
         user: req.body,
-        success: 'Profile has been updated with success.'
+        success: 'Profile has been successfully updated.'
         
         });
 
@@ -43,14 +44,11 @@ module.exports = {
         
         console.error(err)
         return res.render('admin/profile/show-logged-user', {
-
+            user: req.body,
             error: "Something went wrong."
         })
     
     }
-    // update User with the infomation send from FRONT end
-
-    //render the same page with the data so user can see it has been changed as requeted
 
     
   },
