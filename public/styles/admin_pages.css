@@ -164,7 +164,7 @@ section .card-info-admin a {
 
 #manage-recipes-create, #manage-recipes-edit,
 #manage-chefs-create, #manage-users-create,
- #manage-chefs-edit {
+ #manage-chefs-edit, #manage-logged-user {
 
     margin-top:55px;
     display: flex;
@@ -843,10 +843,23 @@ form#new-user .user-fields {
 
     display: flex;
     justify-content: space-evenly;
+   
 
 }
 
-form#new-user .user-fields .inputs input {
+
+form#logged-user .user-fields{ 
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 35px;
+    vertical-align: middle;
+    
+}
+
+form#new-user .user-fields .inputs input,
+form#logged-user .user-fields .inputs input, 
+form#logged-user .user-fields .inputs input#password{
 
     height: 49px;
     width: 450px;

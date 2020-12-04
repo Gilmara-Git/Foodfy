@@ -1,5 +1,18 @@
-function existentUsers(req, res){
 
+
+
+function permissionToUpdate(req, res, next){
+
+    
+    if(req.session.userId ){
+
+        next()
+
+
+    }
+
+
+  
     //verificar se user esta logado, se esta logado , existe no banco
     //deixar somente este usuarios ter acesso as rotas administrativas
 
@@ -11,5 +24,5 @@ function existentUsers(req, res){
 
 module.exports = {
 
-    existentUsers
+    permissionToUpdate
 }

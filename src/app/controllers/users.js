@@ -11,39 +11,24 @@ create(req, res ){
 
 async post(req, res){
 
-  const keys = Object.keys(req.body)
-    for(key of keys){
-      if(req.body[key]== "") return res.send('Please fill out all fields!')
-
-    }
-
-    let { name, email, is_admin } =  req.body;
-
-    const user =  await User.findOne({
-      where:{email}
-    })
-    
-    if(user) return res.render('admin/users/create-user',{
-      user: req.body,
-      error: "Email already exists!"
-    })
-
-    
+      
     // This is only for the admininstrator to create a users.    
     
     // create a random password and send it to user's email address
     
     let password = createRandomPassword(20)
-    console.log(password)
+    //console.log(password)
 
     req.body.password = password;
-    console.log(req.body)
+    //console.log(req.body)
 
    const userId = await User.create(req.body)
-    console.log(userId)
+    //console.log(userId)
+
+    req.session.userId = userId; //chamando a sessao
 
    const userData = await User.findOne({ where: {id:userId} })
-   console.log(userData)
+   //console.log(userData)
    
     
    await mailer.sendMail({
