@@ -1,15 +1,28 @@
 
 
 
-function permissionToUpdate(req, res, next){
+function hasSessionUserId(req, res, next){
+
+    try {
+
+        if(req.session.userId ){
+            
+            next()
+    
+        } else { 
+    
+            return res.render('admin/profile/show-logged-user',{   
+                
+                error: "You do not have permission to take this action." })
+        
+        }
+
+    }catch(err){
+
+        console.error(err)
+    }
 
     
-    if(req.session.userId ){
-
-        next()
-
-
-    }
 
 
   
@@ -24,5 +37,5 @@ function permissionToUpdate(req, res, next){
 
 module.exports = {
 
-    permissionToUpdate
+    hasSessionUserId
 }

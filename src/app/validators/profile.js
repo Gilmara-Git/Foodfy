@@ -11,10 +11,10 @@ async function put(req, res, next){
     }
 
     const { password , email} = req.body;
-    console.log(req.body)
+    //console.log(req.body)
 
     const user = await User.findOne({ where: {email}})
-    console.log('usuario vindo do banco de dados', user)
+    //console.log('usuario vindo do banco de dados', user)
     if(!user) return res.render('admin/profile/show-logged-user', {
         user: req.body,
         error: 'User not found.'
@@ -27,16 +27,21 @@ async function put(req, res, next){
         error: 'Please type your password to update your profile.'
     })
 
-    //    // password compare
-
+    //    // password compare  - Habilitar depois que fizer o forgot password
     //     const passwordMatch = await compare( password, user.password)
     //     if(!passwordMatch) return res.render('admin/profile/show-logged-user', {
     //         user: req.body,
     //         error: 'Incorrect password.'
     //     })
 
-        /// acredito que terei que fzer somente o req. session aqui e o resto no validator
-    //&& user.is_admin === true || user.id === req.session.userId
+    // Verifying if user is allowed to update
+    if(user.is_admin === !true || user.id === !req.session.userId){
+
+        return res.render('admin/profile/show-logged-user',{   
+                
+            error: "You do not have permission to take this action." })
+    }
+   
 
         req.user = user
        

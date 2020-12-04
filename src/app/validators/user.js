@@ -34,6 +34,7 @@ async function post(req, res, next){
       error: "Email already exists!"
     })
 
+    
 
     next()
 }

@@ -6,7 +6,7 @@ const UserController = require("../app/controllers/users")
 const UserValidator = require('../app/validators/user')
 const ProfileController = require("../app/controllers/profile")
 const ProfileValidator = require('../app/validators/profile')
-const { permissionToUpdate } = require('../app/middlewares/allowedUsers')
+const { hasSessionUserId } = require('../app/middlewares/allowedUsers')
 const SessionController = require("../app/controllers/session")
 const multer = require('../app/middlewares/multer')
  
@@ -40,10 +40,10 @@ routes.post("/users", UserController.post) // Cadastrar um usuario
 
 routes.get("/users/login", SessionController.loginForm)
 // routes.post("/admin/users/login", SessionController.login)
-// routes.post("/admin/users/logout", SessionController.logout)
+routes.post("/users/logout", SessionController.logout)
 
 // rotas de perfil usuario - usuario logado
 routes.get("/users/profile", ProfileController.index) //Mostrar formulario com dados do usuario Logado
-routes.put("/users/profile", permissionToUpdate, ProfileValidator.put, ProfileController.put) // Editar o usuario logado
+routes.put("/users/profile", hasSessionUserId, ProfileValidator.put, ProfileController.put) // Editar o usuario logado
 
 module.exports = routes
