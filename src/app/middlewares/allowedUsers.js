@@ -1,7 +1,7 @@
 
 
 
-function permissionToUpdate(req, res, next){
+function hasSessionUserId(req, res, next){
 
     try {
 
@@ -37,5 +37,5 @@ function permissionToUpdate(req, res, next){
 
 module.exports = {
 
-    permissionToUpdate
+    hasSessionUserId
 }

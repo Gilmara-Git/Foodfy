@@ -11,7 +11,7 @@ module.exports = {
           where: { id: userId } });
 
       if (!user)
-        return res.render("admin/users/create-user", {
+        return res.redirect("/admin/users", {
           error: "User not found!",
         });
 
