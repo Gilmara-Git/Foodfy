@@ -78,6 +78,13 @@ ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 --BEFORE UPDATE ON chefs 
 --FOR EACH ROW EXECUTE PROCEDURE trigger_set_time_stamp();
 
+-- connect-pg-simple TABLE
+--CREATE TABLE "session" (
+--  "sid" varchar NOT NULL COLLATE "default",
+--	"sess" json NOT NULL,
+--	"expire" timestamp(6) NOT NULL
+--)
+--WITH (OIDS=FALSE);
 
-
+--ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 

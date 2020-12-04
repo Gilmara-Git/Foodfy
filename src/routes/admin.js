@@ -3,7 +3,10 @@ const routes = express.Router()
 const RecipeController = require("../app/controllers/recipes")
 const ChefController =  require("../app/controllers/chefs")
 const UserController = require("../app/controllers/users")
+const UserValidator = require('../app/validators/user')
 const ProfileController = require("../app/controllers/profile")
+const ProfileValidator = require('../app/validators/profile')
+const { permissionToUpdate } = require('../app/middlewares/allowedUsers')
 const SessionController = require("../app/controllers/session")
 const multer = require('../app/middlewares/multer')
  
@@ -26,7 +29,7 @@ routes.put("/chefs", multer.array('photos', 1), ChefController.put)
 routes.delete("/chefs", ChefController.delete)
 
 // Admin routes - User registration
-routes.get("/users/create", UserController.create)
+routes.get("/users/create", UserValidator.post, UserController.create)
 routes.post("/users", UserController.post) // Cadastrar um usuario
 // routes.get("/users", UserController.list) // lista de usuarios cadastrados
 // routes.put("/users", UserController.put) // editar usuarios
@@ -39,9 +42,8 @@ routes.get("/users/login", SessionController.loginForm)
 // routes.post("/admin/users/login", SessionController.login)
 // routes.post("/admin/users/logout", SessionController.logout)
 
-// rotas de perfil usuario
-// inativar routes.get("/users/profile", ProfileController.loginForm)/
-// routes.get("users/profile", ProfileController.index) //Mostrar formulario com dados do usuario Logado
-// routes.put("users/profile", ProfileController.put) // Editar o usuario logado
+// rotas de perfil usuario - usuario logado
+routes.get("/users/profile", ProfileController.index) //Mostrar formulario com dados do usuario Logado
+routes.put("/users/profile", permissionToUpdate, ProfileValidator.put, ProfileController.put) // Editar o usuario logado
 
 module.exports = routes
