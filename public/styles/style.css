@@ -23,7 +23,8 @@ body {
 .main {
 
     margin:0 auto;
-    width:940px;
+    max-width:940px;
+    width: 100%; 
     
 
 }

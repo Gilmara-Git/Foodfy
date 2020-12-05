@@ -57,7 +57,7 @@ ALTER TABLE "recipes" ADD FOREIGN KEY ("chef_id") REFERENCES "chefs" ("id");
 
 ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
--- procedure to get updated_at
+-- procedure to update the FIELD updated_at
 --CREATE FUNCTION trigger_set_time_stamp() 
 --RETURNS TRIGGER AS 
 --$$ 

@@ -50,7 +50,7 @@ body {
 
 .header-foodfy-admin form#logout {
 
-    position: absolute;
+    position: fixed;
     right: 520;
 }
 
@@ -867,7 +867,8 @@ form#logged-user .user-fields{
 
 form#new-user .user-fields .inputs input,
 form#logged-user .user-fields .inputs input, 
-form#logged-user .user-fields .inputs input#password{
+form#logged-user .user-fields .inputs input#password,
+form#new-session .user-fields .inputs input{
 
     height: 49px;
     width: 450px;
