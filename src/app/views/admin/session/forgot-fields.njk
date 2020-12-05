@@ -1,0 +1,28 @@
+<fieldset>
+    <div class="user-fields">
+           
+            <div class="inputs">
+                <div class="field-name">Email</div>
+
+                <input type="email"
+                id="email" 
+                name="email" 
+                placeholder="Type your email" 
+                value="{{user.email}}"
+                onblur="Validate.apply(this, 'emailFormat')">      
+            </div>
+
+                                  
+                <div class="new-password-button">
+                  
+                    <button id="new-password" form="new-session" type="submit">New Password</button>
+                    
+                </div>
+          
+
+
+    </div>
+     
+     
+
+</fieldset>

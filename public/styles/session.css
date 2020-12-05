@@ -1,0 +1,113 @@
+/*Login page */
+
+
+.session-login {
+
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    flex-direction: column;
+    height: 200px;
+    
+}
+.session-login img { 
+
+    object-fit: contain;
+    justify-content: center;
+ 
+    
+}
+
+form#new-session .user-fields { 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+form#new-session .user-fields .session-buttons  { 
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 36px; 
+    
+
+}
+
+form#new-session .user-fields .session-buttons{
+
+    margin-top: 20px;
+}
+
+
+form#new-session .user-fields .session-buttons #login,
+form#new-session .user-fields .session-buttons #new-password { 
+
+padding: 1px;
+width: 80px;
+height: 27px;
+font-size: 16px;
+line-height: 26px;
+color: #ffffff;
+background-color: var(--color-buttons);
+text-align: center;
+text-decoration: none;
+border-radius: 4px;
+margin-left: 40px;
+
+
+}
+
+form#new-session .user-fields .session-buttons #login:hover, 
+form#new-session .user-fields .session-buttons #new-password:hover{
+
+    font-weight: bold;
+}
+
+
+form#new-session .user-fields .session-buttons #forgot-password{
+
+    text-decoration: none;
+    color: tomato;
+    font-size: 18px;
+    font-family: 'Neuton', serif;
+}
+
+form#new-session .user-fields .session-buttons #forgot-password:hover,  
+form#new-session .user-fields .session-buttons #sign-in:hover{
+
+    font-weight: bold; 
+    text-decoration: underline;
+   
+}
+
+form#new-session .user-fields .session-buttons #sign-in {
+
+    text-decoration: none;
+    color: forestgreen;
+    font-size: 18px;
+    font-family: 'Neuton', serif;
+
+}
+
+
+form#new-session .user-fields .new-password-button  button{
+
+    padding: 1px;
+    width: 140px;
+    height: 27px;
+    font-size: 16px;
+    line-height: 26px;
+    color: #ffffff;
+    background-color: var(--color-buttons);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-left: 310px;
+}
+
+
+
+

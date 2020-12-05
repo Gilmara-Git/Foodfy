@@ -8,6 +8,7 @@ const ProfileController = require("../app/controllers/profile")
 const ProfileValidator = require('../app/validators/profile')
 const { hasSessionUserId } = require('../app/middlewares/allowedUsers')
 const SessionController = require("../app/controllers/session")
+const SessionValidator = require('../app/validators/session')
 const multer = require('../app/middlewares/multer')
  
 //Admin routes - recipes
@@ -31,7 +32,7 @@ routes.delete("/chefs", ChefController.delete)
 // Admin routes - User registration
 routes.get("/users/create", UserValidator.post, UserController.create)
 routes.post("/users", UserController.post) // Cadastrar um usuario
-// routes.get("/users", UserController.list) // lista de usuarios cadastrados
+routes.get("/users", UserController.list) // lista de usuarios cadastrados
 // routes.put("/users", UserController.put) // editar usuarios
 // routes.delete(/users", UserControlller.delete) // deletar usuarios
 
@@ -39,11 +40,19 @@ routes.post("/users", UserController.post) // Cadastrar um usuario
 //rotas de login 
 
 routes.get("/users/login", SessionController.loginForm)
-// routes.post("/admin/users/login", SessionController.login)
+routes.post("/users/login", SessionValidator.login, SessionController.login)
 routes.post("/users/logout", SessionController.logout)
+
+//rotas de forgot password and reset password
+
+routes.get("/users/forgot-password", SessionController.forgotForm)
+routes.post("/users/forgot-password", SessionValidator.forgotPassword, SessionController.forgotPassword)
+routes.get("/users/reset-password", SessionController.resetForm)
+routes.post("/users/reset-password", SessionValidator.resetPassword, SessionController.resetPassword)
 
 // rotas de perfil usuario - usuario logado
 routes.get("/users/profile", ProfileController.index) //Mostrar formulario com dados do usuario Logado
 routes.put("/users/profile", hasSessionUserId, ProfileValidator.put, ProfileController.put) // Editar o usuario logado
+
 
 module.exports = routes

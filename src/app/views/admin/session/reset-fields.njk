@@ -13,7 +13,7 @@
             </div>
 
              <div class="inputs">
-                <div class="field-name">Senha</div>
+                <div class="field-name">Password</div>
                 <input type="password" 
                 id="password"
                 name="password" 
@@ -21,14 +21,25 @@
                 required
                 >
             </div>
+            
+             <div class="inputs">
+                <div class="field-name">Repeat Password</div>
+                <input type="password" 
+                id="password"
+                name="passwordRepeat" 
+                placeholder="Repeat password" 
+                required
+                >
+            </div>
            
             
-                <div class="session-buttons">
-                    <a id="forgot-password" href='/admin/users/forgot-password'>Forgot Password</a>
-                    <a id="sign-in" href="/admin/users/create">Sign in</a>
-                    <button id="login" form="new-session" type="submit">Login</button>
+                <div class="new-password-button">
+                    
+                    <button id="new-password" form="new-session" type="submit">New Password</button>
                     
                 </div>
+
+                <input type="hidden" name="token" value="{{token}}"/>
           
 
 

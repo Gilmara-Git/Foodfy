@@ -52,6 +52,12 @@ async post(req, res){
 
       success: "An email has been sent to user."
     })
+},
+
+list(req, res){
+
+return res.send('Sou a lista de usuarios')
+
 }
 
 
