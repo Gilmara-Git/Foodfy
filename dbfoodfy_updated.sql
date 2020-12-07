@@ -47,6 +47,11 @@ CREATE TABLE "users" (
   "updated_at" timestamp DEFAULT (now())
 );
 
+-- reset_token and reset_token_expires were added afterwards 
+-- I had tried put reset_token_expires as timestamp default now, to validate token expiratin
+-- but reset_token and reset_token_expires were not being recorded on the database 
+
+
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
 
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
@@ -82,7 +87,7 @@ ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 --CREATE TABLE "session" (
 --  "sid" varchar NOT NULL COLLATE "default",
 --	"sess" json NOT NULL,
---	"expire" timestamp(6) NOT NULL
+--	"expire" timestamp(6) NOT NULL DEFAULT (now())
 --)
 --WITH (OIDS=FALSE);
 

@@ -1,0 +1,44 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Edit user</title>
+{% endblock %}
+
+{% block header %}
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/admin/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+        <a id="users" href="/admin/users">Users</a>
+         <form action="/admin/users/logout" method="POST" id="logout" >
+            <button type='submit'>Logout</button>   
+        </form>  
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-users-create">
+        <h2>Edit user</h2>
+        <div class="users-buttons">
+            <button type="submit" form="delete-user" id="cancel">delete</button>
+            <button type="submit" form="new-user" id="save">Save</button>
+            
+        </div>
+    </div>
+
+    <form id="new-user" class="create-user"  method="POST" action="/admin/users?_method=PUT">
+
+        {% include "admin/users/fields.njk" %}
+        
+    </form>
+
+    <form id="delete-user" method="POST" action="/admin/users?_method=DELETE">
+        <input type="hidden" name="id" value={{user.id}}>
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

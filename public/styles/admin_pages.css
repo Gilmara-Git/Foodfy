@@ -51,7 +51,7 @@ body {
 .header-foodfy-admin form#logout {
 
     position: fixed;
-    right: 520;
+    right: 250;
 }
 
 #logo-foodfy-admin {
@@ -167,6 +167,32 @@ section .card-info-admin a {
     padding:4px;
     border-radius: 4px;
 }
+#view-user-link a {
+
+
+background: none;
+
+}
+
+   
+
+#view-user-link #edit {
+
+    color: forestgreen;
+    margin-bottom: 4px;
+}
+
+
+
+#view-user-link #remove {
+   
+    color: tomato;
+    background: none;
+    margin: 8px 16px;
+    font-weight: bold;
+    
+}
+
 
 /* Page Create  -  Form  and Page Show */
 
@@ -193,7 +219,7 @@ section .card-info-admin a {
     border-radius: 4px;
     color: #ffffff;
     font-size: 16px;
-    outline:none;
+    
 
 }
 
@@ -315,7 +341,6 @@ form .inputs input, form .inputs select {
     width: 940px;
     height: 49px;
     border: 1px solid var(--color-buttons);
-    outline:none;
     border-radius: 4px;
     padding: 4px;
     font-size: 20px;
@@ -341,7 +366,6 @@ form .inputs .step-field:nth-child(1){
     width: 940px;
     height: 257px;
     border: 1px solid var(--color-buttons);
-    outline:none;
     border-radius: 4px;
     resize: vertical;
     margin-bottom: 50px;
@@ -374,7 +398,7 @@ form .inputs .step-field:nth-child(1){
     background-color:var(--color-buttons);
     text-align:center;
     border-radius: 4px;
-    outline: none;
+    
     
 }
 
@@ -391,7 +415,7 @@ form button#new-steps {
     background-color:var(--color-buttons);
     text-align:center;
     border-radius: 4px;
-    outline: none;
+    
     
 }
 
@@ -451,7 +475,7 @@ form button#new-steps {
     border-radius: 4px;
     margin-right: 15px;
     margin-left: 521px;
-    outline: none;
+    
 }
 
 #manage-recipes-edit #links #save,
@@ -467,7 +491,7 @@ form button#new-steps {
     text-align: center;
     text-decoration: none;
     border-radius: 4px;
-    outline: none;
+    
     
 }
 
@@ -481,14 +505,15 @@ margin-top: 20px;
 }
 
 
-#manage-recipes #new-chef-link  {
+#manage-recipes #new-chef-link {
 
     margin-bottom: 30px;
 }
 
 
 #new-recipe-link #new-recipe,
-#new-chef-link #new-chef { 
+#new-chef-link #new-chef, #new-user-link #new-user {
+ 
 
     text-decoration: none;
     color:white;
@@ -502,15 +527,18 @@ margin-top: 20px;
 
 }
 
-/*Chef Index*/
 
-section.cards-foodfy-admin-chefs {
+/*Chef Index - User Index*/
+
+section.cards-foodfy-admin-chefs,
+section.cards-foodfy-admin-users {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
     grid-gap: 30px;
 }
 
-section .card-admin-chefs{
+section .card-admin-chefs,
+section .card-admin-users{
 
     display: grid;
     grid-template-columns: 80px 4fr;
@@ -524,26 +552,56 @@ section .card-img-admin-chef img {
     object-fit: cover; 
 }
 
-.card-info-admin .chef-name {
+.card-info-admin .chef-name,
+.card-info-admin .user-name {
 
-    width: 140px;
+    width: 160px;
     height: 21px;
     font-size: 18px;
 
 }
 
-.card-info-admin #view-chef-link { 
+
+.card-info-admin p {
+
+    color: #777777;
+}
+
+.card-info-admin #view-chef-link,
+.card-info-admin #view-user-link { 
 
     margin-top: 14px;
    
      
 }
 
-.card-info-admin #view-chef-link a {
+.card-info-admin #view-chef-link a,
+.card-info-admin #view-user-link a {
 font-size: 14px;
 
 
 }
+
+.card-info-admin #view-user-link a:hover{
+
+    font-size: 20px;
+}
+
+
+.card-info-admin #view-user-link button:hover{
+
+    font-size: 20px;
+}
+
+.card-info-admin #view-user-link  {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+
+}
+    
 
 
 /*Chef send Avatar Button  - input type = files*/
@@ -714,7 +772,8 @@ font-size: 14px;
 
 
 #manage-recipes-index-admin,
-#manage-chefs-index-admin {
+#manage-chefs-index-admin,
+#manage-users-index-admin {
 
     margin-top:55px;
     margin-bottom:30px;
@@ -726,12 +785,12 @@ font-size: 14px;
 }
 
 #manage-recipes-index-admin form input,
-#manage-chefs-index-admin form input {
+#manage-chefs-index-admin form input,
+#manage-users-index-admin form input {
 
     border: 1px solid black;
     height: 28px;
     width: 300px;
-    outline: none; 
     padding: 4px;
     border-radius: 4px;
 
@@ -750,7 +809,9 @@ font-size: 14px;
 }
 
 #manage-recipes-index-admin form button#search,
-#manage-chefs-index-admin form button#search {
+#manage-chefs-index-admin form button#search,
+#manage-users-index-admin form button#search,
+#manage-users-index-admin #new-user-create {
     color: white;
     width: 72px;
     height: 26px;
@@ -762,6 +823,12 @@ font-size: 14px;
     margin-left: 8px;
 }
 
+#manage-users-index-admin #new-user-create {
+
+    text-decoration: none;
+    padding: 4px;
+    margin-left: 100px;
+}
 
 /* Style on Pagination */
 
@@ -847,16 +914,17 @@ background-color: #DC4747;
 
 }
 
-form#new-user .user-fields {
+/*form#new-user .user-fields {
 
     display: flex;
     justify-content: space-evenly;
    
 
-}
+}*/
 
 
-form#logged-user .user-fields{ 
+form#logged-user .user-fields, 
+form#new-user .user-fields { 
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);

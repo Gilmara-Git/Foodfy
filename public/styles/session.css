@@ -26,19 +26,18 @@ form#new-session .user-fields {
 
 }
 
+
+
 form#new-session .user-fields .session-buttons  { 
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 36px; 
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 196px; 
+    margin-top: 20px;
     
 
 }
 
-form#new-session .user-fields .session-buttons{
-
-    margin-top: 20px;
-}
 
 
 form#new-session .user-fields .session-buttons #login,

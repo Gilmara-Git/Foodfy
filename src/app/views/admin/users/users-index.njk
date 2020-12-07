@@ -1,0 +1,72 @@
+
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Users</title>
+{% endblock %}
+
+{% block header %}
+ <div class="menu-links">
+    <div class="header-foodfy-admin">
+        <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+        <a id="recipes" href="/admin/receitas">Recipes</a>
+        <a id="chefs" href="/admin/chefs">Chefs</a>
+          <a id="users" href="/admin/users">Users</a>
+         <form action="/admin/users/logout" method="POST" id="logout" >
+            <button type='submit'>Logout</button>   
+        </form> 
+    </div>
+   </div> 
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-users-index-admin">
+        <h2>Users</h2>
+        <form method="GET" action="/admin/users">
+            <input type="text" 
+            name="filter" 
+            placeholder="Search user by name" 
+            value="{{filter}}">
+
+            <button id="search" type="submit">Search</button>
+        </form>
+        <div id="new-user-link"><a id="new-user-create" href="/admin/users/create">New User</a>
+       
+    </div>
+    </div>
+
+  
+    <section class="cards-foodfy-admin-users">
+          {% for user in users %}     
+            <div class="card-admin-users">
+
+                <div class="card-info-admin">
+                        <h6 class="user-name">{{user.name}}</h6> 
+                        <p>{{user.email}}</p>
+
+                    <div id="view-user-link">                    
+                    <a id="edit" href="/admin/users/edit?userId={{user.id}}">Edit</a>
+                    <form id="delete-user" method="POST" action="/admin/users?_method=DELETE">
+                     <input type="hidden" name="id" value="{{user.id}}">
+                      <button type="submit" id="remove">Remove</button> 
+                    </form>  
+                               
+                     
+                    </div>                                      
+                </div>
+     
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+    
+
+    
+    </div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

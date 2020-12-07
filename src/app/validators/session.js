@@ -18,13 +18,13 @@ if(!user) return res.render('admin/session/login', {
 
 })
 
-// check if password matches
+//check if password matches
 
-// const passwordMatch = await compare( password, user.password)
-//         if(!passwordMatch) return res.render('admin/session/login', {
-//             user: req.body,
-//             error: 'Incorrect password.'
-//         })
+const passwordMatch = await compare( password, user.password)
+        if(!passwordMatch) return res.render('admin/session/login', {
+            user: req.body,
+            error: 'Incorrect password.'
+        })
 
 
 
