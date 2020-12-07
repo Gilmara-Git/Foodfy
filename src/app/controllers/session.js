@@ -7,11 +7,7 @@ module.exports = {
 
 loginForm(req, res ){
 
-  return res.render('admin/session/login', {
-
-    success: "Please fill out the fields to login in the system."
-
-  })
+  return res.render('admin/session/login')
 }, 
 
 logout(req, res){
@@ -24,11 +20,12 @@ return res.redirect('/admin/users/profile')
 
 login(req, res) {
 
+  const {user} = req
 // put user in req.session
 req.session.userId = req.user.id
 
 
-return res.redirect('/admin/users/profile')
+return res.render('admin/profile/show-logged-user', { user})
 
 },
 
@@ -61,8 +58,8 @@ async forgotPassword(req, res){
 
       to: user.email,
       from: "no-reply@foodfy.com.br",
-      subject: "Forgot you password ?",
-      html: `<h2>"Link to reset password!"</h2>
+      subject: `Forgot you password, ${user.name}?`,
+      html: `<h2>Click on the link below to reset password!</h2>
              <p>You have 1 hour to reset your password.</p>
              <p>
                 <a href="http://localhost:3000/admin/users/reset-password?token=${token}" target="_blank">

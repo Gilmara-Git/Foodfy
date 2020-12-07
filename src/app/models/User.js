@@ -95,7 +95,19 @@ module.exports = {
             
             console.error(err)}
 
+    },
 
+    findAll(){
 
+        try{
+            
+            return db.query(`SELECT * FROM users`)
+
+            
+        }catch(err){ 
+
+            console.error(err)
+        }
+       
     }
 }

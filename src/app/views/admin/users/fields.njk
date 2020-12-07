@@ -31,9 +31,11 @@
     <div class="inputs">
        <div class="field-name-admin">
             <input id="is_admin" 
-            type="checkbox" 
+            type="checkbox"
             name="is_admin" 
-            value="true"/>
+            value="true"
+            {% if user.is_admin == true %}checked{% endif %}
+            />
             <label for="is_admin">Administrator</label>
         </div>
     </div>

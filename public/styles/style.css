@@ -127,7 +127,6 @@ header a {
     border: 1px solid black;
     height: 28px;
     width: 250px;
-    outline: none; 
     padding: 4px;
     border-radius: 4px;
     margin-left: 100px;
@@ -458,7 +457,6 @@ div#ingredients .button-show {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);
@@ -481,7 +479,6 @@ div#ingredients .button-hide {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);
@@ -512,7 +509,6 @@ div#preparation .button-show {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);
@@ -537,7 +533,6 @@ div#preparation .button-hide {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);
@@ -567,7 +562,6 @@ div#add-info .button-show {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);
@@ -590,7 +584,6 @@ div#add-info .button-hide {
     border-radius: 15px;
     width: 40px;
     height:20px;
-    outline:none;
     font-size:12px;
     font-weight:bold;
     background-color: var(--color-black);

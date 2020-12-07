@@ -19,29 +19,30 @@ async function put(req, res, next){
         user: req.body,
         error: 'User not found.'
     })
-         
-  
 
     if(!password) return res.render('admin/profile/show-logged-user', {
-        user: req.body,
+      
         error: 'Please type your password to update your profile.'
     })
 
-    //    // password compare  - Habilitar depois que fizer o forgot password
-    //     const passwordMatch = await compare( password, user.password)
-    //     if(!passwordMatch) return res.render('admin/profile/show-logged-user', {
-    //         user: req.body,
-    //         error: 'Incorrect password.'
-    //     })
+
+
+       // password compare  - Habilitar depois que fizer o forgot password
+        const passwordMatch = await compare( password, user.password)
+        if(!passwordMatch) return res.render('admin/profile/show-logged-user', {
+            user: req.body,
+            error: 'Incorrect password.'
+        })
 
     // Verifying if user is allowed to update
-    if(user.is_admin === !true || user.id === !req.session.userId){
+    if(user.id !== req.session.userId && user.is_admin !== true){
 
         return res.render('admin/profile/show-logged-user',{   
                 
             error: "You do not have permission to take this action." })
     }
    
+
 
         req.user = user
        
