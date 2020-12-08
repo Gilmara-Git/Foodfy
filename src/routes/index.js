@@ -2,6 +2,7 @@
 const express = require("express")
 const routes = express.Router()
 const RecipeController = require("../app/controllers/recipes")
+const ChefController =  require("../app/controllers/chefs")
 const searchRecipesController = require("../app/controllers/searchRecipes")
 const admin =  require("./admin")
 
@@ -10,6 +11,7 @@ const admin =  require("./admin")
 //Main website routes
 routes.get("/receitas/search", searchRecipesController.index)
 routes.get("/receitas", RecipeController.home)
+routes.get("/chefs", ChefController.home)
 routes.get("/", RecipeController.home )
 routes.get("/sobre", RecipeController.sobre)
 routes.get("/receitas/:id", RecipeController.showRecipeDetails)

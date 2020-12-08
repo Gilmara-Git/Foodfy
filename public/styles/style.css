@@ -47,7 +47,7 @@ header a {
     text-decoration: none;
     font-size: 16px;
     padding: 0 19px;
-    line-height: 26px;
+    /*line-height: 26px;*/
 }
 
 .links-top {
@@ -109,7 +109,7 @@ header a {
 
 }
 
-#sobre:hover, #recipes:hover, #chefs:hover {
+#sobre:hover, #recipes:hover, #chefs:hover, #login:hover {
 
      font-weight: bold;
      transition: 0.5s; 
@@ -129,7 +129,7 @@ header a {
     width: 250px;
     padding: 4px;
     border-radius: 4px;
-    margin-left: 100px;
+    /*margin-left: 100px;*/
 
 }
 
@@ -222,6 +222,7 @@ header a {
     height: 140px;
     border-radius: 15px;
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .card {
