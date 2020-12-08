@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block filter %}
-    <form id="search-resources" method="GET" action="/receitas/search">
-        <input type="text" name="filter" placeholder="Search chef's name" {% if search.term %}
-        value="{{search.term}}"  {% endif %}
+    <form id="search-resources" method="GET" action="/chefs">
+        <input type="text" name="filter" placeholder="Search chefs by name"
+        value="{{filter}}" 
         >
     <button id="search" type="submit">Search</button>
     </form>
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="card-info">
-                        <p class="food-author">{{chef.name}}</p>
+                        <h6 class="food-author recipe">{{chef.name}}</h6>
                     </div>
                 </div>
             {% endif %}

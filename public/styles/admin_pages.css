@@ -48,11 +48,12 @@ body {
     background:#111111;
 }
 
+
 .header-foodfy-admin form#logout {
 
-    position: fixed;
-    right: 250;
+   margin-left: 10px;
 }
+
 
 #logo-foodfy-admin {
 
