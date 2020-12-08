@@ -14,7 +14,7 @@ logout(req, res){
 
 req.session.destroy()
 
-return res.redirect('/admin/users/profile')
+return res.redirect('/')
 
 }, 
 

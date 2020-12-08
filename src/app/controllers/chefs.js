@@ -4,6 +4,20 @@ const User = require('../models/User')
 
 module.exports = { 
 
+async home(req, res){      
+    const  {  filter } = req.query
+    
+    let results = await Chef.all(filter)
+    let chefs = results.rows.map((chef) => ({
+ 
+         ...chef,
+         path: `${req.protocol}://${req.headers.host}${chef.path.replace(/\public/g, "")}`
+    }))
+             
+     return res.render('main/chefs', {chefs, filter})
+
+},
+
 async index(req, res){
     
     const  {  filter } = req.query
