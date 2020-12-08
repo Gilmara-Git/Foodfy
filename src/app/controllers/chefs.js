@@ -1,5 +1,6 @@
 const Chef = require("../models/Chef")
 const File = require('../models/File')
+const User = require('../models/User')
 
 module.exports = { 
 
@@ -18,45 +19,69 @@ async index(req, res){
 
  },
 
-create(req,res) {
+async create(req,res) {
+
+    
+    console.log('userId no chef create controller',req.session.userId)
+  //procurar if user is admin, if not redirect user
+  const user = await User.findOne( { where: { id: req.session.userId}})
+  console.log(user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
 
     res.render("admin/chefs/create_chef")
 }, 
 
 async post(req, res) {
     console.log('req body ',req.body)
-    const keys = Object.keys(req.body)
-    for(let key of keys) {
-        if (req.body[key] == "" && key != 'removed_image_id' ) return res.send("Fill out all fields")
-      
-    }
- 
-    if(req.files.length == "") return res.send('Please send 1 photo.') 
 
-     const filesPromise = req.files.map((file) => File.create({
-         ...file,
-         path: file.path.replace(/\\/g, "/")
+    try {
 
-     }))
-
-
-    const creatingChefImage = await Promise.all(filesPromise)  
-    //console.log('Linha 49', JSON.stringify(creatingChefImage, null, 2))
-    const fileId = creatingChefImage.map((item)=>{
-               return  {
-                   
-               id: item.rows[0].id 
-
-               }
-    });   
+        const keys = Object.keys(req.body)
+        for(let key of keys) {
+            if (req.body[key] == "" && key != 'removed_image_id' ) return res.send("Fill out all fields")
+          
+        }
+     
+        if(req.files.length == "") return res.send('Please send 1 photo.') 
     
-    console.log('53', fileId[0].id)
-results = await Chef.create(req.body, fileId[0].id)
-//console.log('linha 65' , results.rows)
+         const filesPromise = req.files.map((file) => File.create({
+             ...file,
+             path: file.path.replace(/\\/g, "/")
+    
+         }))
+    
+    
+        const creatingChefImage = await Promise.all(filesPromise)  
+        //console.log('Linha 49', JSON.stringify(creatingChefImage, null, 2))
+        const fileId = creatingChefImage.map((item)=>{
+                   return  {
+                       
+                   id: item.rows[0].id 
+    
+                   }
+        });   
+        
+        console.log('linha 53 chef create', fileId[0].id)
+        results = await Chef.create(req.body, fileId[0].id)
+        //console.log('linha 65' , results.rows)
+    
+             
+        return res.redirect("/admin/chefs")
+    
 
-         
-    return res.redirect("/admin/chefs")
 
+    } catch(err){ 
+        
+        console.error(err)
+    
+    }
+   
    
 }, 
 

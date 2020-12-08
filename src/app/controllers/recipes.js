@@ -1,6 +1,7 @@
 const Recipe = require("../models/Recipe");
 const File = require("../models/File");
 const File_Recipe = require("../models/File_Recipe");
+const User = require('../models/User')
 
 module.exports = {
   //Website Controllers
@@ -60,7 +61,9 @@ module.exports = {
     const params = {  filter,limit,offset };
 
     let results = await Recipe.paginate(params);
-    if (results.rows == "") return res.send("Recipe not found within your search.");
+    if (results.rows == "") return res.render("admin/recipes/index_admin", { 
+      
+      error: "Recipe not found within your search."});
     
       pagination = {
       page,
@@ -91,8 +94,18 @@ module.exports = {
   },
 
   async create(req, res) {
-    let results = await Recipe.allChefsSelectOne();
-   
+    //console.log('userId no recipe create controller',req.session.userId)
+    //procurar if user is admin, if not redirect user
+    const user = await User.findOne( { where: { id: req.session.userId}})
+    console.log(user)
+      // This is only for the admininstrator to create a users.   
+    if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', {       
+      user: user,
+      error: 'You do not have permission to take this action!'
+    
+    })
+
+    let results = await Recipe.allChefsSelectOne();   
 
     return res.render("admin/recipes/create_recipe", {
       listOfChefs: results.rows,
