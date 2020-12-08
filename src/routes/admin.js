@@ -13,7 +13,7 @@ const multer = require('../app/middlewares/multer')
  
 //Admin routes - recipes
 routes.get("/receitas", RecipeController.index )
-routes.get("/receitas/create", RecipeController.create )
+routes.get("/receitas/create", hasSessionUserId, RecipeController.create )
 routes.get("/receitas/:id", RecipeController.show)
 routes.get("/receitas/:id/edit", RecipeController.edit )
 routes.post("/receitas", multer.array('photos', 5),  RecipeController.post )
@@ -22,7 +22,7 @@ routes.delete("/receitas", RecipeController.delete )
 
 // // Admin routes - Chefs
 routes.get("/chefs", ChefController.index)
-routes.get("/chefs/create", ChefController.create)
+routes.get("/chefs/create", hasSessionUserId, ChefController.create)
 routes.get("/chefs/:id", ChefController.show)
 routes.get("/chefs/:id/edit", ChefController.edit)
 routes.post("/chefs", multer.array('photos', 1), ChefController.post)

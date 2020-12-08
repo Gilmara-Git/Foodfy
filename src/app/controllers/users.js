@@ -6,9 +6,6 @@ module.exports = {
 
 async create(req, res ){
 
-  console.log('userId no user create controller',req.session.userId)
-  //procurar if user is admin, if not redirect user
-
   const user = await User.findOne( { where: { id: req.session.userId}})
   console.log(user)
     // This is only for the admininstrator to create a users.   
