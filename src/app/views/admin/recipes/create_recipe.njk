@@ -30,6 +30,7 @@
     enctype="multipart/form-data">
 
         {% include "admin/recipes/fields_create.njk" %}
+        <input type="hidden" name="user_id" value="{{userId}}">
 
     </form>
 

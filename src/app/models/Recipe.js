@@ -75,17 +75,21 @@ return db.query(`
     },
 
     create(data) {
+
+      console.log('creating recipe', data)
       try {
         const query = `INSERT INTO recipes (
+          user_id,
           chef_id,
           title,
           ingredients,
           steps,
           information                                                       
-          ) VALUES ( $1, $2, $3, $4, $5)
+          ) VALUES ( $1, $2, $3, $4, $5, $6)
           RETURNING id`;
 
         const values = [
+          data.user_id,
           data.recipe_author_id,
           data.recipe_title,
           data.ingredients,
