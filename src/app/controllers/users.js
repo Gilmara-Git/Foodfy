@@ -6,6 +6,7 @@ module.exports = {
 
 async create(req, res ){
 
+  try { 
   const user = await User.findOne( { where: { id: req.session.userId}})
   console.log(user)
     // This is only for the admininstrator to create a users.   
@@ -17,6 +18,13 @@ async create(req, res ){
   })
 
   return res.render('admin/users/create-user')
+
+  } catch(err){
+
+    console.error(err)
+  }
+
+  
 }, 
 
 async post(req, res){
@@ -43,7 +51,7 @@ async post(req, res){
    await mailer.sendMail({
       to: userData.email, 
       from: "no-reply@foodfy.com.br", 
-      subject: `${userData.name}, this is the Password to your first login to Foodfy`,
+      subject: `Welcome to Foodfy ${userData.name}`,
       html: `
       
           <h2>This is your password ${userData.password}</h2>
@@ -54,11 +62,7 @@ async post(req, res){
       `
     })
 
-    return res.render("admin/users/create-user",{
-
-      success:"An email has been sent to user!"
-
-    } )
+    return res.redirect("/admin/users")
 
 },
 

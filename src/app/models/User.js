@@ -65,8 +65,8 @@ module.exports = {
     }, 
     
    async update(id, fields){
-    console.log('banco',fields)
-    console.log(id)
+    // console.log('banco',fields)
+    // console.log(id)
         try{ 
 
            let query = "UPDATE users SET"

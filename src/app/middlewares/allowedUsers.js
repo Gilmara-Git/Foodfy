@@ -1,3 +1,4 @@
+const { findOne } = require("../models/User")
 
 
 
@@ -8,6 +9,7 @@ function hasSessionUserId(req, res, next){
         if(req.session.userId ){
 
             req = req.session.userId
+            console.log('linha 12 no hasSession',req)
             
             next()
     
@@ -31,17 +33,29 @@ function hasSessionUserId(req, res, next){
     //deixar somente este usuarios ter acesso as rotas administrativas
 
     // verificar se esta logado e se e ou nao admin
-    function isAdmin(req, res, next){
+    async function isAdmin(req, res, next){
 
         try{
 
+            req.session.userId
+            const user = await findOne({ where: { id:req.session.userId}})
+            console.log(user)
+            console.log(user)
+
+            if(user.is_admin !==  true) return res.render('admin/profile/show-logged-user', { 
+                
+                user:user,
+                error:'You do not have permission to take this action.'
+            })
+
+            next()
             
 
         } catch(err) {
             console.error(err)
         }
-
-        next()
+ 
+ 
 
 }
 

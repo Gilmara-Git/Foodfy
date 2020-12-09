@@ -71,7 +71,7 @@ async function resetPassword(req, res, next) {
 
   try {
     const user = await User.findOne({ where: { email } });
-    console.log(user);
+    //console.log(user);
     if (!user)
       return res.render("admin/session/reset-password", {
         user: req.body,
@@ -98,7 +98,7 @@ async function resetPassword(req, res, next) {
 
     // verify if token did not expire
         let now = new Date();
-        now.setHours(now.getHours());
+        now.setHours(now.getHours() - 5 );
 
 
    console.log(now)

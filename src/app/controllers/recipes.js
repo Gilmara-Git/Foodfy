@@ -96,9 +96,11 @@ module.exports = {
   async create(req, res) {
     //console.log('userId no recipe create controller',req.session.userId)
     //procurar if user is admin, if not redirect user
-    const user = await User.findOne( { where: { id: req.session.userId}})
-    console.log(user)
-      // This is only for the admininstrator to create a users.   
+    const userId = req.session.userId
+    
+    const user = await User.findOne( { where: { id: userId}})
+    
+     // This is only for the admininstrator to create a users.   
     if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', {       
       user: user,
       error: 'You do not have permission to take this action!'
@@ -109,6 +111,7 @@ module.exports = {
 
     return res.render("admin/recipes/create_recipe", {
       listOfChefs: results.rows,
+      userId
     });
   },
 
@@ -166,6 +169,8 @@ module.exports = {
       return res.send("Please send at least one image.");
     //console.log(req.files)
 
+    
+    //console.log(req.body)
     let results = await Recipe.create(req.body);
     const recipe_id = results.rows[0].id
     //console.log('id de receita', recipe_id)
