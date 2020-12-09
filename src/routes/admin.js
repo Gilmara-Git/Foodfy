@@ -6,7 +6,7 @@ const UserController = require("../app/controllers/users")
 const UserValidator = require('../app/validators/user')
 const ProfileController = require("../app/controllers/profile")
 const ProfileValidator = require('../app/validators/profile')
-const { hasSessionUserId } = require('../app/middlewares/allowedUsers')
+const { hasSessionUserId, isAdmin } = require('../app/middlewares/allowedUsers')
 const SessionController = require("../app/controllers/session")
 const SessionValidator = require('../app/validators/session')
 const multer = require('../app/middlewares/multer')
@@ -32,7 +32,7 @@ routes.delete("/chefs", ChefController.delete)
 // Admin routes - User registration
 routes.get("/users/create", hasSessionUserId, UserController.create)
 routes.post("/users",  UserValidator.post, UserController.post) // Cadastrar um usuario
-routes.get("/users", UserController.list) // lista de usuarios cadastrados
+routes.get("/users", isAdmin, UserController.list) // lista de usuarios cadastrados
 routes.get("/users/edit", UserController.edit)
 routes.put("/users", UserValidator.put, UserController.put) // editar usuarios
 routes.delete("/users", UserController.delete) // deletar usuarios

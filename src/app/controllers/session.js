@@ -2,8 +2,11 @@ const User = require('../models/User')
 const crypto = require('crypto')
 const mailer = require('../../lib/mailer')
 const{ hash } = require('bcryptjs')
+const { dateInTimeStamp} = require('../../lib/utils')
+
 
 module.exports = {
+
 
 loginForm(req, res ){
 
@@ -14,7 +17,11 @@ logout(req, res){
 
 req.session.destroy()
 
-return res.redirect('/')
+return res.render('admin/session/login', { 
+
+    success: "You have logged out successfully!"
+})
+
 
 }, 
 
@@ -24,8 +31,18 @@ login(req, res) {
 // put user in req.session
 req.session.userId = req.user.id
 
+try{
 
-return res.render('admin/profile/show-logged-user', { user})
+  return res.render('admin/profile/show-logged-user', {
+    user,
+    success: `Welcome to Foodfy ${user.name}!`
+  })
+
+}catch(err) { 
+  
+  console.error(err)}
+
+
 
 },
 
@@ -44,7 +61,12 @@ async forgotPassword(req, res){
     const token = crypto.randomBytes(20).toString('hex')
 
     let now = new Date();
+    let nowtest = new Date(); 
     now.setHours(now.getHours() + 1)
+    console.log('now', now)
+    nowtest.setHours(nowtest.getHours() - 5)
+    console.log('notest', nowtest)
+
 
     await User.update(user.id, {
 
