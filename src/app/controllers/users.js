@@ -70,8 +70,8 @@ async list(req, res){
 
   req.session.userId
   const user = await User.findOne({ where: { id:req.session.userId}})
-  console.log(req.session.userId)
-  console.log(user)
+  //console.log(req.session.userId)
+  //console.log(user)
 
   if(user.is_admin !==  true) return res.render('admin/profile/show-logged-user', {       
       user:user,
@@ -82,7 +82,7 @@ async list(req, res){
 
   let results = await User.findAll()
   const users =  results.rows
-  console.log(users)
+  //console.log(users)
 
 
   return res.render('admin/users/users-index', {users})
@@ -128,13 +128,30 @@ async  put(req, res){
   
 }, 
 
-delete(req, res){
+async delete(req, res){
 
+
+  const {id} = req.body
+  console.log('id linha 135 ',id)
   //verify if delete cascade will be necessary
 
-  console.log('req.body id', req.body.id)
-  //console.log(userId)
-  return res.send("I am the delete users route")
+  try{ 
+
+    await User.delete(id)
+
+  }catch(err){ 
+    
+    
+    console.errror(err)}
+
+
+
+  // Fazer um "if" se o usuario for admin encaminhar para alista de usuarios
+  // Se o usuario nao for admin fazer session destroy e manda-lo para criar um novo usuario.
+
+
+
+  return res.redirect('/admin/users')
 }
 
 
