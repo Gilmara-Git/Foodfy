@@ -1,34 +1,19 @@
-const { findOne } = require("../models/User")
+function hasSessionUserId(req, res, next) {
+  try {
+    if (req.session.userId) {
+      req = req.session.userId;
+      console.log("linha 12 no hasSession", req);
 
-
-
-function hasSessionUserId(req, res, next){
-
-    try {
-
-        if(req.session.userId ){
-
-            req = req.session.userId
-            console.log('linha 12 no hasSession',req)
-            
-            next()
-    
-        } else { 
-    
-            return res.render('admin/session/login',{   
-                
-                error: "You are not loggin. Please login." })
-        
-        }
-
-    }catch(err){
-
-        console.error(err)
+      next();
+    } else {
+      return res.render("admin/session/login", {
+        error: "Please login.",
+      });
     }
-
-
-
+  } catch (err) {
+    console.error(err);
   }
+}
     //verificar se user esta logado, se esta logado , existe no banco
     //deixar somente este usuarios ter acesso as rotas administrativas
 

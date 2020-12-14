@@ -29,8 +29,6 @@ async create(req, res ){
 
 async post(req, res){
 
-       
-    
     // create a random password and send it to user's email address
     
     let password = createRandomPassword(20)
@@ -91,9 +89,19 @@ async list(req, res){
 
 async edit(req, res){
 
+  let user = await User.findOne( { where: { id: req.session.userId}})
+  console.log(user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
+
   const { userId }  = req.query
   
-  const user = await User.findOne({ where: {id: userId}})
+  user = await User.findOne({ where: {id: userId}})
   console.log(user)
 
   return res.render('admin/users/edit-user', {user})
@@ -130,6 +138,15 @@ async  put(req, res){
 
 async delete(req, res){
 
+  const user = await User.findOne( { where: { id: req.session.userId}})
+  console.log(user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
 
   const {id} = req.body
   console.log('id linha 135 ',id)

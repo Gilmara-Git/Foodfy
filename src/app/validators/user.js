@@ -17,6 +17,16 @@ function checkAllFields(body){
 
 async function post(req, res, next){
 
+  let user = await User.findOne( { where: { id: req.session.userId}})
+  console.log('linha 21 - user validator', user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
+
     const needToCompleteAllFields = checkAllFields(req.body)
 
     if(needToCompleteAllFields){
@@ -26,7 +36,7 @@ async function post(req, res, next){
     let { email} =  req.body;
     console.log(req.body)
 
-    const user =  await User.findOne({
+    user =  await User.findOne({
       where:{email}
     })
     
