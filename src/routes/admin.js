@@ -14,8 +14,8 @@ const multer = require('../app/middlewares/multer')
 //Admin routes - recipes
 routes.get("/receitas", hasSessionUserId, RecipeController.index )
 routes.get("/receitas/create", hasSessionUserId, RecipeController.create )
-routes.get("/receitas/:id",hasSessionUserId,  RecipeController.show)
-routes.get("/receitas/:id/edit",hasSessionUserId,  RecipeController.edit )
+routes.get("/receitas/:id",hasSessionUserId, RecipeController.show)
+routes.get("/receitas/:id/edit",hasSessionUserId, RecipeController.edit )
 routes.post("/receitas", hasSessionUserId, multer.array('photos', 5),  RecipeController.post )
 routes.put("/receitas",hasSessionUserId,  multer.array('photos', 5), RecipeController.put )
 routes.delete("/receitas",hasSessionUserId,  RecipeController.delete )
@@ -35,7 +35,7 @@ routes.post("/users",  hasSessionUserId, UserValidator.post, UserController.post
 routes.get("/users",  hasSessionUserId,UserController.list) // lista de usuarios cadastrados/ Somente usuarios tem acesso
 routes.get("/users/edit",  hasSessionUserId,UserController.edit)
 routes.put("/users",  hasSessionUserId,UserValidator.put, UserController.put) // editar usuarios
-routes.delete("/users", hasSessionUserId, UserController.delete) // deletar usuarios
+routes.delete("/users", hasSessionUserId, UserValidator.remove, UserController.delete) // deletar usuarios
 
 
 //rotas de login 

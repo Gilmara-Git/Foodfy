@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Recipe = require('../models/Recipe')
 
 function checkAllFields(body){
 
@@ -80,10 +81,19 @@ async function put(req, res, next){
 
 async function remove(req, res, next){
 
-  console.log(req.body)
+const {id} = req.body
+console.log('id', id)
 
-  next()
+  try { 
 
+    const recipes = await Recipe.findIfChefsRecipes(id)
+    console.log(recipes)
+
+  
+
+  }catch(err) {
+    console.error(err)
+  }
 }
 
 

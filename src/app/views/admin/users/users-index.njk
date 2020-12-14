@@ -58,7 +58,19 @@
      
             </div>
 
+             
+
         {% endfor %}
+        <script>
+                const formDelete = document.querySelector('#view-user-link button#remove')
+                formDelete.onclick = function(event){
+                    const userConfirmation = confirm('Do you want to delete the user?')
+                    if(!userConfirmation) {
+
+                    event.preventDefault()
+                }
+                }
+            </script>   
 
     </section>
 

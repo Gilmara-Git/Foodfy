@@ -159,7 +159,7 @@ async delete(req, res){
   }catch(err){ 
     
     
-    console.errror(err)}
+    console.error(err)}
 
 
 

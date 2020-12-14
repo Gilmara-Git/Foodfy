@@ -2,7 +2,7 @@ function hasSessionUserId(req, res, next) {
   try {
     if (req.session.userId) {
       req = req.session.userId;
-      console.log("linha 12 no hasSession", req);
+      console.log("linha 5 no hasSession", req);
 
       next();
     } else {

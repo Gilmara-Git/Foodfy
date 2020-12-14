@@ -108,7 +108,7 @@ return db.query(`
       //console.log(id)
       try {
         return db.query(
-          `SELECT recipes.*, chefs.name AS recipe_author
+          `SELECT recipes.*, user_id, chefs.name AS recipe_author
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id =chefs.id)
             WHERE recipes.id = $1
@@ -121,6 +121,19 @@ return db.query(`
       }
     },
 
+    findIfChefsRecipes(id){
+
+      try { 
+
+        return db.query(`SELECT * FROM recipes WHERE user_id = $1`, [id])
+
+      }catch(err){
+
+        console.error(err)
+      }
+
+
+},
     update(data) {
 
       try {
