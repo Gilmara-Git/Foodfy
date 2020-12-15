@@ -37,31 +37,31 @@ create(file_id, recipe_id){
     }
 
 }, 
-async delete(id){
-    console.log('linha recipe_file', id)
+// async delete(id){
+//     console.log('linha recipe_file', id)
     
-    try {
-         let result = await db.query (`SELECT file_id FROM recipe_files 
-         WHERE id = $1`, [id])
+//     try {
+//          let result = await db.query (`SELECT file_id FROM recipe_files 
+//          WHERE id = $1`, [id])
         
-        const imageId = result.rows[0];
-        //console.log(imageId.file_id)
+//         const imageId = result.rows[0];
+//         //console.log(imageId.file_id)
 
-        result = await db.query(`SELECT path FROM files WHERE files.id = $1`, [imageId.file_id] )
-         const file = result.rows[0]
-         //console.log(file.path)
+//         result = await db.query(`SELECT path FROM files WHERE files.id = $1`, [imageId.file_id] )
+//          const file = result.rows[0]
+//          //console.log(file.path)
 
-         fs.unlinkSync(file.path)
+//          fs.unlinkSync(file.path)
         
 
-        await db.query(`DELETE from recipe_files WHERE id=$1`, [id])
+//         await db.query(`DELETE from recipe_files WHERE id=$1`, [id])
 
-        await db.query(`DELETE FROM files WHERE id=$1`, [imageId.file_id])   
+//         await db.query(`DELETE FROM files WHERE id=$1`, [imageId.file_id])   
 
-    } catch (error) {
-        console.error(error);
-    }
-}, 
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }, 
 
 
 }

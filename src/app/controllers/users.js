@@ -138,23 +138,20 @@ async  put(req, res){
 
 async delete(req, res){
 
-  const user = await User.findOne( { where: { id: req.session.userId}})
-  console.log(user)
-    // This is only for the admininstrator to create a users.   
-  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
-    
-    user: user,
-    error: 'You do not have permission to take this action!'
-  
-  })
-
-  const {id} = req.body
-  console.log('id linha 135 ',id)
-  //verify if delete cascade will be necessary
-
   try{ 
+  
+  const {id} = req.body
 
+  //verify if user has recipes
+
+  const recipes = Recipe.findIfChefsRecipes(id)
+  
+
+  // get recipes
+
+ 
     await User.delete(id)
+    req.session.destroy
 
   }catch(err){ 
     

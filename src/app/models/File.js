@@ -95,8 +95,17 @@ module.exports = {
 
     },
 
+    path(id){
+
+        console.log('id para o path', id)
+        return db.query(`SELECT path FROM files WHERE id=$1`, [id])
+
+
+    },
+
 
     delete(id){
+        console.log('files no banco', id)
         
         try {
             return db.query(`DELETE FROM files 

@@ -18,7 +18,7 @@ routes.get("/receitas/:id",hasSessionUserId, RecipeController.show)
 routes.get("/receitas/:id/edit",hasSessionUserId, RecipeController.edit )
 routes.post("/receitas", hasSessionUserId, multer.array('photos', 5),  RecipeController.post )
 routes.put("/receitas",hasSessionUserId,  multer.array('photos', 5), RecipeController.put )
-routes.delete("/receitas",hasSessionUserId,  RecipeController.delete )
+routes.delete("/receitas",hasSessionUserId, RecipeController.delete )
 
 // // Admin routes - Chefs
 routes.get("/chefs", hasSessionUserId, ChefController.index)

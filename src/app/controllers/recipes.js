@@ -2,6 +2,7 @@ const Recipe = require("../models/Recipe");
 const File = require("../models/File");
 const File_Recipe = require("../models/File_Recipe");
 const User = require('../models/User')
+const fs = require('fs')
 
 module.exports = {
   //Website Controllers
@@ -262,18 +263,29 @@ module.exports = {
 
   async delete(req, res) {
 
-    const { id } = req.body;      
+    const { id } = req.body;     
      
     let results = await File_Recipe.find(id) 
-    const isThereFiles = results.rows
-      if(isThereFiles==""){        
-        await Recipe.delete(id)
+    let recipeFiles = results.rows
+    console.log(recipeFiles)
 
-      }else {
-      return res.send('If you are sure you want to remove this recipe, you need to delete its images before deleting the recipe.Click the left arrow to return. Delete the image(s) and click SAVE. Then you can delete the recipe.')
+    console.log('json', JSON.stringify(recipeFiles))
 
-      }
+    let filePathPromise = recipeFiles.map(item=>{        
+        File.path(item.file_id)
+    })
 
+    results = await Promise.all(filePathPromise)
+    const teste =  results.map((item, index)=>{
+
+      console.log(index)
+      console.log(item.rows.map(path=>{
+        console.log(path.rows)
+      }))
+    })
+
+    console.log(teste)
+    // await Recipe.delete(id)
    
    return res.redirect("/admin/receitas")
     
