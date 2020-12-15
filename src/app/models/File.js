@@ -4,7 +4,7 @@ module.exports = {
 
 
     all(id) {
- //console.log(id)
+ console.log('File.all', id)
         try {
 
             
@@ -98,8 +98,8 @@ module.exports = {
     path(id){
 
         console.log('id para o path', id)
-        return db.query(`SELECT path FROM files WHERE id=$1`, [id])
-
+        const results = db.query(`SELECT * FROM files WHERE id=$1`, [id])
+        return results.rows
 
     },
 

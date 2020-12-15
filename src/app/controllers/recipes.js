@@ -146,8 +146,8 @@ module.exports = {
                 
      }))
 
-     console.log('req.session', req.session.userId)
-     console.log('recipe user id', recipe.user_id)
+     //console.log('req.session', req.session.userId)
+     //console.log('recipe user id', recipe.user_id)
      const user = await User.findOne( { where: {id: req.session.userId}})
      
      if(recipe.user_id !== req.session.userId && user.is_admin !== true) return res.render("admin/recipes/show_admin", { 
@@ -265,27 +265,16 @@ module.exports = {
 
     const { id } = req.body;     
      
-    let results = await File_Recipe.find(id) 
-    let recipeFiles = results.rows
-    console.log(recipeFiles)
+    const allFilesPromise = await File.all(id)
+    console.log(allFilesPromise)
+    
+    allFilesPromise.rows.map(file=>
+      File.delete(file.file_id))
 
-    console.log('json', JSON.stringify(recipeFiles))
-
-    let filePathPromise = recipeFiles.map(item=>{        
-        File.path(item.file_id)
-    })
-
-    results = await Promise.all(filePathPromise)
-    const teste =  results.map((item, index)=>{
-
-      console.log(index)
-      console.log(item.rows.map(path=>{
-        console.log(path.rows)
-      }))
-    })
-
-    console.log(teste)
-    // await Recipe.delete(id)
+    allFilesPromise.rows.map(file=>
+      fs.unlinkSync(file.path))
+ 
+    await Recipe.delete(id)
    
    return res.redirect("/admin/receitas")
     

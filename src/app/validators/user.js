@@ -72,7 +72,7 @@ async function remove(req, res, next) {
    
    // This is only for the admininstrators.
     const user = await User.findOne({ where: { id: req.session.userId } });
-    console.log(user);
+    //console.log(user);
     
     if(user.is_admin !== true)
       return res.render("admin/profile/show-logged-user", {

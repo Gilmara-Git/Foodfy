@@ -102,6 +102,14 @@ ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 --ON DELETE CASCADE; 
 
 
+--ALTER TABLE "recipes"
+--DROP CONSTRAINT recipes_chef_id_fkey,
+--ADD CONSTRAINT recipes_chef_id_fkey
+--FOREIGN KEY ("chef_id")
+--REFERENCES "chefs" ("id")
+--ON DELETE CASCADE;
+
+
 --ALTER TABLE "recipe_files"
 --DROP CONSTRAINT recipe_files_recipe_id_fkey,
 --ADD CONSTRAINT recipe_files_recipe_id_fkey
@@ -116,3 +124,9 @@ ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 --REFERENCES "files" ("id")
 --ON DELETE CASCADE;
 
+--ALTER TABLE "chefs"
+--DROP CONSTRAINT chefs_file_id_fkey,
+--ADD CONSTRAINT chefs_file_id_fkey
+--FOREIGN KEY ("file_id")
+--REFERENCES "files" ("id")
+--ON DELETE CASCADE;

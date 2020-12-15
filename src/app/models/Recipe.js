@@ -121,7 +121,7 @@ return db.query(`
       }
     },
 
-    findIfChefsRecipes(id){
+    findIfUserRecipes(id){
 
       try { 
 

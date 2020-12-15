@@ -130,6 +130,17 @@ return res.render("admin/chefs/show_admin", { chef, recipes:recipeNameIdImage})
 },
 
 async edit(req, res) {
+
+const user = await User.findOne( { where: { id: req.session.userId}})
+  console.log(user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
+
     
 const { id } = req.params;  
 const results = await Chef.findChefsData(id);
@@ -172,21 +183,33 @@ async put(req, res) {
 
   async  delete(req, res) {
 
-    let results = await Chef.verifyIfChefHasRecipes(req.body.id)
-    const chefIdRecipes =  results.rows
+  const user = await User.findOne( { where: { id: req.session.userId}})
+  console.log(user)
+    // This is only for the admininstrator to create a users.   
+  if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', { 
+    
+    user: user,
+    error: 'You do not have permission to take this action!'
+  
+  })
+
+        console.log(req.body.id)
+
+    // let results = await Chef.verifyIfChefHasRecipes(req.body.id)
+    // const chefIdRecipes =  results.rows
         
-        if(chefIdRecipes != "" ) { 
+    //     if(chefIdRecipes != "" ) { 
 
-            return res.send('This chef cannot be deleted as he/she has recipes on the system.')
-        } else {
+    //         return res.send('This chef cannot be deleted as he/she has recipes on the system.')
+    //     } else {
 
-            results = await File.getChefImageId(req.body.id)
-            const chefImageId = results.rows[0].file_id;
+    //         results = await File.getChefImageId(req.body.id)
+    //         const chefImageId = results.rows[0].file_id;
                      
-            await Chef.delete(req.body.id)
-            await File.delete(chefImageId)
+    //         await Chef.delete(req.body.id)
+    //         await File.delete(chefImageId)
             
-        }
+    //     }
             
         return res.redirect('/admin/chefs')
 

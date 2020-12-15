@@ -1,6 +1,9 @@
 const User = require('../models/User')
+const Recipe = require('../models/Recipe')
+const File = require('../models/File')
 const { createRandomPassword } = require('../../lib/utils')
 const mailer = require('../../lib/mailer')
+const fs = require('fs')
 
 module.exports = {
 
@@ -52,7 +55,8 @@ async post(req, res){
       subject: `Welcome to Foodfy ${userData.name}`,
       html: `
       
-          <h2>This is your password ${userData.password}</h2>
+          <h2>Below is your password</h2>
+          <p>${userData.password}</p>
           <p>Please click on the login link below to access Foodfy.</p>          
           <p>            
             <a href="http://localhost:3000/admin/users/login" target="_blank">login</a>          
@@ -60,7 +64,10 @@ async post(req, res){
       `
     })
 
-    return res.redirect("/admin/users")
+    return res.render('admin/users/create-user', {
+
+      success: 'An email has been sent to user.'
+    })
 
 },
 
@@ -141,32 +148,53 @@ async delete(req, res){
   try{ 
   
   const {id} = req.body
+  console.log(id)
 
   //verify if user has recipes
+    // get recipes
+  let results = await Recipe.findIfUserRecipes(id)
+  const recipes = results.rows
+  //console.log('linha 153', recipes)
 
-  const recipes = Recipe.findIfChefsRecipes(id)
+  const allFilesPromise = recipes.map(recipe=>{
+    return  File.all(recipe.id)
+  })
+
+ 
+  let promiseResults = await Promise.all(allFilesPromise)
+  //console.log(JSON.stringify(promiseResults, null, 2))
+
+  promiseResults.map(results=>
+    results.rows.map(file => 
+     File.delete(file.file_id))
+  )
   
-
-  // get recipes
-
+  promiseResults.map(results=>
+    results.rows.map(file => 
+     fs.unlinkSync(file.path))
+  )
+ 
+  
  
     await User.delete(id)
     req.session.destroy
+
+
+    return res.redirect('/admin/users')
 
   }catch(err){ 
     
     
     console.error(err)}
 
-
+  }
 
   // Fazer um "if" se o usuario for admin encaminhar para alista de usuarios
   // Se o usuario nao for admin fazer session destroy e manda-lo para criar um novo usuario.
 
 
 
-  return res.redirect('/admin/users')
+  // return res.redirect('/admin/users')
 }
 
 
-}
