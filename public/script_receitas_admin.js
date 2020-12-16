@@ -1,9 +1,9 @@
 
 
-logoImgAdmin = document.querySelector(".header-foodfy-admin img#logo-foodfy-admin")
-logoImgAdmin.onclick = function goToHomePage() {
-  window.location.href = "/"
-}
+// logoImgAdmin = document.querySelector(".header-foodfy-admin img#logo-foodfy-admin")
+// logoImgAdmin.onclick = function goToHomePage() {
+//   window.location.href = "/"
+// }
 
 //Show link active as GREEN
 

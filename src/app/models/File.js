@@ -95,11 +95,11 @@ module.exports = {
 
     },
 
-    path(id){
+    allFromFiles(id){
 
         console.log('id para o path', id)
         const results = db.query(`SELECT * FROM files WHERE id=$1`, [id])
-        return results.rows
+        return results
 
     },
 

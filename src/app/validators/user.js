@@ -70,11 +70,14 @@ async function put(req, res, next) {
 async function remove(req, res, next) {
   try {
    
+    const { id } = req.body
+    console.log('id usario a ser deletado', id)
    // This is only for the admininstrators.
     const user = await User.findOne({ where: { id: req.session.userId } });
     //console.log(user);
-    
-    if(user.is_admin !== true)
+   
+    console.log('req sessin', req.session.userId)
+    if(user.is_admin !== true || id == req.session.userId)
       return res.render("admin/profile/show-logged-user", {
         user: user,
         error: "You do not have permission to take this action!",

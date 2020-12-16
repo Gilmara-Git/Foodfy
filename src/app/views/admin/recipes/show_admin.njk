@@ -65,9 +65,7 @@
        
     </div>
 
-    </div>
-
-    <div class="more-details-prep">
+     <div class="more-details-prep">
         {% for step in recipe.steps%}
             <ul>
                 <li>{{step}}</li>
@@ -79,13 +77,18 @@
         <div id="add-info">Additional Information
         
     </div>
+     <div class="more-details-info">{{recipe.information}}</div>
 
         </div>
 
-        <div class="more-details-info">{{recipe.information}}</div>
+       
 
     </div>
 
+
+    </div>
+
+   
 {% endblock %}
 
 {% block footer%}{% endblock %}
