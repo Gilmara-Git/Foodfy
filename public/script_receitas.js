@@ -2,16 +2,25 @@
 const cards = document.querySelectorAll(".card")
 
 for (let card of cards) {
-    card.addEventListener("click", function () {
-        const recipeId = card.getAttribute("id")
-        window.location.href = `/receitas/${recipeId}`;
 
+    try{
 
-    })
+        card.addEventListener("click", function () {
+            const recipeId = card.getAttribute("id")
+            window.location.href = `/receitas/${recipeId}`;
+    
+    
+        })
+
+     }catch(err){
+         
+        console.error(err)
+    }
+   
 }
 
 
-logoImgWebPage = document.querySelector(".links-top img#logo")
+logoImgWebPage = document.querySelector("img#logo")
 logoImgWebPage.onclick = function goToHomePage() {
     window.location.href = "/"
 }

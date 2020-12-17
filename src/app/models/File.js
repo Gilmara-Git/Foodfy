@@ -4,7 +4,7 @@ module.exports = {
 
 
     all(id) {
- //console.log(id)
+ console.log('File.all', id)
         try {
 
             
@@ -95,8 +95,17 @@ module.exports = {
 
     },
 
+    allFromFiles(id){
+
+        console.log('id para o path', id)
+        const results = db.query(`SELECT * FROM files WHERE id=$1`, [id])
+        return results
+
+    },
+
 
     delete(id){
+        console.log('files no banco', id)
         
         try {
             return db.query(`DELETE FROM files 

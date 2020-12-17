@@ -2,6 +2,7 @@ const Recipe = require("../models/Recipe");
 const File = require("../models/File");
 const File_Recipe = require("../models/File_Recipe");
 const User = require('../models/User')
+const fs = require('fs')
 
 module.exports = {
   //Website Controllers
@@ -94,19 +95,11 @@ module.exports = {
   },
 
   async create(req, res) {
-    //console.log('userId no recipe create controller',req.session.userId)
+   
+ //console.log('userId no recipe create controller',req.session.userId)
     //procurar if user is admin, if not redirect user
-    const userId = req.session.userId
+    const userId = req.session.userId    
     
-    const user = await User.findOne( { where: { id: userId}})
-    
-     // This is only for the admininstrator to create a users.   
-    if(user.is_admin !== true) return res.render('admin/profile/show-logged-user', {       
-      user: user,
-      error: 'You do not have permission to take this action!'
-    
-    })
-
     let results = await Recipe.allChefsSelectOne();   
 
     return res.render("admin/recipes/create_recipe", {
@@ -142,6 +135,8 @@ module.exports = {
     if (!results) return res.send("Recipe not found.");
     const recipe = results.rows[0];
 
+   
+
     let allChefs = await Recipe.allChefsSelectOne();
 
     results =  await File.all(id);    
@@ -150,6 +145,15 @@ module.exports = {
         src:`${req.protocol}://${req.headers.host}${image.path.replace(/\public/g, "")}`
                 
      }))
+
+     //console.log('req.session', req.session.userId)
+     //console.log('recipe user id', recipe.user_id)
+     const user = await User.findOne( { where: {id: req.session.userId}})
+     
+     if(recipe.user_id !== req.session.userId && user.is_admin !== true) return res.render("admin/recipes/show_admin", { 
+       recipe, 
+       images,
+       error: 'You can only edit your recipes!'})
 
     return res.render("admin/recipes/edit_admin", {
       recipe,
@@ -240,7 +244,9 @@ module.exports = {
   await Recipe.update(req.body);
 
   //Removing images from Db
+
   let removedImagesIds = req.body.removed_images_ids.split(",");
+  console.log('removed images Ids', removedImagesIds)
   const lastIndex = removedImagesIds.length - 1;
   removedImagesIds.splice(lastIndex, 1); // array of recipe_files ids [ '22', '23'] // removing the comma ',' on the last position
   //console.log(removedImagesIds)
@@ -256,18 +262,19 @@ module.exports = {
   },
 
   async delete(req, res) {
-    const { id } = req.body;   
 
-   let results = await File_Recipe.find(id) 
-   const isThereFiles = results.rows
-      if(isThereFiles==""){        
-        await Recipe.delete(id)
+    const { id } = req.body;     
+     
+    const allFilesPromise = await File.all(id)
+    console.log(allFilesPromise)
+    
+    allFilesPromise.rows.map(file=>
+      File.delete(file.file_id))
 
-      }else {
-      return res.send('If you are sure you want to remove this recipe, you need to delete its images before deleting the recipe.Click the left arrow to return. Delete the image(s) and click SAVE. Then you can delete the recipe.')
-
-      }
-
+    allFilesPromise.rows.map(file=>
+      fs.unlinkSync(file.path))
+ 
+    await Recipe.delete(id)
    
    return res.redirect("/admin/receitas")
     

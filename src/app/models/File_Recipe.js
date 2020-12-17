@@ -38,31 +38,44 @@ create(file_id, recipe_id){
 
 }, 
 async delete(id){
-    //console.log(id)
+    console.log('linha recipe_file', id)
     
     try {
-
          let result = await db.query (`SELECT file_id FROM recipe_files 
          WHERE id = $1`, [id])
         
         const imageId = result.rows[0];
-        //console.log(imageId.file_id)
+        console.log(imageId.file_id)
 
         result = await db.query(`SELECT path FROM files WHERE files.id = $1`, [imageId.file_id] )
          const file = result.rows[0]
-         //console.log(file.path)
+         console.log(file.path)
 
          fs.unlinkSync(file.path)
         
 
-    await db.query(`DELETE from recipe_files WHERE id=$1`, [id])
+        //await db.query(`DELETE from recipe_files WHERE id=$1`, [id])
 
-    await db.query(`DELETE FROM files WHERE id=$1`, [imageId.file_id])   
+        await db.query(`DELETE FROM files WHERE id=$1`, [imageId.file_id])   
 
     } catch (error) {
         console.error(error);
     }
 }, 
+
+findFileId(id){
+    console.log('recipe id', id)
+
+    try{
+
+        return db.query(`SELECT file_id from recipe_files WHERE recipe_id=$1`, [id])
+
+
+    }catch(err){
+
+        console.error(err)
+    }
+}
 
 
 }

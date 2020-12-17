@@ -17,11 +17,7 @@ logout(req, res){
 
 req.session.destroy()
 
-return res.render('admin/session/login', { 
-
-    success: "You have logged out successfully!"
-})
-
+return res.redirect('/receitas')
 
 }, 
 

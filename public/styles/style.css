@@ -217,7 +217,7 @@ header a {
 }
 /*=== Working on Card ===*/
 
-.card img {
+.card img, .cardchef img {
     width: 300px;
     height: 140px;
     border-radius: 15px;
@@ -225,7 +225,7 @@ header a {
     object-fit: cover;
 }
 
-.card {
+.card, .cardchef {
     display: flex;
     flex-direction: column;
 }
@@ -258,7 +258,7 @@ header a {
     
 
 }
-.cards {
+.cards{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;

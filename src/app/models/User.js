@@ -109,5 +109,17 @@ module.exports = {
             console.error(err)
         }
        
+    },
+
+    delete(id){
+            console.log(id)
+
+        try{  
+
+            return db.query("DELETE FROM users WHERE id= $1", [id])
+
+        } catch(err){ 
+            
+            console.error(err)}
     }
 }
