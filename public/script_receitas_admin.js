@@ -1,10 +1,4 @@
 
-
-// logoImgAdmin = document.querySelector(".header-foodfy-admin img#logo-foodfy-admin")
-// logoImgAdmin.onclick = function goToHomePage() {
-//   window.location.href = "/"
-// }
-
 //Show link active as GREEN
 
 const verifyCurrentPageActive = window.location.pathname
@@ -52,10 +46,6 @@ addStepsButton.onclick = function () {
 
 
 
-
-
-
-// Direct user to home page when clicking on Foodfy logo in the header
 
 
 

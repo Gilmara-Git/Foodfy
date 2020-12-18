@@ -4,11 +4,18 @@ const { checkAllFields} = require('./user')
 
 async function put(req, res, next){
 
-    const needToCompleteAllFields = checkAllFields(req.body)
+    console.log(req.body)
+     
 
-    if(needToCompleteAllFields){
-        return res.render('admin/profile/show-logged-user', needToCompleteAllFields)
-    }
+        if(req.body.password == ""){
+
+            return res.render('admin/profile/show-logged-user', {
+
+                user: req.body,
+                error: "Please type your password for your changes to take effect."
+            })
+
+        }
 
     const { password , email} = req.body;
     //console.log(req.body)
@@ -17,11 +24,11 @@ async function put(req, res, next){
     //console.log('usuario vindo do banco de dados', user)
     if(!user) return res.render('admin/profile/show-logged-user', {
         user: req.body,
-        error: 'User not found.'
+        error: 'User not found. Please check if email is correct.'
     })
 
     if(!password) return res.render('admin/profile/show-logged-user', {
-      
+        user: user,
         error: 'Please type your password to update your profile.'
     })
 

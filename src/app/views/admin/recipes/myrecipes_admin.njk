@@ -1,0 +1,77 @@
+{% extends "layout.njk" %}
+
+{% block title %}
+    <title>Foodfy Admin</title>
+{% endblock %}
+
+{% block header %}
+    <div class="menu-links">
+        <div class="header-foodfy-admin">
+            <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
+            <a id="recipes" href="/admin/receitas">Recipes</a>
+            <a id="chefs" href="/admin/chefs">Chefs</a>
+            {% if user.is_admin == true %}
+                <a id="users" href="/admin/users">Users</a>
+            {% endif %}
+            <form action="/admin/users/logout" method="POST" id="logout">
+                <button type='submit'>Logout</button>
+            </form>
+            <nav class="submenu">
+                <ul >
+                    <li id="li-submenu">
+                        <a href="/admin/users/profile">{{user.name}}</a>
+                    </li>
+                    <li id="li-submenu">
+                        <ul>
+                            <li>
+                                <a href="/admin/myreceitas">My Recipes</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="manage-recipes-index-admin">
+        <h2>My Recipes</h2>
+
+        <div></div>
+        
+        <div id="new-recipe-link">
+            <a id="new-recipe" href="/admin/receitas/create">New</a>
+        </div>
+
+    </div>
+
+    <section class="cards-foodfy-admin">
+
+        {% for recipe in recipes %}
+            <div class="card-admin" id="{{recipe.id}}">
+
+                <div class="card-img-admin">
+                    <img src="{{recipe.path}}" alt="burger">
+                </div>
+
+                <div class="card-info-admin">
+                    <h6 class="food-name">{{recipe.title}}</h6>
+                    <p class="food-author">{{recipe.recipe_author}}</p>
+                    <a href="/admin/receitas/{{recipe.id}}">Details</a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+    
+
+</div>
+
+{% endblock %}
+
+{% block footer%}{% endblock %}

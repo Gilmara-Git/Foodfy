@@ -5,8 +5,25 @@
 
 {% endif %}
 
+{%if errorOnPageWithoutHeader %}
+    <div class="messages errorOnPageWithoutHeader">
+        {{errorOnPageWithoutHeader}}
+    </div>
+
+{% endif %}
+
 {%if success %}
     <div class="messages success">
         {{success}}
     </div>
+{% endif %}
+
+{% if successOnPageWithoutHeader %}
+
+    <div class="messages successOnPageWithoutHeader">
+
+        {{successOnPageWithoutHeader}}
+
+    </div>
+
 {% endif %}

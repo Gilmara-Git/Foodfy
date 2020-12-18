@@ -53,26 +53,28 @@ module.exports = {
 
   //Admin Controllers
   async index(req, res) {
+
+    const user = await User.findOne({ where: { id: req.session.userId }})
+ 
+
     let { filter, page, limit } = req.query;
    
     page = page || 1;
-    limit = limit || 2;
+    limit = limit || 4;
     let offset = limit * (page - 1);
 
     const params = {  filter,limit,offset };
 
     let results = await Recipe.paginate(params);
-    if (results.rows == "") return res.render("admin/recipes/index_admin", { 
-      
+    if (results.rows == "") return res.render("admin/recipes/index_admin", {       
       error: "Recipe not found within your search."});
-    
+  
       pagination = {
       page,
       total: Math.ceil(results.rows[0].total / limit),
     };
     
-    async function getRecipeImage(recipeId){
-      
+    async function getRecipeImage(recipeId){      
       let results = await Recipe.file(recipeId)
       const files =  results.rows.map(file =>`${req.protocol}://${req.headers.host}${file.path.replace(/\public/g,"")}`)
       
@@ -84,13 +86,15 @@ module.exports = {
     })
     
     const recipes =  await Promise.all(recipesPromise)
-    // const recipes = results.rows
+    
+    
     
 
     res.render("admin/recipes/index_admin", {
       recipes,
       filter,
       pagination,
+      user
     });
   },
 
@@ -181,19 +185,7 @@ module.exports = {
 
     const filesPromise = req.files.map((file) => File.create({ ...file, path: file.path.replace(/\\/g, "/") })
     );
-    // results =  await Promise.all(filesPromise)
-    // const filesIds = results.rows
-    // console.log('Linha 147', JSON.stringify(filesIds, null, 2))// retorna undefined , apesar dos File serem criados no banco de dados
-    
-    //console.log(filesIds)
-
-    // const files  = results.rows.map((item, index)=>{
-
-    //   console.log(index)
-    //   console.log(item.rows[0])
-     
-    // })
-    // console.log(files.rows)
+   
     
    results =  Promise.all(filesPromise).then((files) => {
 
@@ -278,6 +270,41 @@ module.exports = {
    
    return res.redirect("/admin/receitas")
     
+  },
+
+  async userRecipes(req, res){
+
+    const id = req.session.userId
+    const user = await User.findOne({ where: {id}})
+    
+    let results = await Recipe.findIfUserRecipes(id)
+    const userRecipes = results.rows
+    //console.log('userRecipes', userRecipes)
+    
+
+    async function getRecipeImage(recipeId){      
+      let results = await Recipe.file(recipeId)
+      const files =  results.rows.map(file =>`${req.protocol}://${req.headers.host}${file.path.replace(/\public/g,"")}`)
+      return files[0]
+    }
+
+    async function getRecipeChef(recipeId){       
+      let results = await Recipe.recipesChef(recipeId)
+      return results.rows[0].recipe_author
+    }
+
+    // pegando o resultado de userRecipes e adicionado recipe.path e recipe.recipe_author
+   const resultsPromise =  userRecipes.map(async(recipe) => {      
+      recipe.path = await getRecipeImage(recipe.id),
+      recipe.recipe_author = await getRecipeChef(recipe.id)
+      return recipe
+    })
+   
+    const recipes = await Promise.all(resultsPromise)
+    //console.log('linha 308', recipes)
+       
+    return res.render('admin/recipes/myrecipes_admin', {user, recipes})
+
   },
 
   not_found(req, res) {

@@ -4,7 +4,7 @@ const User = require('../models/User')
 module.exports = {
   async index(req, res) {
     const { userId } = req.session;
-    console.log("userId do req.session", userId);
+    //console.log("userId do req.session", userId);
 
     try {
       const user = await User.findOne({ 

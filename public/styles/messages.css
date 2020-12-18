@@ -24,7 +24,7 @@
     text-align: center;
     border-radius: 2px;
     position: absolute;
-    top: 80px;
+    
     background-color:#f3eded;
     opacity:1;
 
@@ -33,7 +33,19 @@
 
 }
 
-.messages.error {
+.messages {
+
+    top: 80px;
+}
+
+.messages.errorOnPageWithoutHeader,
+.messages.successOnPageWithoutHeader{
+
+    top: 0px;
+}
+
+.messages.error,
+.messages.errorOnPageWithoutHeader {
    
   
     color: red;    
@@ -46,11 +58,13 @@
 
 /*success messages*/ 
 
-.messages.success {
+.messages.success,
+.messages.successOnPageWithoutHeader {
 
    
     color: forestgreen; 
     box-shadow: 0px 1px 5px -1px forestgreen;
+    
     
 
     

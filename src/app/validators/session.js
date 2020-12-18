@@ -14,7 +14,7 @@ const user = await User.findOne({ where: {email} })
 if(!user) return res.render('admin/session/login', {
 
     user: req.body,
-    error: "User does not exist. Click on sign in to login"
+    errorOnPageWithoutHeader: "User does not exist. Click on sign in to login"
 
 })
 
@@ -51,7 +51,7 @@ async function forgotPassword(req, res, next){
         
         if(!user) return res.render('admin/session/forgot-password', {
             user: req.body,
-            error: "Email does not exist on the system!"})
+            errorOnPageWithoutHeader: "Email does not exist on the system!"})
 
 
             req.user = user
@@ -75,7 +75,7 @@ async function resetPassword(req, res, next) {
     if (!user)
       return res.render("admin/session/reset-password", {
         user: req.body,
-        error: "User not found.",
+        errorOnPageWithoutHeader: "User not found.",
       });
 
     //verify if password match
@@ -84,7 +84,7 @@ async function resetPassword(req, res, next) {
       return res.render("admin/session/reset-password", {
         user: req.body,
         token,
-        error: "Passwords do not match. Please try again.",
+        errorOnPageWithoutHeader: "Passwords do not match. Please try again.",
       });
 
     // verify if there is a token available and if user is not trying to reset his password with somebody else's token
@@ -92,7 +92,7 @@ async function resetPassword(req, res, next) {
       return res.render("admin/session/reset-password", {
         user: req.body,
         token,
-        error:
+        errorOnPageWithoutHeader:
           "Token not valid. Make sure you typed the correct email, or request another password reset.",
       });
 
@@ -110,7 +110,7 @@ async function resetPassword(req, res, next) {
       return res.render("admin/session/reset-password", {
         token,  
         user: req.body,
-        error: "Token expired, please request another password reset.",
+        errorOnPageWithoutHeader: "Token expired, please request another password reset.",
       });
 
     req.user = user;

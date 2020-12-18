@@ -90,7 +90,7 @@ async forgotPassword(req, res){
 
     return res.render('admin/session/login', {      
       users: req.body,
-      success: "Email has been sent to your mailbox."
+      successOnPageWithoutHeader: "Email has been sent to your mailbox."
     })
 
 
@@ -99,7 +99,7 @@ async forgotPassword(req, res){
     console.error(err)}
     return res.render('admin/session/forgot-password',{
       user: req.body,
-      error: "Unexpected error" 
+      errorOnPageWithoutHeader: "Unexpected error" 
     })
 
 },
@@ -128,7 +128,7 @@ async resetPassword(req, res){
   return res.render('admin/session/login', {
     
     users: req.body,
-    success: "Password has been reset. Please login!"
+    successOnPageWithoutHeader: "Password has been reset. Please login!"
     })
 
 
@@ -138,7 +138,7 @@ async resetPassword(req, res){
     return res.render('admin/session/reset-password', {
 
       user: req.body,
-      error: "Unexpected error. Try again."
+      errorOnPageWithoutHeader: "Unexpected error. Try again."
     })
  }
 
