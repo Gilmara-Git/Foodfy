@@ -93,6 +93,8 @@ module.exports = {
   },
 
   async show(req, res) {
+    const user = await User.findOne({ where: {id: req.session.userId}})
+    
     const { id } = req.params;
     let results = await Chef.findChefsData(id); // chefs, qty_recipes, files.path
     let chef = results.rows[0];
@@ -127,6 +129,7 @@ module.exports = {
     return res.render("admin/chefs/show_admin", {
       chef,
       recipes: recipeNameIdImage,
+      user
     });
   },
 

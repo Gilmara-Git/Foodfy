@@ -8,4 +8,14 @@ deleteButton.onclick = function (event) { //this event is the event submit of th
     event.preventDefault()
   }
 }
+
+
+
+
+ function confirmDeletion(event){
+                    const userConfirmation = confirm('Do you want to delete this user? This action also deletes recipes!')
+                    if(!userConfirmation) {
+                    event.preventDefault()                }
+                }
+
 </script>

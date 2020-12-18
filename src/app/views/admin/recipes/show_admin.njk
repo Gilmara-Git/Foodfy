@@ -9,7 +9,9 @@
         <img id="logo-foodfy-admin" src="/assets/logo_admin.png" alt="Logo Foodfy Admin">
         <a id="recipes" href="/admin/receitas">Recipes</a>
         <a id="chefs" href="/admin/chefs">Chefs</a>
+        {% if user.is_admin == true %}
           <a id="users" href="/admin/users">Users</a>
+          {% endif %}
          <form action="/admin/users/logout" method="POST" id="logout" >
             <button type='submit'>Logout</button>   
         </form> 

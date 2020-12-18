@@ -17,9 +17,6 @@
          <form action="/admin/users/logout" method="POST" id="logout" >
             <button type='submit'>Logout</button>   
         </form> 
-
-        
-
     </div>
    </div> 
 {% endblock %}
@@ -54,36 +51,27 @@
                     <a id="edit" href="/admin/users/edit?userId={{user.id}}">Edit</a>
                     <form id="delete-user" method="POST" action="/admin/users?_method=DELETE">
                      <input type="hidden" name="id" value="{{user.id}}">
-                      <button type="submit" id="remove">Remove</button> 
+                      <button onclick="confirmDeletion(event)" type="submit" id="remove">Remove</button> 
                     </form>  
-                               
+
+                                 {% include "resource_deletion/confirm.njk" %}
                      
                     </div>                                      
                 </div>
      
             </div>
 
-             
+    
 
         {% endfor %}
-        <script>
-                const formDelete = document.querySelector('#view-user-link button#remove')
-                formDelete.onclick = function(event){
-                    const userConfirmation = confirm('Do you want to delete the user?')
-                    if(!userConfirmation) {
-
-                    event.preventDefault()
-                }
-                }
-            </script>   
+       
 
     </section>
 
-    
-
-    
     </div>
 
 {% endblock %}
+
+        
 
 {% block footer%}{% endblock %}
