@@ -66,17 +66,15 @@ module.exports = {
     const params = {  filter,limit,offset };
 
     let results = await Recipe.paginate(params);
-    if (results.rows == "") return res.render("admin/recipes/index_admin", { 
-      
+    if (results.rows == "") return res.render("admin/recipes/index_admin", {       
       error: "Recipe not found within your search."});
-    
+  
       pagination = {
       page,
       total: Math.ceil(results.rows[0].total / limit),
     };
     
-    async function getRecipeImage(recipeId){
-      
+    async function getRecipeImage(recipeId){      
       let results = await Recipe.file(recipeId)
       const files =  results.rows.map(file =>`${req.protocol}://${req.headers.host}${file.path.replace(/\public/g,"")}`)
       
@@ -88,8 +86,8 @@ module.exports = {
     })
     
     const recipes =  await Promise.all(recipesPromise)
-    // const recipes = results.rows
-    console.log('receitas na indec', recipes)
+    
+    
     
 
     res.render("admin/recipes/index_admin", {
@@ -289,14 +287,35 @@ module.exports = {
   async userRecipes(req, res){
 
     const id = req.session.userId
-
     const user = await User.findOne({ where: {id}})
-    console.log(user)
+    
+    let results = await Recipe.findIfUserRecipes(id)
+    const userRecipes = results.rows
+    console.log('userRecipes', userRecipes)
+    
 
-    const recipes = await Recipe.findIfUserRecipes(id)
-    console.log('recipes na myreceitas', recipes)
+    async function getRecipeImage(recipeId){      
+      let results = await Recipe.file(recipeId)
+      const files =  results.rows.map(file =>`${req.protocol}://${req.headers.host}${file.path.replace(/\public/g,"")}`)
+      return files[0]
+    }
 
-    return res.render('admin/recipes/myrecipes_admin', {recipes, user})
+    async function getRecipeChef(recipeId){       
+      let results = await Recipe.recipesChef(recipeId)
+      return results.rows[0].recipe_author
+    }
+
+    // pegando o resultado de userRecipes e adicionado recipe.path e recipe.recipe_author
+   const resultsPromise =  userRecipes.map(async(recipe) => {      
+      recipe.path = await getRecipeImage(recipe.id),
+      recipe.recipe_author = await getRecipeChef(recipe.id)
+      return recipe
+    })
+   
+    const recipes = await Promise.all(resultsPromise)
+    //console.log('linha 308', recipes)
+       
+    return res.render('admin/recipes/myrecipes_admin', {user, recipes})
 
   },
 

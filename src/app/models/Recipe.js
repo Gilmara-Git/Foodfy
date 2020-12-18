@@ -1,13 +1,8 @@
-
 const db = require("../../config/db");
 
 module.exports = {
-
-
-mostUpdated(filter){
-
+  mostUpdated(filter) {
     try {
-
       let filterQuery = "";
       let query = `
       SELECT recipes.*, chefs.name AS recipe_author
@@ -16,37 +11,33 @@ mostUpdated(filter){
         
 `;
 
-if (filter) {
-
-  filterQuery = `
+      if (filter) {
+        filterQuery = `
       WHERE recipes.title ILIKE '%${filter}%'
       OR chefs.name ILIKE '%${filter}%'`;
-}
+      }
 
-query = `
+      query = `
 SELECT recipes.*, chefs.name AS recipe_author
 FROM recipes                 
 LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
 ${filterQuery}
 
-`
-return db.query(`
+`;
+      return db.query(`
 
   ${query}
   GROUP BY recipes.id, chefs.id
   ORDER BY recipes.updated_at DESC
 
-`)
-      
+`);
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-},
-    lastCreated(){
-
-        try {
-
-    return db.query(`
+  },
+  lastCreated() {
+    try {
+      return db.query(`
 
     SELECT recipes.*, chefs.name AS recipe_author
     FROM recipes                 
@@ -54,31 +45,26 @@ return db.query(`
     GROUP BY recipes.id, chefs.id
     ORDER BY recipes.created_at DESC
     
-    `)
-          
-        } catch (error) {
-            console.error(error)
-        }
-    },
+    `);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-
-    allChefsSelectOne() {
-      try {
-
-        return db.query(`
+  allChefsSelectOne() {
+    try {
+      return db.query(`
           SELECT id, name 
           FROM chefs ORDER BY chefs.name`);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
-    create(data) {
-
-      console.log('creating recipe', data)
-      try {
-        const query = `INSERT INTO recipes (
+  create(data) {
+    console.log("creating recipe", data);
+    try {
+      const query = `INSERT INTO recipes (
           user_id,
           chef_id,
           title,
@@ -88,55 +74,47 @@ return db.query(`
           ) VALUES ( $1, $2, $3, $4, $5, $6)
           RETURNING id`;
 
-        const values = [
-          data.user_id,
-          data.recipe_author_id,
-          data.recipe_title,
-          data.ingredients,
-          data.steps,
-          data.add_information,
-          
-        ];
+      const values = [
+        data.user_id,
+        data.recipe_author_id,
+        data.recipe_title,
+        data.ingredients,
+        data.steps,
+        data.add_information,
+      ];
 
-        return db.query(query, values);
-      } catch (error) {
-        console.error(error);
-      }
-    },
+      return db.query(query, values);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-    find(id) {
-      //console.log(id)
-      try {
-        return db.query(
-          `SELECT recipes.*, user_id, chefs.name AS recipe_author
+  find(id) {
+    //console.log(id)
+    try {
+      return db.query(
+        `SELECT recipes.*, user_id, chefs.name AS recipe_author
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id =chefs.id)
             WHERE recipes.id = $1
             GROUP BY recipes.id, chefs.id      
   `,
-          [id]
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    },
+        [id]
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-    findIfUserRecipes(id){
-
-      try { 
-
-        return db.query(`SELECT * FROM recipes WHERE user_id = $1`, [id])
-
-      }catch(err){
-
-        console.error(err)
-      }
-
-
-},
-    update(data) {
-
-      try {
+  findIfUserRecipes(id) {
+    try {
+      return db.query(`SELECT * FROM recipes WHERE user_id = $1`, [id]);
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  update(data) {
+    try {
       const query = `UPDATE recipes SET 
         title=($1),
         information=($2),
@@ -147,46 +125,38 @@ return db.query(`
 
   `;
       const values = [
-
         data.recipe_title,
         data.add_information,
         data.recipe_author_id,
         data.steps,
         data.ingredients,
         data.id,
-
       ];
 
-    return db.query(query, values);
+      return db.query(query, values);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-  } catch (error) {
-    console.error(error);
-  }
-
-    },
-
-    delete(id) {
-
-      try {
-        
-        db.query(
-          `
+  delete(id) {
+    try {
+      db.query(
+        `
     DELETE FROM recipes
     WHERE id = $1 `,
-          [id]);
-          
-      } catch (error) {
-        console.error(error);
-      }
-    
-    },
+        [id]
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  },
 
-    paginate(params) {
-      const { filter, limit, offset } = params;
-      //console.log(filter)
+  paginate(params) {
+    const { filter, limit, offset } = params;
+    //console.log(filter)
 
-      try {
-
+    try {
       let filterQuery = "",
         query = "",
         totalQuery = `(SELECT COUNT(*)
@@ -213,18 +183,15 @@ return db.query(`
         OFFSET $2`;
 
       return db.query(query, [limit, offset]);
-                
     } catch (error) {
       console.error(error);
     }
+  },
 
-    },
-
-    file(id){
-
-      try {
-        
-        return db.query(`
+  file(id) {
+    try {
+      return db.query(
+        `
             
           SELECT files.path
           FROM files
@@ -232,13 +199,26 @@ return db.query(`
           LEFT JOIN recipes ON(recipes.id = recipe_files.recipe_id)
           WHERE recipes.id = $1
           LIMIT 1
-        `, [id])
-
-      } catch (error) {
-        console.error(error,)
-      }
-
-
+        `,
+        [id]
+      );
+    } catch (error) {
+      console.error(error);
     }
-    
+  },
+
+  recipesChef(id) {
+    try {
+      return db.query(
+        `SELECT recipes.*, chefs.name AS recipe_author
+              FROM recipes 
+              LEFT JOIN chefs ON (recipes.chef_id = chefs.id )
+              WHERE recipes.id = $1
+              GROUP BY recipes.id, chefs.id `,
+        [id]
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };
