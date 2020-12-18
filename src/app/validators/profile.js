@@ -1,6 +1,6 @@
 const{ compare } = require('bcryptjs') // descriptografar a senha
 const User = require('../models/User')
-const { checkAllFields} = require('./user')
+
 
 async function put(req, res, next){
 

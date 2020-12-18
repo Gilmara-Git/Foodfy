@@ -23,7 +23,7 @@ if(!user) return res.render('admin/session/login', {
 const passwordMatch = await compare( password, user.password)
         if(!passwordMatch) return res.render('admin/session/login', {
             user: req.body,
-            error: 'Incorrect password.'
+            errorOnPageWithoutHeader: 'Incorrect password.'
         })
 
 

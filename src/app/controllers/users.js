@@ -176,7 +176,7 @@ async delete(req, res){
  
   
  
-    await User.delete(id) // This deletes the recipes in CASCADE
+    await User.delete(id) // This deletes the user and recipes in CASCADE
     req.session.destroy
 
 

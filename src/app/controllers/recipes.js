@@ -113,6 +113,9 @@ module.exports = {
   },
 
   async show(req, res) {
+  
+    const user = await User.findOne({ where: {id: req.session.userId}})
+   
     const { id } = req.params;
     
     let results = await Recipe.find(id);
@@ -129,7 +132,7 @@ module.exports = {
     }))
     //console.log(images)
 
-    return res.render("admin/recipes/show_admin", { recipe, images })
+    return res.render("admin/recipes/show_admin", { recipe, images, user })
   },
 
   async edit(req, res) {
