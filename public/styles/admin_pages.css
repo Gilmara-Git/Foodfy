@@ -49,11 +49,57 @@ body {
 }
 
 
-.header-foodfy-admin form#logout {
+.submenu {
 
-   margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 2px;
+    /*background-color: forestgreen;*/
+    border-radius: 4px;
+    width: 180px;
+    /*position: absolute; */
+    right: 180px;
+    top:15px;
+    box-shadow: 1px 1px 3px 0.3px white;
+    margin-left: 60px;    
+
 }
 
+.submenu li {
+    list-style: none;     
+    color: orange;
+    font-size: 16px;
+    text-align: center;
+     
+} 
+
+form#logout button {      
+    cursor: pointer; 
+
+}
+
+form#logout button:hover {
+
+    color: orange;
+}
+
+.submenu li#li-submenu a {
+
+    /*background-color: forestgreen;*/
+    font-size: 16px;
+    margin-top: 10px;
+    margin: 0 auto; 
+   
+}
+
+.submenu li#li-submenu a:hover {
+
+    color: orange;
+    text-decoration: underline;
+    font-weight: bold; 
+}
 
 #logo-foodfy-admin {
 
@@ -63,7 +109,6 @@ opacity:1;
 color: #ffffff;
 margin: 26px;
 margin-left:485px;
-
 
 }
 
@@ -75,7 +120,6 @@ margin-left:485px;
     color: green;
     font-weight: bold;
 }
-
 
 
 #manage-recipes{
@@ -556,7 +600,7 @@ section .card-img-admin-chef img {
 .card-info-admin .chef-name,
 .card-info-admin .user-name {
 
-    width: 160px;
+    width: 210px;
     height: 21px;
     font-size: 18px;
 
@@ -914,14 +958,6 @@ font-size: 14px;
 background-color: #DC4747;
 
 }
-
-/*form#new-user .user-fields {
-
-    display: flex;
-    justify-content: space-evenly;
-   
-
-}*/
 
 
 form#logged-user .user-fields, 

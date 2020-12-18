@@ -189,12 +189,7 @@ async delete(req, res){
 
   }
 
-  // Fazer um "if" se o usuario for admin encaminhar para alista de usuarios
-  // Se o usuario nao for admin fazer session destroy e manda-lo para criar um novo usuario.
 
-
-
-  // return res.redirect('/admin/users')
 }
 
 

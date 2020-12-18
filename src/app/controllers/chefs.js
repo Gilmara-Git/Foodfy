@@ -22,6 +22,10 @@ module.exports = {
   },
 
   async index(req, res) {
+
+    const user = await User.findOne({ where: { id: req.session.userId }})
+    
+
     const { filter } = req.query;
 
     let results = await Chef.all(filter);
@@ -33,7 +37,7 @@ module.exports = {
       )}`,
     }));
 
-    return res.render("admin/chefs/index_admin", { chefs, filter });
+    return res.render("admin/chefs/index_admin", { chefs, filter, user });
   },
 
   async create(req, res) {

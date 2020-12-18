@@ -13,6 +13,7 @@ const multer = require('../app/middlewares/multer')
   hasSessionUserId,
 //Admin routes - recipes
 routes.get("/receitas", hasSessionUserId, RecipeController.index )
+routes.get("/myreceitas", hasSessionUserId, RecipeController.userRecipes)
 routes.get("/receitas/create", hasSessionUserId, RecipeController.create )
 routes.get("/receitas/:id",hasSessionUserId, RecipeController.show)
 routes.get("/receitas/:id/edit",hasSessionUserId, RecipeController.edit )
@@ -32,7 +33,7 @@ routes.delete("/chefs", hasSessionUserId, ChefController.delete)
 // Admin routes - User registration
 routes.get("/users/create", hasSessionUserId, UserController.create)
 routes.post("/users",  hasSessionUserId, UserValidator.post, UserController.post) // Cadastrar um usuario
-routes.get("/users",  hasSessionUserId,UserController.list) // lista de usuarios cadastrados/ Somente usuarios tem acesso
+routes.get("/users",  hasSessionUserId,UserController.list) // lista de usuarios cadastrados/ Somente admin tem acesso
 routes.get("/users/edit",  hasSessionUserId,UserController.edit)
 routes.put("/users",  hasSessionUserId,UserValidator.put, UserController.put) // editar usuarios
 routes.delete("/users", hasSessionUserId, UserValidator.remove, UserController.delete) // deletar usuarios

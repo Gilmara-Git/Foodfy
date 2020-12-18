@@ -53,10 +53,14 @@ module.exports = {
 
   //Admin Controllers
   async index(req, res) {
+
+    const user = await User.findOne({ where: { id: req.session.userId }})
+ 
+
     let { filter, page, limit } = req.query;
    
     page = page || 1;
-    limit = limit || 2;
+    limit = limit || 4;
     let offset = limit * (page - 1);
 
     const params = {  filter,limit,offset };
@@ -85,12 +89,14 @@ module.exports = {
     
     const recipes =  await Promise.all(recipesPromise)
     // const recipes = results.rows
+    console.log('receitas na indec', recipes)
     
 
     res.render("admin/recipes/index_admin", {
       recipes,
       filter,
       pagination,
+      user
     });
   },
 
@@ -278,6 +284,20 @@ module.exports = {
    
    return res.redirect("/admin/receitas")
     
+  },
+
+  async userRecipes(req, res){
+
+    const id = req.session.userId
+
+    const user = await User.findOne({ where: {id}})
+    console.log(user)
+
+    const recipes = await Recipe.findIfUserRecipes(id)
+    console.log('recipes na myreceitas', recipes)
+
+    return res.render('admin/recipes/myrecipes_admin', {recipes, user})
+
   },
 
   not_found(req, res) {
