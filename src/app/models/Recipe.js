@@ -18,19 +18,19 @@ module.exports = {
       }
 
       query = `
-SELECT recipes.*, chefs.name AS recipe_author
-FROM recipes                 
-LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
-${filterQuery}
+      SELECT recipes.*, chefs.name AS recipe_author
+      FROM recipes                 
+      LEFT JOIN chefs ON(recipes.chef_id =  chefs.id)    
+      ${filterQuery}
 
 `;
       return db.query(`
 
-  ${query}
-  GROUP BY recipes.id, chefs.id
-  ORDER BY recipes.updated_at DESC
+      ${query}
+      GROUP BY recipes.id, chefs.id
+      ORDER BY recipes.updated_at DESC
 
-`);
+    `);
     } catch (error) {
       console.error(error);
     }

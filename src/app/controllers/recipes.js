@@ -185,19 +185,7 @@ module.exports = {
 
     const filesPromise = req.files.map((file) => File.create({ ...file, path: file.path.replace(/\\/g, "/") })
     );
-    // results =  await Promise.all(filesPromise)
-    // const filesIds = results.rows
-    // console.log('Linha 147', JSON.stringify(filesIds, null, 2))// retorna undefined , apesar dos File serem criados no banco de dados
-    
-    //console.log(filesIds)
-
-    // const files  = results.rows.map((item, index)=>{
-
-    //   console.log(index)
-    //   console.log(item.rows[0])
-     
-    // })
-    // console.log(files.rows)
+   
     
    results =  Promise.all(filesPromise).then((files) => {
 
@@ -291,7 +279,7 @@ module.exports = {
     
     let results = await Recipe.findIfUserRecipes(id)
     const userRecipes = results.rows
-    console.log('userRecipes', userRecipes)
+    //console.log('userRecipes', userRecipes)
     
 
     async function getRecipeImage(recipeId){      
