@@ -48,7 +48,6 @@ body {
     background:#111111;
 }
 
-
 .submenu {
 
     display: flex;
@@ -82,7 +81,8 @@ form#logout button {
 
 form#logout button:hover {
 
-    color: orange;
+    color: var(--color-buttons);
+    font-weight: bold;
 }
 
 .submenu li#li-submenu a {
@@ -96,7 +96,7 @@ form#logout button:hover {
 
 .submenu li#li-submenu a:hover {
 
-    color: orange;
+    color:var(--color-buttons);
     text-decoration: underline;
     font-weight: bold; 
 }
@@ -112,12 +112,15 @@ margin-left:485px;
 
 }
 
+
+
 /*Active link*/
 
 .header-foodfy-admin #chefs.active ,
-.header-foodfy-admin #recipes.active {
+.header-foodfy-admin #recipes.active,
+.header-foodfy-admin #users.active {
 
-    color: green;
+    color: var(--color-buttons);
     font-weight: bold;
 }
 
@@ -212,9 +215,14 @@ section .card-info-admin a {
     padding:4px;
     border-radius: 6px;
 }
+
+section .card-info-admin a:hover {
+
+    font-size: 14px;
+    transition: 200 ms; 
+}
+
 #view-user-link a {
-
-
 background: none;
 
 }
@@ -230,7 +238,7 @@ background: none;
 
 
 #view-user-link #remove {
-   
+    
     color: tomato;
     background: none;
     margin: 8px 16px;
@@ -493,7 +501,7 @@ form button#new-steps {
     border-radius: 6px;
     transition: 400ms;
     opacity: 0.5; 
-    
+
 }
 
 .gallery-preview .small-gallery img:hover,
@@ -514,7 +522,7 @@ form button#new-steps {
     font-size: 16px;
     line-height: 26px;
     color: #ffffff;
-    background-color: #DC4747;
+    background-color: #777;
     text-align: center;
     text-decoration: none;
     border-radius: 4px;
@@ -522,6 +530,14 @@ form button#new-steps {
     margin-left: 521px;
     
 }
+
+#manage-recipes-edit #links #delete:hover,
+#manage-chefs-edit #links #delete:hover {
+
+    background-color:#DC4747;
+ }
+
+
 
 #manage-recipes-edit #links #save,
 #manage-chefs-edit #links #save  {
@@ -626,20 +642,29 @@ section .card-img-admin-chef img {
 
 .card-info-admin #view-chef-link a,
 .card-info-admin #view-user-link a {
-font-size: 14px;
+font-size: 12px;
 
 
+}
+
+.card-info-admin #view-chef-link a:hover,
+.card-info-admin #view-user-link a:hover{
+
+    font-size: 14px;
+    transition: 200 ms; 
 }
 
 .card-info-admin #view-user-link a:hover{
 
     font-size: 20px;
+    transition: 200 ms; 
 }
 
 
 .card-info-admin #view-user-link button:hover{
 
     font-size: 20px;
+    transition: 200ms; 
 }
 
 .card-info-admin #view-user-link  {

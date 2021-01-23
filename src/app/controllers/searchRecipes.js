@@ -6,10 +6,13 @@ module.exports = {
 
     if(!filter) return res.redirect("/")
     let results = await Recipe.mostUpdated(filter);
+   
     if (results.rows == "") return res.render("not-found");
 
     //console.log('linha 13', results.rows)
     // this functions is to get only one image
+    
+ 
     async function getRecipeImage(recipeId){
         let results = await Recipe.file(recipeId)
         const files =  results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace(/\public/g, "")}` )
