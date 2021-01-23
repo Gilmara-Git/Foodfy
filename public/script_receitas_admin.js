@@ -2,12 +2,12 @@
 //Show link active as GREEN
 
 const verifyCurrentPageActive = window.location.pathname
-menuLinks = document.querySelectorAll(".menu-links a")
+const menuLinks = document.querySelectorAll(".menu-links a")
 console.log(menuLinks)
 for (let menu of menuLinks) {
 pageHref = menu.getAttribute("href")
 
-  if(verifyCurrentPageActive.includes(pageHref)) { 
+  if(verifyCurrentPageActive.includes(pageHref)) {    
     menu.classList.add("active")
     console.log(pageHref)
   }
