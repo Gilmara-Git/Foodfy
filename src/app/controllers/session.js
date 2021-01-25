@@ -59,9 +59,9 @@ async forgotPassword(req, res){
     let now = new Date();
     let nowtest = new Date(); 
     now.setHours(now.getHours() + 1)
-    console.log('now', now)
+    //console.log('now', now)
     nowtest.setHours(nowtest.getHours() - 5)
-    console.log('notest', nowtest)
+    //console.log('notest', nowtest)
 
 
     await User.update(user.id, {

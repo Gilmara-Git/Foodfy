@@ -62,7 +62,7 @@ module.exports = {
   },
 
   create(data) {
-    console.log("creating recipe", data);
+    // console.log("creating recipe", data);
     try {
       const query = `INSERT INTO recipes (
           user_id,

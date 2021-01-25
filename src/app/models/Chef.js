@@ -41,7 +41,8 @@ all(filter) {
 
 
 create(data, id){
-
+// console.log('chef name', data)
+// console.log('file id', id)
     try {
 
         const query = `
