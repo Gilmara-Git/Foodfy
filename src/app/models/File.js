@@ -4,7 +4,7 @@ module.exports = {
 
 
     all(id) {
- console.log('File.all', id)
+//  console.log('File.all', id)
         try {
 
             
@@ -27,8 +27,8 @@ module.exports = {
 
 
     create({filename, path}) {
-        console.log('filename',filename)
-        console.log('path name',path)
+        // console.log('filename',filename)
+        // console.log('path name',path)
         try {
             const query = `
         

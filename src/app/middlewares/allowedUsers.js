@@ -7,7 +7,7 @@ function hasSessionUserId(req, res, next) {
       next();
     } else {
       return res.render("admin/session/login", {
-        error: "Please login.",
+        errorOnPageWithoutHeader: "Please login.",
       });
     }
   } catch (err) {
