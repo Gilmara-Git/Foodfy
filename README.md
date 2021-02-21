@@ -1,7 +1,7 @@
 
 <h1 align="center">Rocketseat</h1>
 
-<h1 align="center"><b>Foodfy Admin</b></h1>
+<h1 align="center"><b>Foodfy</b></h1>
 <h1 align="center"><b>Recipes & Chefs</b></h1>
 
 <h1 align="center">
@@ -12,7 +12,7 @@
 </h1>
 
 ## About
-Foodfy is a Web Application project to manage Recipes and Chefs. It has been developed during Launchbase bootcamp at Rocketseat.
+Foodfy is a Web Application project to manage Recipes and Chefs. It was developed during Launchbase bootcamp at Rocketseat.
 
 ## Learning:
 - Users can login to the system and recover their password if it has been forgotten. Used "mailtrap" to send a password reset link by email.

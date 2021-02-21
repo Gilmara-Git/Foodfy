@@ -1,4 +1,4 @@
-// Actions if user wants to cancel user cretion
+// Actions if user wants to cancel user creation
 function cancelUserCreation(event){
 
     const confirmCancelation = confirm('Do you want to cancel this user creation ?')
@@ -28,6 +28,8 @@ const Validate = {
     input.value = results.value;
 
     if (results.error) Validate.displayError(input, results.error);
+  
+    
     //console.log(results.error)
     
   },
@@ -49,11 +51,13 @@ const Validate = {
     //console.log(value);
 
     if (!value.match(mailFormat)) error = " Invalid Email format!";
-
+  
     return {
       error,
-      value,
-    };
+      value
+     
+    }
+    
   },
 
   displayError(input, error) {
@@ -62,6 +66,8 @@ const Validate = {
     div.innerHTML = error;
     input.parentNode.appendChild(div);
     //console.log(input.parentNode)
+  
     input.focus()
-  },
-};
+   
+  }
+}

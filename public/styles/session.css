@@ -12,11 +12,12 @@
 }
 .session-login img { 
 
-    object-fit: contain;
+    object-fit: none;
     justify-content: center;
  
     
 }
+
 
 form#new-session .user-fields { 
 

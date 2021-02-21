@@ -14,7 +14,7 @@ find(id){
     }
 },
 create(file_id, recipe_id){
-console.log('Criando file recipe', file_id, recipe_id)
+
     try {
       const query = `
                 INSERT INTO recipe_files (

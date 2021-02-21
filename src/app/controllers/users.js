@@ -74,12 +74,10 @@ async post(req, res){
 async list(req, res){
 
   req.session.userId
-  const user = await User.findOne({ where: { id:req.session.userId}})
-  //console.log(req.session.userId)
-  //console.log(user)
-
-  if(user.is_admin !==  true) return res.render('admin/profile/show-logged-user', {       
-      user:user,
+  const loggedUser = await User.findOne({ where: { id:req.session.userId}})
+ 
+  if(loggedUser.is_admin !==  true) return res.render('admin/profile/show-logged-user', {       
+      user:loggedUser,
       error:'You do not have permission to take this action.'
   })
   
@@ -87,10 +85,10 @@ async list(req, res){
 
   let results = await User.findAll()
   const users =  results.rows
-  //console.log(users)
 
 
-  return res.render('admin/users/users-index', {users})
+
+  return res.render('admin/users/users-index', {users, loggedUser})
 
 },
 
