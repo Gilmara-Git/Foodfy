@@ -10,7 +10,8 @@ const { hasSessionUserId } = require('../app/middlewares/allowedUsers')
 const SessionController = require("../app/controllers/session")
 const SessionValidator = require('../app/validators/session')
 const multer = require('../app/middlewares/multer')
-  hasSessionUserId,
+ 
+
 //Admin routes - recipes
 routes.get("/receitas", hasSessionUserId, RecipeController.index )
 routes.get("/myreceitas", hasSessionUserId, RecipeController.userRecipes)

@@ -5,9 +5,11 @@ const PhotosUpload = {
     files: [],
 
     handleFileInput(event){
-        const { files : fileList} = event.target;
         
-        //console.log(fileList)
+        const { files : fileList} = event.target;
+        // console.log(event)
+        // console.log(fileList)
+        console.log(files)
 
         if(PhotosUpload.hasLimit(event)) { return true;}
         
@@ -96,6 +98,7 @@ const PhotosUpload = {
     
 
     hasLimit(event){
+        
         const { files : fileList} = event.target;
         const { uploadLimit , photosPreview} = PhotosUpload;
 
@@ -133,7 +136,7 @@ const GalleryPhotos = {
     sendMetoHighlight(event){
     const highlightImg = document.querySelector('.gallery-highlight img')
     //console.log(highlightImg)
-    console.log(highlightImg.src)
+    // console.log(highlightImg.src)
     
     const clickedPhoto = event.target;
     
